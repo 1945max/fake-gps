@@ -1,0 +1,6 @@
+include ':app'
+rootProject.name = "Fake Gps Kotlin With Koin And Coroutine Flow"
+
+include ':base'
+include(':data_fake_gps')
+include(':data_map_box')

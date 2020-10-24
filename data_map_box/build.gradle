@@ -1,0 +1,73 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField("String", "BASE_URL", '"https://api.mapbox.com"')
+        buildConfigField("String", "API_KEY", '"pk.eyJ1IjoieC1zeWFpZnVsbGFoLXgiLCJhIjoiY2tnN3V0YjZpMDc0YTJ5bWg2bWJwZzhxYiJ9.T-GO8Nq-mSh9KTK3iZu0Sg"')
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+
+    /* Room */
+    api "androidx.room:room-runtime:2.3.0-alpha03"
+    api 'androidx.sqlite:sqlite-ktx:2.1.0'
+    api 'androidx.room:room-ktx:2.3.0-alpha03'
+    api "androidx.room:room-rxjava2:2.3.0-alpha03"
+    androidTestImplementation "androidx.room:room-testing:2.3.0-alpha03"
+    kapt "androidx.room:room-compiler:2.3.0-alpha03"
+
+    /* OkHttp */
+    api 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    api 'com.squareup.okhttp3:okhttp:4.9.0'
+
+    /* Retrofit */
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    api 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    /* Gson */
+    api 'com.google.code.gson:gson:2.8.6'
+
+    /* Paging 3 */
+    api "androidx.paging:paging-common-ktx:3.0.0-alpha07"
+
+    /* Koin */
+    api "org.koin:koin-core:2.1.6"
+    api "org.koin:koin-android:2.1.6"
+    api "org.koin:koin-android-viewmodel:2.1.6"
+
+    api "net.zetetic:android-database-sqlcipher:4.4.0"
+    api "androidx.sqlite:sqlite-ktx:2.1.0"
+}

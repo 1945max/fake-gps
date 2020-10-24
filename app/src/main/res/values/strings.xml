@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Fake Gps</string>
+    <string name="formatDouble">%.4f</string>
+</resources>
