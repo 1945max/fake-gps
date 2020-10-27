@@ -6,17 +6,16 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion project.compile_sdk_version.toInteger()
+    buildToolsVersion project.build_tools_version
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion project.min_sdk_version.toInteger()
+        targetSdkVersion project.target_sdk_version.toInteger()
+        versionCode project.version_code.toInteger()
+        versionName project.version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
 
         buildConfigField("String", "BASE_URL", '"https://api.mapbox.com"')
         buildConfigField("String", "API_KEY", '"pk.eyJ1IjoieC1zeWFpZnVsbGFoLXgiLCJhIjoiY2tnN3V0YjZpMDc0YTJ5bWg2bWJwZzhxYiJ9.T-GO8Nq-mSh9KTK3iZu0Sg"')
@@ -38,36 +37,28 @@ android {
 }
 
 dependencies {
-    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
-    /* Room */
-    api "androidx.room:room-runtime:2.3.0-alpha03"
-    api 'androidx.sqlite:sqlite-ktx:2.1.0'
-    api 'androidx.room:room-ktx:2.3.0-alpha03'
-    api "androidx.room:room-rxjava2:2.3.0-alpha03"
-    androidTestImplementation "androidx.room:room-testing:2.3.0-alpha03"
-    kapt "androidx.room:room-compiler:2.3.0-alpha03"
+    api "androidx.sqlite:sqlite-ktx:$sqlite_version"
+    api "net.zetetic:android-database-sqlcipher:$sql_cipher_version"
+    api "androidx.room:room-runtime:$room_version"
+    api "androidx.room:room-ktx:$room_version"
+    api "androidx.room:room-rxjava2:$room_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
-    /* OkHttp */
-    api 'com.squareup.okhttp3:logging-interceptor:4.9.0'
-    api 'com.squareup.okhttp3:okhttp:4.9.0'
+    api "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    api "com.squareup.okhttp3:okhttp:$okhttp_version"
 
-    /* Retrofit */
-    api 'com.squareup.retrofit2:retrofit:2.9.0'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
-    api 'com.squareup.retrofit2:converter-gson:2.9.0'
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    /* Gson */
-    api 'com.google.code.gson:gson:2.8.6'
+    api "com.google.code.gson:gson:$gson_version"
 
-    /* Paging 3 */
-    api "androidx.paging:paging-common-ktx:3.0.0-alpha07"
+    api "androidx.paging:paging-common-ktx:$paging_version"
 
-    /* Koin */
-    api "org.koin:koin-core:2.1.6"
-    api "org.koin:koin-android:2.1.6"
-    api "org.koin:koin-android-viewmodel:2.1.6"
-
-    api "net.zetetic:android-database-sqlcipher:4.4.0"
-    api "androidx.sqlite:sqlite-ktx:2.1.0"
+    api "org.koin:koin-core:$koin_version"
+    api "org.koin:koin-android:$koin_version"
+    api "org.koin:koin-android-viewmodel:$koin_version"
 }

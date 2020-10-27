@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion project.compile_sdk_version.toInteger()
+    buildToolsVersion project.build_tools_version
 
     defaultConfig {
-        applicationId "id.xxx.fake.gps"
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        applicationId "id.xxx.application"
+        minSdkVersion project.min_sdk_version.toInteger()
+        targetSdkVersion project.target_sdk_version.toInteger()
+        versionCode project.version_code.toInteger()
+        versionName project.version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -23,6 +23,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions { jvmTarget = '1.8' }
+
+    ndkVersion project.ndk_version
 
     buildTypes {
         release {
