@@ -38,7 +38,6 @@ class HistoryRepository constructor(
                     it.map { historyEntity -> toHistoryModel.map(historyEntity) }
                 }.cachedIn(scope)
 
-
             override fun shouldFetch(data: PagingData<HistoryModel>?): Boolean = false
             override suspend fun createCall(): Flow<ApiResponse<Unit>> = flowOf()
             override suspend fun saveCallResult(data: Unit) {}
