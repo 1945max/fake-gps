@@ -24,7 +24,6 @@ class SplashActivity : AppCompatActivity() {
             }
         } ?: run { Intent(this@SplashActivity, AuthActivity::class.java) }
 
-        startActivity(intent)
-        finish()
+        startActivity(intent).run { finish() }
     }
 }

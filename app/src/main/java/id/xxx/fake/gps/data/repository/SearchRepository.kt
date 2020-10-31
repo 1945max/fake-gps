@@ -38,8 +38,7 @@ class SearchRepository constructor(
                     it.map { searchEntity -> toSearchModel.map(searchEntity) }
                 }.cachedIn(scope)
 
-            override suspend fun createCall(): Flow<ApiResponse<PlacesResponse>> =
-                remote.getPlaces(value)
+            override suspend fun createCall() = remote.getPlaces(value)
 
             override suspend fun saveCallResult(data: PlacesResponse) {
                 local.insert(*toListSearchEntity.map(data.features).toTypedArray())
@@ -61,36 +60,7 @@ class SearchRepository constructor(
             }
         }.asFlow()
 
-//    @WorkerThread
-//    override fun getAddress(context: Context, value: String): Resource<SearchModel> {
-//        val isLatLong: Boolean = Address.isLatLong(value)
-//        val data = ArrayList<Double>()
-//        val latitude = 0
-//        val longitude = 1
-//        if (isLatLong) data.addAll(value.split(",").map { it.toDouble() })
-//        return when (val result = Address.getInstance(context).getData(value)) {
-//            is Result.Success -> {
-//                val id = local.insert(
-//                    PlacesEntity(
-//                        name = if (isLatLong) result.data.getAddressLine(0) else value,
-//                        latitude = if (isLatLong) data[latitude] else result.data.latitude,
-//                        longitude = if (isLatLong) data[longitude] else result.data.longitude,
-//                        address = result.data.getAddressLine(0),
-//                    )
-//                )
-//
-//                Resource.Success(toSearchModel.map(local.getByID(id.toInt())))
-//            }
-//            is Result.Empty -> Resource.Empty()
-//            is Result.Error -> {
-//                val searchEntity =
-//                    if (isLatLong) local.select(data[0], data[1]) else local.select(value)
-//                Resource.Error(result.message, searchEntity?.let { toSearchModel.map(it) })
-//            }
-//        }
-//    }
-
-    override fun getAddress(context: Context, value: String): Flow<Resource<SearchModel>> = flow {
+    override fun getAddress(context: Context, value: String) = flow {
         emit(Resource.Loading)
 
         val isLatLong: Boolean = Address.isLatLong(value)
@@ -108,7 +78,6 @@ class SearchRepository constructor(
                         address = result.data.getAddressLine(0),
                     )
                 )
-
                 emit(Resource.Success(toSearchModel.map(local.getByID(id.toInt()))))
             }
             is Result.Empty -> emit(Resource.Empty)

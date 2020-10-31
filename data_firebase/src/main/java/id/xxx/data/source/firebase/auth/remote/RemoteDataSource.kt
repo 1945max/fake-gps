@@ -28,9 +28,15 @@ class RemoteDataSource {
 
     fun verifyEmail() = flow {
         auth.currentUser?.apply {
-            sendEmailVerification()
+            sendEmailVerification().await()
+//            val start = System.currentTimeMillis()
             while (!isEmailVerified) {
-                delay(500); reload()
+                delay(300)
+                reload()
+//                if ((MINUTES.convert(System.currentTimeMillis() - start, MILLISECONDS)) == 5) {
+//                    emit(false)
+//                    return@apply
+//                }
             }
             emit(true)
         } ?: emit(false)
