@@ -1,7 +1,9 @@
 package id.xxx.fake.gps.data.di
 
 import id.xxx.data.source.fake.gps.di.FakeDataModule
+import id.xxx.data.source.firebase.auth.di.AuthModule
 import id.xxx.data.source.map.box.di.MapBoxModule
+import id.xxx.fake.gps.data.repository.AuthRepository
 import id.xxx.fake.gps.data.repository.HistoryRepository
 import id.xxx.fake.gps.data.repository.SearchRepository
 import id.xxx.fake.gps.domain.history.model.HistoryModel
@@ -19,10 +21,15 @@ object DataModule {
         single<IHistoryRepository<HistoryModel>> { HistoryRepository(get(), get()) }
     }
 
+    private val authRepository = module {
+        single { AuthRepository(get(), get()) }
+    }
+
     val modules = mutableListOf(
-        historyRepositoryModule, searchRepositoryModule
+        historyRepositoryModule, searchRepositoryModule, authRepository
     ).apply {
         addAll(MapBoxModule.modules)
         addAll(FakeDataModule.modules)
+        addAll(AuthModule.modules)
     }
 }

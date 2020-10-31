@@ -1,6 +1,5 @@
 package id.xxx.fake.gps.ui.search
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,10 +10,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.xxx.base.BaseFragment
 import id.xxx.base.adapter.ItemClicked
+import id.xxx.base.extention.setResultAndFinish
+import id.xxx.data.source.map.box.Resource
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentSearchBinding
 import id.xxx.fake.gps.domain.search.model.SearchModel
-import id.xxx.data.source.map.box.Resource
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -69,9 +69,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), ItemClicked<Search
     }
 
     override fun onItemClick(model: SearchModel) {
-        val intent = Intent()
-            .putExtra("latitude", model.latitude)
-            .putExtra("longitude", model.longitude)
-        setResultAndFinish(intent)
+        setResultAndFinish {
+            putExtra("latitude", model.latitude)
+            putExtra("longitude", model.longitude)
+        }
     }
 }

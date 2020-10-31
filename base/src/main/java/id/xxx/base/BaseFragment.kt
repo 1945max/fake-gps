@@ -22,8 +22,8 @@ abstract class BaseFragment<ActivityBinding : ViewDataBinding> : Fragment() {
 
     protected fun setResultAndFinish(intent: Intent?) {
         requireActivity().apply {
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            this.setResult(Activity.RESULT_OK, intent)
+            this.finish()
         }
     }
 }

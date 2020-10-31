@@ -1,18 +1,7 @@
 <resources>
 
-
     <style name="AppTheme" parent="Theme.AppCompat">
         <item name="android:windowTranslucentStatus">true</item>
-    </style>
-
-    <style name="AppTheme.Splash" parent="android:Theme.NoTitleBar.Fullscreen">
-        <item name="android:windowBackground">@drawable/ic_splash_activity</item>
-    </style>
-
-    <style name="AppTheme.Main" parent="Theme.AppCompat.Light">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -20,8 +9,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Splash" parent="AppTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/ic_splash_activity</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>

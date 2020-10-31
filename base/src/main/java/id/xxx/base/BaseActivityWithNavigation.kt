@@ -18,7 +18,7 @@ abstract class BaseActivityWithNavigation<ActivityBinding : ViewDataBinding> : A
         binding = DataBindingUtil.setContentView(this, layoutRes)
     }
 
-    /* Forward onActivityResult to fragment in NavHostFragment */
+    /* Forwarding onActivityResult to fragment in NavHostFragment */
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
         if (resultCode == Activity.RESULT_OK) {
@@ -28,16 +28,11 @@ abstract class BaseActivityWithNavigation<ActivityBinding : ViewDataBinding> : A
         }
     }
 
-    /* Forward onOptionsItemSelected to fragment in NavHostFragment*/
+    /* Forwarding onOptionsItemSelected to fragment in NavHostFragment*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navHostFragment = supportFragmentManager.fragments.first() as NavHostFragment
         val fragment = navHostFragment.childFragmentManager.fragments
         fragment.forEach { it.onOptionsItemSelected(item) }
         return super.onOptionsItemSelected(item)
-    }
-
-    protected fun setResultAndFinish(intent: Intent?) {
-        this.setResult(Activity.RESULT_OK, intent)
-        this.finish()
     }
 }

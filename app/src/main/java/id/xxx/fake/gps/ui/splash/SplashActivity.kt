@@ -1,15 +1,30 @@
 package id.xxx.fake.gps.ui.splash
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import id.xxx.fake.gps.data.repository.AuthRepository
 import id.xxx.fake.gps.ui.MainActivity
+import id.xxx.fake.gps.ui.auth.AuthActivity
+import id.xxx.fake.gps.ui.auth.VerifyActivity
+import org.koin.android.ext.android.inject
 
-class SplashActivity : Activity() {
+class SplashActivity : AppCompatActivity() {
+
+    private val authRepository by inject<AuthRepository>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        startActivity(Intent(this, MainActivity::class.java))
-            .apply { finish() }
+        val intent = authRepository.getUser()?.let {
+            if (it.isEmailVerified) {
+                Intent(this@SplashActivity, MainActivity::class.java)
+            } else {
+                Intent(this@SplashActivity, VerifyActivity::class.java)
+            }
+        } ?: run { Intent(this@SplashActivity, AuthActivity::class.java) }
+
+        startActivity(intent)
+        finish()
     }
 }

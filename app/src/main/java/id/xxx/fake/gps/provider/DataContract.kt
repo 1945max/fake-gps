@@ -4,7 +4,7 @@ import android.net.Uri
 import android.provider.BaseColumns
 
 object DataContract {
-    const val AUTHORITY = "id.xxx.fake.gps"
+    const val AUTHORITY = "id.xxx.fake.gps.provider"
     const val SCHEME = "content"
 
     class DataColumns : BaseColumns {

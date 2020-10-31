@@ -7,7 +7,6 @@ import id.xxx.fake.gps.databinding.ActivityMainBinding
 import id.xxx.fake.gps.map.Map
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : BaseActivityWithNavigation<ActivityMainBinding>() {
 
     override val layoutRes: Int = R.layout.activity_main
@@ -26,8 +25,4 @@ class MainActivity : BaseActivityWithNavigation<ActivityMainBinding>() {
     override fun onSupportNavigateUp(): Boolean {
         return super.onSupportNavigateUp() || nav_host_main.findNavController().navigateUp()
     }
-
-//    override fun onDestinationChanged(ctr: NavController, des: NavDestination, args: Bundle?) {
-//        supportActionBar?.let { if (des.id == R.id.home_fragment) it.hide() else it.show() }
-//    }
 }

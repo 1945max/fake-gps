@@ -20,12 +20,24 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".ui.auth.VerifyActivity"
+            android:label="Verify Email" />
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ui.MainActivity"
-            android:theme="@style/AppTheme.Main" />
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.history.HistoryActivity"
+            android:parentActivityName=".ui.history.HistoryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:parentActivityName=".ui.search.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,33 +46,14 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.history.HistoryActivity"
-            android:parentActivityName=".ui.history.HistoryActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!--  -->
-        </activity>
-
-        <activity
-            android:name=".ui.search.SearchActivity"
-            android:parentActivityName=".ui.search.SearchActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!--  -->
-        </activity>
-
         <service
             android:name=".service.FakeLocationService"
             android:enabled="true"
-            android:exported="false">
-
-            <!--  -->
-        </service>
+            android:exported="false" />
 
         <provider
             android:name=".provider.DataProvider"
-            android:authorities="id.xxx.fake.gps"
+            android:authorities="id.xxx.fake.gps.provider"
             android:enabled="true"
             android:exported="true">
 
@@ -73,9 +66,7 @@
         <receiver
             android:name=".receiver.FakeStopReceiver"
             android:enabled="true"
-            android:exported="false">
-            <!---->
-        </receiver>
+            android:exported="false" />
 
         <!-- Maps Meta Data -->
         <meta-data

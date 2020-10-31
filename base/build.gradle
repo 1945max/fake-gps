@@ -30,4 +30,7 @@ dependencies {
     api "androidx.paging:paging-runtime-ktx:$paging_version"
 
     api "androidx.work:work-runtime:$work_manager_runtime_version"
+
+    api "io.reactivex.rxjava2:rxjava:$rx_java_version"
+    api "com.jakewharton.rxbinding2:rxbinding:$rx_binding_version"
 }

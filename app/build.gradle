@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -10,7 +11,7 @@ android {
     buildToolsVersion project.build_tools_version
 
     defaultConfig {
-        applicationId "id.xxx.application"
+        applicationId "id.xxx.fake.gps"
         minSdkVersion project.min_sdk_version.toInteger()
         targetSdkVersion project.target_sdk_version.toInteger()
         versionCode project.version_code.toInteger()
@@ -49,6 +50,7 @@ dependencies {
     implementation project(path: ':base')
     implementation project(path: ':data_fake_gps')
     implementation project(path: ':data_map_box')
+    implementation project(path: ':data_firebase')
 
     /* Google Maps */
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

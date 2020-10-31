@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/auth_with_email_fragment">
+
+    <fragment
+        android:id="@+id/auth_with_email_fragment"
+        android:name="id.xxx.fake.gps.ui.auth.login.LoginWithEmailFragment"
+        android:label="Login With Email"
+        tools:layout="@layout/fragment_login_with_email">
+        <action
+            android:id="@+id/action_to_with_token"
+            app:destination="@id/auth_with_token_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/auth_with_email_fragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_to_sign_up"
+            app:destination="@id/sign_up_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/auth_with_email_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/auth_with_token_fragment"
+        android:name="id.xxx.fake.gps.ui.auth.login.LoginWithTokenFragment"
+        android:label="Login With Token"
+        tools:layout="@layout/fragment_login_with_token">
+        <action
+            android:id="@+id/action_to_with_email"
+            app:destination="@id/auth_with_email_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/auth_with_token_fragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_to_sign_up"
+            app:destination="@id/sign_up_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/auth_with_token_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/sign_up_fragment"
+        android:name="id.xxx.fake.gps.ui.auth.login.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_to_with_token"
+            app:destination="@id/auth_with_token_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/sign_up_fragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_to_with_email"
+            app:destination="@id/auth_with_email_fragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/sign_up_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

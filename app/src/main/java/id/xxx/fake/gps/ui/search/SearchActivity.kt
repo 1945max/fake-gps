@@ -1,6 +1,5 @@
 package id.xxx.fake.gps.ui.search
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
@@ -9,12 +8,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import id.xxx.base.BaseActivityWithNavigation
+import id.xxx.base.extention.setResultAdnFinis
 import id.xxx.base.utils.Executors
+import id.xxx.data.source.map.box.Resource
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.ActivitySearchBinding
 import id.xxx.fake.gps.domain.search.model.SearchModel
 import id.xxx.fake.gps.utils.generateInt
-import id.xxx.data.source.map.box.Resource
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -60,24 +60,21 @@ class SearchActivity : BaseActivityWithNavigation<ActivitySearchBinding>(),
     }
 
     private fun resultOnQueryTextSubmit(resource: Resource<SearchModel>) {
-        val intent = { lat: Double, long: Double ->
-            Intent().apply {
+        val setResult = { lat: Double, long: Double ->
+            setResultAdnFinis {
                 putExtra("latitude", lat)
                 putExtra("longitude", long)
             }
         }
 
         when (resource) {
-            is Resource.Loading -> {
-            }
+            is Resource.Loading -> TODO()
             is Resource.Empty -> makeText(baseContext, "data empty", LENGTH_SHORT).show()
-            is Resource.Success -> resource.data.apply {
-                setResultAndFinish(intent(latitude, longitude))
-            }
+            is Resource.Success -> resource.data.apply { setResult(latitude, longitude) }
             is Resource.Error -> {
                 executors.mainThread().execute {
                     makeText(baseContext, resource.errorMessage, LENGTH_SHORT).show()
-                    resource.data?.apply { setResultAndFinish(intent(latitude, longitude)) }
+                    resource.data?.apply { setResult(latitude, longitude) }
                 }
             }
         }
