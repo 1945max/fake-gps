@@ -35,7 +35,9 @@ class SearchRepository constructor(
                 Pager(config = PagingConfig(pageSize = 10, enablePlaceholders = false)) {
                     local.getPaging(value)
                 }.flow.map {
-                    it.map { searchEntity -> toSearchModel.map(searchEntity) }
+                    return@map if (value == "") PagingData.empty() else it.map { searchEntity ->
+                        toSearchModel.map(searchEntity)
+                    }
                 }.cachedIn(scope)
 
             override suspend fun createCall() = remote.getPlaces(value)

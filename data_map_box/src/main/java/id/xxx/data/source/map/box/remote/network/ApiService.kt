@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("/geocoding/v5/mapbox.places/{query}.json")
     suspend fun fetchPlaces(
-        @Path("query") query: String?,
+        @Path("query") query: String,
         @Query("access_token") accessToken: String? = BuildConfig.API_KEY,
         @Query("autocomplete") autoComplete: Boolean? = true
     ): PlacesResponse

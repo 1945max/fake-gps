@@ -1,10 +1,10 @@
 package id.xxx.fake.gps.ui.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +18,6 @@ import id.xxx.fake.gps.domain.search.model.SearchModel
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 @ExperimentalCoroutinesApi
@@ -43,26 +41,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), ItemClicked<Search
             adapter = this@SearchFragment.adapter
         }
 
-        lifecycleScope.launch { viewModel.searchResult.collectLatest { stat(it) } }
+        viewModel.searchResult.observe(viewLifecycleOwner, { stat(it) })
     }
 
 
-    private fun stat(liveData: MediatorLiveData<Resource<PagingData<SearchModel>>>) {
+    private fun stat(liveData: LiveData<Resource<PagingData<SearchModel>>>) {
         liveData.observe(viewLifecycleOwner, {
             when (it) {
-                is Resource.Success -> {
-                    adapter.submitData(lifecycle, it.data)
-                }
-                is Resource.Empty -> {
-//                    adapter.listData.clear();adapter.notifyDataSetChanged()
-                }
+                is Resource.Loading -> Log.i("TAG", "stat_loading: $it")
+                is Resource.Success -> adapter.submitData(lifecycle, it.data)
+                is Resource.Empty -> adapter.submitData(lifecycle, PagingData.empty())
                 is Resource.Error -> {
-                    it.data?.apply { adapter.submitData(lifecycle, this) } ?: run {
+                    it.data?.apply {
+                        adapter.submitData(lifecycle, this)
+                    } ?: run {
                         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                     }
-                }
-                is Resource.Loading -> {
-                    /* STAT LOADING */
                 }
             }
         })
