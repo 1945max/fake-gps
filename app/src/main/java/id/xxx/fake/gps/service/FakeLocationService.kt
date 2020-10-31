@@ -5,16 +5,20 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.widget.Toast
 import androidx.core.content.getSystemService
+import androidx.lifecycle.lifecycleScope
 import androidx.work.Data
 import com.google.android.gms.maps.model.LatLng
 import id.xxx.base.BaseLifecycleService
 import id.xxx.base.utils.Executors
 import id.xxx.base.utils.Network
+import id.xxx.data.source.map.box.Resource
 import id.xxx.fake.gps.domain.history.usecase.IHistoryUseCase
+import id.xxx.fake.gps.domain.search.model.SearchModel
 import id.xxx.fake.gps.domain.search.usecase.ISearchUseCase
 import id.xxx.fake.gps.utils.DataMapper
 import id.xxx.fake.gps.worker.MyWorker
-import id.xxx.data.source.map.box.Resource
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class FakeLocationService : BaseLifecycleService(), FakeLocation.Callback {
@@ -40,19 +44,19 @@ class FakeLocationService : BaseLifecycleService(), FakeLocation.Callback {
             latitude = getDoubleExtra("latitude", 0.0)
             longitude = getDoubleExtra("longitude", 0.0)
             fakeLocation.run(latitude, longitude)
-            executors.networkIO().execute {
-                val resource = iSearchRepo.getAddress(baseContext, "$latitude,$longitude")
-                if (resource is Resource.Success) {
-                    iHistoryRepo.insert(DataMapper.searchModelToHistoryModel.map(resource.data))
-                } else if (resource is Resource.Error) {
-                    Network.onConnected(
-                        baseContext, MyWorker::class.java, Data.Builder()
-                            .putString(Network.DATA_EXTRA, "$latitude,$longitude")
-                            .build()
-                    )
+            lifecycleScope.launch {
+                iSearchRepo.getAddress(baseContext, "$latitude,$longitude").collect {
+                    if (it is Resource.Success<SearchModel>) {
+                        iHistoryRepo.insert(DataMapper.searchModelToHistoryModel.map(it.data))
+                    } else if (it is Resource.Error) {
+                        Network.onConnected(
+                            baseContext, MyWorker::class.java, Data.Builder()
+                                .putString(Network.DATA_EXTRA, "$latitude,$longitude")
+                                .build()
+                        )
+                    }
                 }
             }
-
         } ?: stopSelf()
         return START_STICKY
     }

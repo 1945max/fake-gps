@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -18,6 +19,8 @@ import id.xxx.fake.gps.utils.generateInt
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -48,8 +51,10 @@ class SearchActivity : BaseActivityWithNavigation<ActivitySearchBinding>(),
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        executors.networkIO().execute {
-            resultOnQueryTextSubmit(viewModel.getAddress(query ?: ""))
+        lifecycleScope.launch {
+            viewModel.getAddress(query ?: "").collect {
+                resultOnQueryTextSubmit(it)
+            }
         }
         return true
     }
@@ -68,13 +73,12 @@ class SearchActivity : BaseActivityWithNavigation<ActivitySearchBinding>(),
         }
 
         when (resource) {
-            is Resource.Loading -> TODO()
+            is Resource.Loading -> makeText(baseContext, "loading", LENGTH_SHORT).show()
             is Resource.Empty -> makeText(baseContext, "data empty", LENGTH_SHORT).show()
             is Resource.Success -> resource.data.apply { setResult(latitude, longitude) }
             is Resource.Error -> {
-                executors.mainThread().execute {
+                resource.data?.apply { setResult(latitude, longitude) } ?: run {
                     makeText(baseContext, resource.errorMessage, LENGTH_SHORT).show()
-                    resource.data?.apply { setResult(latitude, longitude) }
                 }
             }
         }

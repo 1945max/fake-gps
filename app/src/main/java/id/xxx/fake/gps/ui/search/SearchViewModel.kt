@@ -6,9 +6,9 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import id.xxx.data.source.map.box.Resource
 import id.xxx.fake.gps.domain.search.model.SearchModel
 import id.xxx.fake.gps.domain.search.usecase.ISearchUseCase
-import id.xxx.data.source.map.box.Resource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -34,7 +34,7 @@ class SearchViewModel constructor(
         .mapLatest {
             return@mapLatest data.apply {
                 if (it.isNullOrEmpty()) {
-                    data.value = Resource.Empty()
+                    data.value = Resource.Empty
 //                } else data.addSource(search.getPlaces(it).asLiveData()) { resource ->
                 } else data.addSource(
                     search.getPagingData(it, viewModelScope).asLiveData()
