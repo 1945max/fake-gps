@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import id.xxx.data.source.firebase.auth.Resource
 import id.xxx.fake.gps.data.repository.AuthRepository
 import id.xxx.fake.gps.domain.auth.model.UserModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val auth: AuthRepository) : ViewModel() {
@@ -13,16 +14,14 @@ class LoginViewModel(private val auth: AuthRepository) : ViewModel() {
     val loginResult = MediatorLiveData<Resource<UserModel>>()
 
     fun login(username: String, password: String) {
-        loginResult.postValue(Resource.Loading())
         viewModelScope.launch {
-            loginResult.postValue(auth.login(username, password))
+            auth.login(username, password).collect { loginResult.postValue(it) }
         }
     }
 
     fun login(token: String) {
-        loginResult.postValue(Resource.Loading())
         viewModelScope.launch {
-            loginResult.postValue(auth.login(token))
+            auth.login(token).collect { loginResult.postValue(it) }
         }
     }
 }

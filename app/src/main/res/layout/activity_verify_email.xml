@@ -6,7 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.auth.VerifyActivity">
+        tools:context=".ui.auth.verify.VerifyEmailActivity">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/back_to_login"

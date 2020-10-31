@@ -1,18 +1,21 @@
-package id.xxx.fake.gps.ui.auth.login
+package id.xxx.fake.gps.ui.auth.signup
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.lifecycle.asLiveData
+import android.widget.Toast.LENGTH_SHORT
+import android.widget.Toast.makeText
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import id.xxx.base.BaseFragment
 import id.xxx.base.extention.openActivity
-import id.xxx.data.source.firebase.auth.Resource
+import id.xxx.data.source.firebase.auth.Resource.*
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.data.repository.AuthRepository
 import id.xxx.fake.gps.databinding.FragmentSignUpBinding
 import id.xxx.fake.gps.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_sign_up.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
@@ -24,16 +27,17 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
         btn_sign_up.setOnClickListener {
-            authRepository.createUser(
-                email_address.text.toString(), password.text.toString()
-            ).asLiveData().observeForever {
-                when (it) {
-                    is Resource.Success -> openActivity<SplashActivity> { requireActivity().finish() }
-                    is Resource.Error -> Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                    is Resource.Loading -> TODO()
-                    is Resource.Empty -> TODO()
+            lifecycleScope.launch {
+                authRepository.createUser(
+                    email_address.text.toString(), password.text.toString()
+                ).collect {
+                    when (it) {
+                        is Success -> openActivity<SplashActivity> { requireActivity().finish() }
+                        is Error -> makeText(context, it.errorMessage, LENGTH_SHORT).show()
+                        is Loading -> makeText(context, "Loading", LENGTH_SHORT).show()
+                        is Empty -> makeText(context, "Empty", LENGTH_SHORT).show()
+                    }
                 }
             }
         }

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import id.xxx.fake.gps.data.repository.AuthRepository
 import id.xxx.fake.gps.ui.MainActivity
 import id.xxx.fake.gps.ui.auth.AuthActivity
-import id.xxx.fake.gps.ui.auth.VerifyActivity
+import id.xxx.fake.gps.ui.auth.verify.VerifyEmailActivity
 import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
             if (it.isEmailVerified) {
                 Intent(this@SplashActivity, MainActivity::class.java)
             } else {
-                Intent(this@SplashActivity, VerifyActivity::class.java)
+                Intent(this@SplashActivity, VerifyEmailActivity::class.java)
             }
         } ?: run { Intent(this@SplashActivity, AuthActivity::class.java) }
 

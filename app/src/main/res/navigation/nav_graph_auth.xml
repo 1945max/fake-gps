@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/sign_up_fragment"
-        android:name="id.xxx.fake.gps.ui.auth.login.SignUpFragment"
+        android:name="id.xxx.fake.gps.ui.auth.signup.SignUpFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_sign_up">
         <action
