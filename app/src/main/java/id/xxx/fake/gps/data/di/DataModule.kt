@@ -18,7 +18,7 @@ object DataModule {
     }
 
     private val historyRepositoryModule = module {
-        single<IHistoryRepository<HistoryModel>> { HistoryRepository(get(), get()) }
+        single<IHistoryRepository<HistoryModel>> { HistoryRepository(get()) }
     }
 
     private val authRepository = module {

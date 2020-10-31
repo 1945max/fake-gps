@@ -16,7 +16,7 @@ class HistoryInteractor constructor(
     override fun getPagingData(scope: CoroutineScope): Flow<Resource<PagingData<HistoryModel>>> =
         iExampleRepository.getPagingData(scope)
 
-    override fun insert(model: HistoryModel) = iExampleRepository.insert(model)
+    override suspend fun insert(model: HistoryModel) = iExampleRepository.insert(model)
 
-    override fun delete(model: HistoryModel) = iExampleRepository.delete(model)
+    override suspend fun delete(model: HistoryModel) = iExampleRepository.delete(model)
 }

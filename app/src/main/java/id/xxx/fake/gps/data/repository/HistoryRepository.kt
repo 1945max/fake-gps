@@ -5,7 +5,6 @@ import id.xxx.data.source.fake.gps.NetworkBoundResource
 import id.xxx.data.source.fake.gps.Resource
 import id.xxx.data.source.fake.gps.local.LocalDataSource
 import id.xxx.data.source.fake.gps.network.ApiResponse
-import id.xxx.base.utils.Executors
 import id.xxx.fake.gps.domain.history.model.HistoryModel
 import id.xxx.fake.gps.domain.history.repository.IHistoryRepository
 import id.xxx.fake.gps.utils.DataMapper.toHistoryEntity
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 class HistoryRepository constructor(
-    private val executors: Executors,
     private val historyDataSource: LocalDataSource,
 ) : IHistoryRepository<HistoryModel> {
 
@@ -46,11 +44,11 @@ class HistoryRepository constructor(
             override suspend fun saveCallResult(data: Unit) {}
         }.asFlow()
 
-    override fun insert(model: HistoryModel) = executors.diskIO().execute {
+    override suspend fun insert(model: HistoryModel) {
         historyDataSource.insert(toHistoryEntity.map(model))
     }
 
-    override fun delete(model: HistoryModel) = executors.diskIO().execute {
+    override suspend fun delete(model: HistoryModel) {
         historyDataSource.delete(toHistoryEntity.map(model))
     }
 }

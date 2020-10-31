@@ -10,10 +10,10 @@ interface BaseDao<Entity> {
      suspend fun insert(vararg varargEntity: Entity): List<Long>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(entity: Entity): Long
+    suspend fun insert(entity: Entity): Long
 
     @Delete
-    fun delete(entity: Entity): Int
+    suspend fun delete(entity: Entity): Int
 
     @Update
     suspend fun update(entity: Entity): Int

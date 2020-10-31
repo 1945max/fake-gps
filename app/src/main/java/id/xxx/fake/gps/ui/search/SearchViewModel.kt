@@ -26,7 +26,7 @@ class SearchViewModel constructor(
         .debounce(300)
         .distinctUntilChanged()
         .mapLatest {
-            search.getPagingData(it ?: "", viewModelScope).asLiveData()
+            search.getPlaceWithPagingData(it ?: "", viewModelScope).asLiveData()
         }.asLiveData()
 
     fun getAddress(value: String) = search.getAddress(getApplication(), value)

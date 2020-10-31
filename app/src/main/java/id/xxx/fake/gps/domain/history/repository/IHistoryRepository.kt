@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
 interface IHistoryRepository<Model> {
     fun getList(): Flow<Resource<List<Model>>>
     fun getPagingData(scope: CoroutineScope): Flow<Resource<PagingData<HistoryModel>>>
-    fun insert(model: Model)
-    fun delete(model: Model)
+    suspend fun insert(model: Model)
+    suspend fun delete(model: Model)
 }

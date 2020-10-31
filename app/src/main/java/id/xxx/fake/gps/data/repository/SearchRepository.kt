@@ -27,7 +27,7 @@ class SearchRepository constructor(
     private val remote: RemoteDataSource
 ) : ISearchRepository<SearchModel> {
 
-    override fun getPagingData(
+    override fun getPlaceWithPagingData(
         value: String, scope: CoroutineScope
     ): Flow<Resource<PagingData<SearchModel>>> =
         object : NetworkBoundResource<PagingData<SearchModel>, PlacesResponse>() {
@@ -64,7 +64,6 @@ class SearchRepository constructor(
 
     override fun getAddress(context: Context, value: String) = flow {
         emit(Resource.Loading)
-
         val isLatLong: Boolean = Address.isLatLong(value)
         val data = ArrayList<Double>()
         val latitude = 0
@@ -85,7 +84,10 @@ class SearchRepository constructor(
             is Result.Empty -> emit(Resource.Empty)
             is Result.Error -> {
                 val searchEntity =
-                    if (isLatLong) local.select(data[0], data[1]) else local.select(value)
+                    if (isLatLong)
+                        local.select(data[latitude], data[longitude])
+                    else
+                        local.select(value)
                 emit(Resource.Error(result.message, searchEntity?.let { toSearchModel.map(it) }))
             }
         }

@@ -8,7 +8,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 interface ISearchRepository<Model> {
-    fun getPagingData(value: String, scope: CoroutineScope): Flow<Resource<PagingData<SearchModel>>>
+    fun getPlaceWithPagingData(
+        value: String,
+        scope: CoroutineScope
+    ): Flow<Resource<PagingData<SearchModel>>>
+
     fun getPlaces(value: String): Flow<Resource<List<Model>>>
     fun getAddress(context: Context, value: String): Flow<Resource<SearchModel>>
 }

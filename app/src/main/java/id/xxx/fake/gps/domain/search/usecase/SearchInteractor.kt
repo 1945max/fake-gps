@@ -1,7 +1,6 @@
 package id.xxx.fake.gps.domain.search.usecase
 
 import android.content.Context
-import androidx.paging.PagingData
 import id.xxx.data.source.map.box.Resource
 import id.xxx.fake.gps.domain.search.model.SearchModel
 import id.xxx.fake.gps.domain.search.repository.ISearchRepository
@@ -9,17 +8,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 class SearchInteractor constructor(
-    private val iSearchRepository: ISearchRepository<SearchModel>
+    private val iSearchRepo: ISearchRepository<SearchModel>
 ) : ISearchUseCase {
-    override fun getPagingData(
-        value: String, scope: CoroutineScope
-    ): Flow<Resource<PagingData<SearchModel>>> =
-        iSearchRepository.getPagingData(value, scope)
 
+    override fun getPlaceWithPagingData(value: String, scope: CoroutineScope) =
+        iSearchRepo.getPlaceWithPagingData(value, scope)
 
     override fun getPlaces(value: String): Flow<Resource<List<SearchModel>>> =
-        iSearchRepository.getPlaces(value)
+        iSearchRepo.getPlaces(value)
 
     override fun getAddress(context: Context, value: String): Flow<Resource<SearchModel>> =
-        iSearchRepository.getAddress(context, value)
+        iSearchRepo.getAddress(context, value)
 }

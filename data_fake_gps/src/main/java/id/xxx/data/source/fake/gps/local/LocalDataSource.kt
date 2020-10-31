@@ -8,7 +8,7 @@ class LocalDataSource(private val historyDao: HistoryDao) {
 
      fun getDataSourceFactory() = historyDao.dataSourceFactory()
 
-     fun insert(historyEntity: HistoryEntity) = historyDao.insert(historyEntity)
+     suspend fun insert(historyEntity: HistoryEntity) = historyDao.insert(historyEntity)
 
-     fun delete(entity: HistoryEntity) = historyDao.delete(entity)
+    suspend fun delete(entity: HistoryEntity) = historyDao.delete(entity)
 }
