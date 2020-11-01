@@ -1,5 +1,7 @@
 package id.xxx.fake.gps.domain.di
 
+import id.xxx.fake.gps.domain.auth.usecase.AuthInteractor
+import id.xxx.fake.gps.domain.auth.usecase.IAuthUseCase
 import id.xxx.fake.gps.domain.history.usecase.HistoryInteractor
 import id.xxx.fake.gps.domain.history.usecase.IHistoryUseCase
 import id.xxx.fake.gps.domain.search.usecase.ISearchUseCase
@@ -15,7 +17,13 @@ object DomainModule {
         single<IHistoryUseCase> { HistoryInteractor(get()) }
     }
 
+    private val useCaseAuthModule = module {
+        single<IAuthUseCase> { AuthInteractor(get()) }
+    }
+
     val modules = listOf(
-        useCaseHistoryModule, useCaseSearchModule
+        useCaseHistoryModule,
+        useCaseSearchModule,
+        useCaseAuthModule
     )
 }

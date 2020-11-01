@@ -1,57 +1,40 @@
 package id.xxx.fake.gps.data.repository
 
+import com.google.firebase.auth.AuthResult
 import id.xxx.data.source.firebase.auth.Resource
-import id.xxx.data.source.firebase.auth.local.LocalDataSource
 import id.xxx.data.source.firebase.auth.remote.ApiResponse
 import id.xxx.data.source.firebase.auth.remote.RemoteDataSource
 import id.xxx.fake.gps.domain.auth.model.UserModel
-import kotlinx.coroutines.flow.first
+import id.xxx.fake.gps.domain.auth.repository.IAuthRepository
 import kotlinx.coroutines.flow.map
 
-class AuthRepository(private val local: LocalDataSource, private val remote: RemoteDataSource) {
+class AuthRepository(
+    private val remote: RemoteDataSource
+) : IAuthRepository<UserModel> {
 
-    fun signOut() = remote.signOut()
+    override fun signOut() = remote.signOut()
 
-    fun getUser() = remote.getUser()?.let {
+    override fun getUser() = remote.getUser()?.let {
         UserModel(it.uid, it.isEmailVerified)
     }
 
-    suspend fun verifyEmail() = remote.verifyEmail().first()
+    override fun verifyEmail() = remote.verifyEmail()
 
-    fun login(username: String, password: String) =
-        remote.signInWithEmailAndPass(username, password).map {
-            return@map when (it) {
-                is ApiResponse.Loading -> Resource.Loading
-                is ApiResponse.Success -> {
-                    it.data.user?.let { user ->
-                        Resource.Success(UserModel(user.uid, user.isEmailVerified))
-                    } ?: Resource.Empty
-                }
-                is ApiResponse.Error -> Resource.Error(it.errorMessage)
-            }
-        }
+    override fun sign(userName: String, pass: String) =
+        remote.signInWithEmailAndPass(userName, pass).map { setResource(it) }
 
-    fun login(token: String) =
-        remote.signWithToken(token).map {
-            return@map when (it) {
-                is ApiResponse.Loading -> Resource.Loading
-                is ApiResponse.Success -> {
-                    it.data.user?.let { user ->
-                        Resource.Success(UserModel(user.uid, user.isEmailVerified))
-                    } ?: Resource.Empty
-                }
-                is ApiResponse.Error -> Resource.Error(it.errorMessage)
-            }
-        }
+    override fun sign(token: String) =
+        remote.signWithToken(token).map { setResource(it) }
 
-    fun createUser(username: String, password: String) =
-        remote.createUser(username, password).map {
-            return@map when (it) {
-                is ApiResponse.Loading -> Resource.Loading
-                is ApiResponse.Success -> it.data.user?.let { user ->
-                    Resource.Success(UserModel(user.uid, user.isEmailVerified))
-                } ?: Resource.Empty
-                is ApiResponse.Error -> Resource.Error(it.errorMessage)
-            }
+    override fun createUser(userName: String, pass: String) =
+        remote.createUser(userName, pass).map { setResource(it) }
+
+    private fun setResource(apiResponse: ApiResponse<AuthResult>) =
+        when (apiResponse) {
+            is ApiResponse.Loading -> Resource.Loading
+            is ApiResponse.Error -> Resource.Error(apiResponse.errorMessage)
+            is ApiResponse.Success -> apiResponse.data.user?.let { user ->
+                Resource.Success(UserModel(user.uid, user.isEmailVerified))
+            } ?: Resource.Empty
         }
 }

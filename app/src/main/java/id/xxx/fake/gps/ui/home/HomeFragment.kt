@@ -13,10 +13,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.auth.FirebaseAuth
 import id.xxx.base.BaseFragment
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentHomeBinding
+import id.xxx.fake.gps.domain.auth.usecase.IAuthUseCase
 import id.xxx.fake.gps.map.Map
 import id.xxx.fake.gps.service.FakeLocation
 import id.xxx.fake.gps.service.FakeLocationService
@@ -25,6 +25,7 @@ import id.xxx.fake.gps.ui.history.HistoryActivity
 import id.xxx.fake.gps.ui.search.SearchActivity
 import id.xxx.fake.gps.utils.formatDouble
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.ext.android.inject
 
 open class HomeFragment :
     BaseFragment<FragmentHomeBinding>(),
@@ -118,7 +119,7 @@ open class HomeFragment :
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_logout -> {
-                FirebaseAuth.getInstance().signOut()
+                inject<IAuthUseCase>().value.signOut()
                 startActivity(Intent(requireContext(), AuthActivity::class.java).apply {
                     requireActivity().finish()
                 })

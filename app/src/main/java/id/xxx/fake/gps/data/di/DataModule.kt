@@ -6,6 +6,8 @@ import id.xxx.data.source.map.box.di.MapBoxModule
 import id.xxx.fake.gps.data.repository.AuthRepository
 import id.xxx.fake.gps.data.repository.HistoryRepository
 import id.xxx.fake.gps.data.repository.SearchRepository
+import id.xxx.fake.gps.domain.auth.model.UserModel
+import id.xxx.fake.gps.domain.auth.repository.IAuthRepository
 import id.xxx.fake.gps.domain.history.model.HistoryModel
 import id.xxx.fake.gps.domain.history.repository.IHistoryRepository
 import id.xxx.fake.gps.domain.search.model.SearchModel
@@ -22,7 +24,7 @@ object DataModule {
     }
 
     private val authRepository = module {
-        single { AuthRepository(get(), get()) }
+        single<IAuthRepository<UserModel>> { AuthRepository(get()) }
     }
 
     val modules = mutableListOf(
