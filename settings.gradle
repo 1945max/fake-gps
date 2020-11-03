@@ -5,7 +5,3 @@ include ':base'
 include(':data_fake_gps')
 include(':data_map_box')
 include ':data_firebase'
-
-
-include ':test'
-project(":test").projectDir = file("/home/xxx/MyFile/Programming/MyProject/Android/Modules/test")

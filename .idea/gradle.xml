@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/data_fake_gps" />
             <option value="$PROJECT_DIR$/data_firebase" />
             <option value="$PROJECT_DIR$/data_map_box" />
-            <option value="$PROJECT_DIR$/../../Modules/test" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
