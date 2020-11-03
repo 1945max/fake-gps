@@ -1,4 +1,4 @@
-package id.xxx.fake.gps.ui.auth.login
+package id.xxx.fake.gps.ui.auth.sign
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -15,9 +15,9 @@ import id.xxx.fake.gps.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_login_with_token.*
 import org.koin.android.ext.android.inject
 
-class LoginWithTokenFragment : BaseFragment<FragmentLoginWithTokenBinding>() {
+class SignWithTokenFragment : BaseFragment<FragmentLoginWithTokenBinding>() {
 
-    private val loginViewModel: LoginViewModel by inject()
+    private val loginViewModel: SignViewModel by inject()
 
     override val layoutFragment = R.layout.fragment_login_with_token
 
@@ -33,7 +33,7 @@ class LoginWithTokenFragment : BaseFragment<FragmentLoginWithTokenBinding>() {
         loginViewModel.loginResult.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> loading.visibility = View.VISIBLE
-                is Resource.Success -> openActivity<SplashActivity> { requireActivity().finish() }
+                is Resource.Success -> openActivity<SplashActivity>().apply { requireActivity().finish() }
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
                     loading.visibility = View.GONE

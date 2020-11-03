@@ -1,9 +1,10 @@
 package id.xxx.fake.gps.ui.splash
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import id.xxx.fake.gps.domain.auth.usecase.IAuthUseCase
+import id.xxx.base.extention.openActivity
+import id.xxx.fake.gps.domain.auth.model.User
+import id.xxx.fake.gps.domain.auth.usecase.IAuthInteractor
 import id.xxx.fake.gps.ui.MainActivity
 import id.xxx.fake.gps.ui.auth.AuthActivity
 import id.xxx.fake.gps.ui.auth.verify.VerifyEmailActivity
@@ -11,19 +12,18 @@ import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
 
-    private val authRepository by inject<IAuthUseCase>()
+    private val interactor by inject<IAuthInteractor>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = authRepository.getUser()?.let {
-            if (it.isEmailVerified) {
-                Intent(this@SplashActivity, MainActivity::class.java)
-            } else {
-                Intent(this@SplashActivity, VerifyEmailActivity::class.java)
-            }
-        } ?: run { Intent(this@SplashActivity, AuthActivity::class.java) }
-
-        startActivity(intent).run { finish() }
+        when (val user = interactor.getUser()) {
+            is User.Exist ->
+                if (user.data.isEmailVerified)
+                    openActivity<MainActivity>()
+                else
+                    openActivity<VerifyEmailActivity>()
+            is User.Empty -> openActivity<AuthActivity>()
+        }.apply { finish() }
     }
 }

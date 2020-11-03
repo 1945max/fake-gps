@@ -11,7 +11,7 @@ import id.xxx.base.extention.openActivity
 import id.xxx.data.source.firebase.auth.Resource.*
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentSignUpBinding
-import id.xxx.fake.gps.domain.auth.usecase.IAuthUseCase
+import id.xxx.fake.gps.domain.auth.usecase.IAuthInteractor
 import id.xxx.fake.gps.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.coroutines.flow.collect
@@ -20,7 +20,7 @@ import org.koin.android.ext.android.inject
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
-    private val authRepository by inject<IAuthUseCase>()
+    private val authRepository by inject<IAuthInteractor>()
 
     override val layoutFragment = R.layout.fragment_sign_up
 
@@ -33,7 +33,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
                     email_address.text.toString(), password.text.toString()
                 ).collect {
                     when (it) {
-                        is Success -> openActivity<SplashActivity> { requireActivity().finish() }
+                        is Success -> openActivity<SplashActivity>().run { requireActivity().finish() }
                         is Error -> makeText(context, it.errorMessage, LENGTH_SHORT).show()
                         is Loading -> makeText(context, "Loading", LENGTH_SHORT).show()
                         is Empty -> makeText(context, "Empty", LENGTH_SHORT).show()

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/auth_with_email_fragment"
-        android:name="id.xxx.fake.gps.ui.auth.login.LoginWithEmailFragment"
+        android:name="id.xxx.fake.gps.ui.auth.sign.SignWithEmailFragment"
         android:label="Login With Email"
         tools:layout="@layout/fragment_login_with_email">
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/auth_with_token_fragment"
-        android:name="id.xxx.fake.gps.ui.auth.login.LoginWithTokenFragment"
+        android:name="id.xxx.fake.gps.ui.auth.sign.SignWithTokenFragment"
         android:label="Login With Token"
         tools:layout="@layout/fragment_login_with_token">
         <action

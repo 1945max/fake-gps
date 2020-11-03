@@ -1,4 +1,4 @@
-package id.xxx.fake.gps.ui.auth.login
+package id.xxx.fake.gps.ui.auth.sign
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -19,9 +19,9 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_login_with_email.*
 import org.koin.android.ext.android.inject
 
-class LoginWithEmailFragment : BaseFragment<FragmentLoginWithEmailBinding>() {
+class SignWithEmailFragment : BaseFragment<FragmentLoginWithEmailBinding>() {
 
-    private val loginViewModel: LoginViewModel by inject()
+    private val loginViewModel: SignViewModel by inject()
 
     override val layoutFragment = R.layout.fragment_login_with_email
 
@@ -32,7 +32,7 @@ class LoginWithEmailFragment : BaseFragment<FragmentLoginWithEmailBinding>() {
         loginViewModel.loginResult.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> loading.visibility = View.VISIBLE
-                is Resource.Success -> openActivity<SplashActivity> { requireActivity().finish() }
+                is Resource.Success -> openActivity<SplashActivity>().run { requireActivity().finish() }
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
                     loading.visibility = View.GONE

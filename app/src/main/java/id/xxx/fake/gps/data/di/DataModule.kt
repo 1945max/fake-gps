@@ -24,7 +24,7 @@ object DataModule {
     }
 
     private val authRepository = module {
-        single<IAuthRepository<UserModel>> { AuthRepository(get()) }
+        single<IAuthRepository<UserModel>> { AuthRepository() }
     }
 
     val modules = mutableListOf(

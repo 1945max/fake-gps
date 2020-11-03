@@ -1,32 +1,35 @@
 package id.xxx.fake.gps.ui.auth.verify
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import id.xxx.base.BaseActivityWithNavigation
 import id.xxx.base.extention.openActivity
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.ActivityVerifyEmailBinding
+import id.xxx.fake.gps.domain.auth.usecase.IAuthInteractor
 import id.xxx.fake.gps.ui.auth.AuthActivity
 import id.xxx.fake.gps.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.activity_verify_email.*
+import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.ext.android.inject
 
 class VerifyEmailActivity : BaseActivityWithNavigation<ActivityVerifyEmailBinding>() {
 
-    private val viewModel by inject<VerifyViewModel>()
+    private val interactor by inject<IAuthInteractor>()
 
     override val layoutRes = R.layout.activity_verify_email
 
+    @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         back_to_login.setOnClickListener {
-            viewModel.signOut
-            openActivity<AuthActivity> { finish() }
+            interactor.signOut()
+            openActivity<AuthActivity>().run { finish() }
         }
 
-        viewModel.verifyEmail.observe(this, {
-            if (it) openActivity<SplashActivity> { finish() }
+        interactor.verifyEmail(lifecycleScope).observe(this, {
+            if (it) openActivity<SplashActivity>().run { finish() }
         })
     }
-
 }

@@ -1,0 +1,40 @@
+@startuml
+
+node "Presentation" {
+    component "view model" as view_model
+    component "view" as view
+}
+node "Domain" {
+'    component "model" as model
+    component "Use Case" as iUseCase
+    component "Use Case Impl" as interactor
+    component "iRepository" as IRepository
+}
+
+node "Data Source" as data_source {
+    component "repository impl" as repository_impl
+    component "local data" as local_data
+    component "remote data" as remote_data
+    database "db_local" as db_local
+    database "db_remote" as db_remote
+}
+
+
+/' Layer Presentation '/
+view_model <-up-> view
+view_model -down-> iUseCase
+
+/' Layer Domain '/
+iUseCase -up-> view_model
+IRepository <-up-> interactor
+interactor <-up-> iUseCase
+IRepository -down-> repository_impl
+
+/' Layer Data '/
+repository_impl -up-> IRepository
+local_data <-up-> repository_impl
+remote_data <-up-> repository_impl
+db_remote <-up-> remote_data
+db_local <-up-> local_data
+
+@enduml
