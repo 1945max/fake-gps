@@ -6,7 +6,7 @@ import id.xxx.base.BaseActivityWithNavigation
 import id.xxx.base.extention.openActivity
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.ActivityVerifyEmailBinding
-import id.xxx.fake.gps.domain.auth.usecase.IAuthInteractor
+import id.xxx.fake.gps.domain.auth.usecase.IInteractor
 import id.xxx.fake.gps.ui.auth.AuthActivity
 import id.xxx.fake.gps.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.activity_verify_email.*
@@ -15,7 +15,7 @@ import org.koin.android.ext.android.inject
 
 class VerifyEmailActivity : BaseActivityWithNavigation<ActivityVerifyEmailBinding>() {
 
-    private val interactor by inject<IAuthInteractor>()
+    private val interactor by inject<IInteractor>()
 
     override val layoutRes = R.layout.activity_verify_email
 

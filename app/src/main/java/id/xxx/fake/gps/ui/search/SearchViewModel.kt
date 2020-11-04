@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import id.xxx.fake.gps.domain.search.usecase.ISearchUseCase
+import id.xxx.fake.gps.domain.search.usecase.IInteractor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 @FlowPreview
 @ExperimentalCoroutinesApi
 class SearchViewModel constructor(
-    application: Application, private val search: ISearchUseCase
+    application: Application, private val search: IInteractor
 ) : AndroidViewModel(application) {
 
     private val queryChannel = BroadcastChannel<String?>(Channel.CONFLATED)

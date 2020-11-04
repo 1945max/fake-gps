@@ -57,7 +57,7 @@
 
         <provider
             android:name=".provider.DataProvider"
-            android:authorities="id.xxx.fake.gps.provider"
+            android:authorities="${applicationId}.provider"
             android:enabled="true"
             android:exported="true">
 

@@ -10,7 +10,7 @@ import id.xxx.data.source.firebase.auth.remote.ApiResponse
 import id.xxx.data.source.firebase.auth.remote.ApiResponse.*
 import id.xxx.fake.gps.domain.auth.model.User
 import id.xxx.fake.gps.domain.auth.model.UserModel
-import id.xxx.fake.gps.domain.auth.repository.IAuthRepository
+import id.xxx.fake.gps.domain.auth.repository.IRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class AuthRepository : IAuthRepository<UserModel> {
+class AuthRepository : IRepository<UserModel> {
     private val remote = FirebaseAuth.getInstance()
 
     override fun signOut() = remote.signOut()
@@ -35,7 +35,7 @@ class AuthRepository : IAuthRepository<UserModel> {
             sendEmailVerification()
             scope.launch {
                 while (!isEmailVerified) {
-                    delay(300)
+                    delay(500)
                     remote.currentUser?.reload()
                     if (isEmailVerified) result.postValue(isEmailVerified)
                 }

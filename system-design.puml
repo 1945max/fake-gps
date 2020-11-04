@@ -1,40 +1,57 @@
 @startuml
 
-node "Presentation" {
-    component "view model" as view_model
-    component "view" as view
+node "Presentation" as presentation {
+    component "View Model" as ViewModel
+    component "UI" as Activity
+    component "Worker" as Worker
+    component "Receiver" as BroadcastReceiver
+    component "Service" as Service
+    component "Provider" as ContentProvider
 }
-node "Domain" {
-'    component "model" as model
-    component "Use Case" as iUseCase
-    component "Use Case Impl" as interactor
+
+node "Domain" as domain {
+    component "IInteractor" as IInteractor
+    component "Interactor" as Interactor
     component "iRepository" as IRepository
 }
 
 node "Data Source" as data_source {
-    component "repository impl" as repository_impl
-    component "local data" as local_data
-    component "remote data" as remote_data
-    database "db_local" as db_local
-    database "db_remote" as db_remote
+    component "Repository_Impl" as RepositoryImpl
+    component "Local Data" as LocalDataSource
+    component "Remote Data" as RemoteDataSource
+    database "Database" as database
+    database "Network" as network
 }
 
+component "model" as model
+component "entity" as entity
+component "api_response" as api_response
 
 /' Layer Presentation '/
-view_model <-up-> view
-view_model -down-> iUseCase
+Activity -down-> ViewModel
+Service -down-> ViewModel
+Service -down-> IInteractor
+ViewModel -down-> IInteractor
+Worker -down-> IInteractor
+BroadcastReceiver -down-> IInteractor
+ContentProvider -down-> IInteractor
+presentation -down-> model
 
 /' Layer Domain '/
-iUseCase -up-> view_model
-IRepository <-up-> interactor
-interactor <-up-> iUseCase
-IRepository -down-> repository_impl
+IRepository <-up-> Interactor
+Interactor <-up-> IInteractor
+IRepository -down-> RepositoryImpl
+domain -left-> model
 
 /' Layer Data '/
-repository_impl -up-> IRepository
-local_data <-up-> repository_impl
-remote_data <-up-> repository_impl
-db_remote <-up-> remote_data
-db_local <-up-> local_data
+RemoteDataSource -left- api_response
+LocalDataSource -right-> entity
+RepositoryImpl -up-> model
+RepositoryImpl -up-> IRepository
+RepositoryImpl -left-> entity
+LocalDataSource <-up-> RepositoryImpl
+RemoteDataSource <-up-> RepositoryImpl
+network <-up-> RemoteDataSource
+database <-up-> LocalDataSource
 
 @enduml

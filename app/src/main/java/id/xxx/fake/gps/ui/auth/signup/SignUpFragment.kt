@@ -11,7 +11,7 @@ import id.xxx.base.extention.openActivity
 import id.xxx.data.source.firebase.auth.Resource.*
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentSignUpBinding
-import id.xxx.fake.gps.domain.auth.usecase.IAuthInteractor
+import id.xxx.fake.gps.domain.auth.usecase.IInteractor
 import id.xxx.fake.gps.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.coroutines.flow.collect
@@ -20,7 +20,7 @@ import org.koin.android.ext.android.inject
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
-    private val authRepository by inject<IAuthInteractor>()
+    private val authRepository by inject<IInteractor>()
 
     override val layoutFragment = R.layout.fragment_sign_up
 

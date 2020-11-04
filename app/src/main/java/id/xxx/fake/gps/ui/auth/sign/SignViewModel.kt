@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.xxx.data.source.firebase.auth.Resource
 import id.xxx.fake.gps.domain.auth.model.UserModel
-import id.xxx.fake.gps.domain.auth.usecase.IAuthInteractor
+import id.xxx.fake.gps.domain.auth.usecase.IInteractor
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class SignViewModel(private val auth: IAuthInteractor) : ViewModel() {
+class SignViewModel(private val auth: IInteractor) : ViewModel() {
 
     val loginResult = MediatorLiveData<Resource<UserModel>>()
 

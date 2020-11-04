@@ -1,19 +1,17 @@
 package id.xxx.fake.gps.domain.auth.usecase
 
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.LiveData
 import id.xxx.fake.gps.domain.auth.model.UserModel
-import id.xxx.fake.gps.domain.auth.repository.IAuthRepository
+import id.xxx.fake.gps.domain.auth.repository.IRepository
 
-class AuthInteractor constructor(
-    private val iRepository: IAuthRepository<UserModel>
-) : IAuthInteractor {
+class Interactor constructor(
+    private val iRepository: IRepository<UserModel>
+) : IInteractor {
     override fun getUser() = iRepository.getUser()
 
     override fun signOut() = iRepository.signOut()
 
-    override fun verifyEmail(scope: LifecycleCoroutineScope): LiveData<Boolean> =
-        iRepository.verifyEmail(scope)
+    override fun verifyEmail(scope: LifecycleCoroutineScope) = iRepository.verifyEmail(scope)
 
     override fun sign(userName: String, pass: String) = iRepository.sign(userName, pass)
 

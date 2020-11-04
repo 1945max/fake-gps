@@ -12,6 +12,4 @@ import androidx.room.PrimaryKey
 data class UserEntity(
     @PrimaryKey
     val uid: String,
-
-    val isEmailVerified: Boolean = false
 )

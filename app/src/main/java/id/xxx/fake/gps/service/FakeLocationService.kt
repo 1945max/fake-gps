@@ -9,22 +9,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.work.Data
 import com.google.android.gms.maps.model.LatLng
 import id.xxx.base.BaseLifecycleService
-import id.xxx.base.utils.Executors
 import id.xxx.base.utils.Network
 import id.xxx.data.source.map.box.Resource
-import id.xxx.fake.gps.domain.history.usecase.IHistoryUseCase
 import id.xxx.fake.gps.domain.search.model.SearchModel
-import id.xxx.fake.gps.domain.search.usecase.ISearchUseCase
 import id.xxx.fake.gps.utils.DataMapper
 import id.xxx.fake.gps.worker.MyWorker
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import id.xxx.fake.gps.domain.history.usecase.IInteractor as IHistoryInteractor
+import id.xxx.fake.gps.domain.search.usecase.IInteractor as ISearchInteractor
 
 class FakeLocationService : BaseLifecycleService(), FakeLocation.Callback {
-    private val iHistoryRepo: IHistoryUseCase by inject()
-    private val iSearchRepo: ISearchUseCase by inject()
-    private val executors: Executors by inject()
+    private val iHistoryRepo: IHistoryInteractor by inject()
+    private val iSearchRepo: ISearchInteractor by inject()
 
     private lateinit var fakeLocation: FakeLocation
     private lateinit var fakeNotification: FakeLocationNotification

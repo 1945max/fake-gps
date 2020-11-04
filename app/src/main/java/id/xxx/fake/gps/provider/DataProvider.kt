@@ -7,7 +7,6 @@ import android.database.Cursor
 import android.net.Uri
 import id.xxx.fake.gps.provider.DataContract.AUTHORITY
 
-
 class DataProvider : ContentProvider() {
 
     companion object {

@@ -10,7 +10,7 @@ import id.xxx.data.source.map.box.remote.RemoteDataSource
 import id.xxx.data.source.map.box.remote.network.ApiResponse
 import id.xxx.data.source.map.box.remote.response.PlacesResponse
 import id.xxx.fake.gps.domain.search.model.SearchModel
-import id.xxx.fake.gps.domain.search.repository.ISearchRepository
+import id.xxx.fake.gps.domain.search.repository.IRepository
 import id.xxx.fake.gps.utils.Address
 import id.xxx.fake.gps.utils.DataMapper.toListSearchEntity
 import id.xxx.fake.gps.utils.DataMapper.toSearchModel
@@ -22,10 +22,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
-class SearchRepository constructor(
+class SearchRepository(
     private val local: LocalDataSource,
     private val remote: RemoteDataSource
-) : ISearchRepository<SearchModel> {
+) : IRepository<SearchModel> {
 
     override fun getPlaceWithPagingData(
         value: String, scope: CoroutineScope

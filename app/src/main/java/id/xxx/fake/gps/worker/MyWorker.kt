@@ -5,20 +5,20 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import id.xxx.base.utils.Network
 import id.xxx.data.source.map.box.Resource
-import id.xxx.fake.gps.domain.history.usecase.IHistoryUseCase
-import id.xxx.fake.gps.domain.search.usecase.ISearchUseCase
 import id.xxx.fake.gps.utils.DataMapper
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import id.xxx.fake.gps.domain.history.usecase.IInteractor as IHistoryInteractor
+import id.xxx.fake.gps.domain.search.usecase.IInteractor as ISearchInteractor
 
 class MyWorker(
     private val context: Context, workerParam: WorkerParameters
 ) : CoroutineWorker(context, workerParam), KoinComponent {
 
-    private val history by inject<IHistoryUseCase>()
-    private val search by inject<ISearchUseCase>()
+    private val history by inject<IHistoryInteractor>()
+    private val search by inject<ISearchInteractor>()
 
     override suspend fun doWork() = coroutineScope {
         val value = inputData.getString(Network.DATA_EXTRA) ?: ""

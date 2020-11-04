@@ -5,7 +5,7 @@ import id.xxx.data.source.fake.gps.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
-interface IHistoryRepository<Model : Any> {
+interface IRepository<Model : Any> {
     fun getList(): Flow<Resource<List<Model>>>
     fun getPagingData(scope: CoroutineScope): Flow<Resource<PagingData<Model>>>
     suspend fun insert(model: Model)

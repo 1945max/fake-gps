@@ -6,7 +6,7 @@ import id.xxx.data.source.fake.gps.Resource
 import id.xxx.data.source.fake.gps.local.LocalDataSource
 import id.xxx.data.source.fake.gps.network.ApiResponse
 import id.xxx.fake.gps.domain.history.model.HistoryModel
-import id.xxx.fake.gps.domain.history.repository.IHistoryRepository
+import id.xxx.fake.gps.domain.history.repository.IRepository
 import id.xxx.fake.gps.utils.DataMapper.toHistoryEntity
 import id.xxx.fake.gps.utils.DataMapper.toHistoryModel
 import kotlinx.coroutines.CoroutineScope
@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
-class HistoryRepository constructor(
+class HistoryRepository(
     private val historyDataSource: LocalDataSource,
-) : IHistoryRepository<HistoryModel> {
+) : IRepository<HistoryModel> {
 
     override fun getList(): Flow<Resource<List<HistoryModel>>> =
         object : NetworkBoundResource<List<HistoryModel>, Unit>() {
