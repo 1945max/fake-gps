@@ -1,11 +1,15 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
     compileSdkVersion project.compile_sdk_version.toInteger()
     buildToolsVersion project.build_tools_version
+
+    buildFeatures { dataBinding = true }
+
 }
 dependencies {
 

@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".gps.ui.home.HomeFragment">
+        tools:context=".ui.home.HomeFragment">
 
         <include
             layout="@layout/fragment_maps"

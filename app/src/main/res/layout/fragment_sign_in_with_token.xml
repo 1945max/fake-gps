@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.auth.sign.up.SignUpFragment">
+    tools:context=".ui.auth.sign.in.SignInWithEmailFragment">
 
     <data>
 
@@ -12,6 +12,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -37,7 +38,7 @@
             app:layout_constraintGuide_percent="@fraction/guideline_top" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_username"
+            android:id="@+id/ti_token"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
@@ -45,30 +46,11 @@
             app:layout_constraintTop_toTopOf="@id/guideline_top">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username"
+                android:id="@+id/token"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
+                android:hint="@string/prompt_token"
                 android:inputType="textEmailAddress"
-                android:selectAllOnFocus="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/ti_username">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
                 android:selectAllOnFocus="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,18 +62,18 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/ti_password"
+            app:layout_constraintTop_toBottomOf="@+id/ti_token"
             tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_sign_up"
+            android:id="@+id/login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:enabled="false"
             android:onClick="@{onClick::onClick}"
-            android:text="@string/sign_up"
+            android:text="@string/action_sign_in"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"

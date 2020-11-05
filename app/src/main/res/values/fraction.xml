@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <fraction name="guideline_start">0.15</fraction>
+    <fraction name="guideline_end">0.85</fraction>
+    <fraction name="guideline_top">0.2</fraction>
+</resources>

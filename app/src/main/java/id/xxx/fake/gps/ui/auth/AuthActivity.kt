@@ -2,6 +2,7 @@ package id.xxx.fake.gps.ui.auth
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import id.xxx.base.BaseActivityWithNavigation
@@ -18,14 +19,20 @@ class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
 
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(nav_host_auth.findNavController())
-        nav_host_auth.findNavController().addOnDestinationChangedListener { _, _, _ ->
-            supportActionBar?.setDisplayShowHomeEnabled(false)
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.auth_menu, menu)
         return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return super.onSupportNavigateUp() || nav_host_auth.findNavController().navigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.contact -> true
+        R.id.about -> true
+        else -> false
     }
 }
