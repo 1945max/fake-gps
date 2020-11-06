@@ -1,31 +1,29 @@
 package id.xxx.fake.gps.ui.auth.sign.up
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.launch
+import androidx.lifecycle.map
+import kotlin.collections.set
 
-@ExperimentalCoroutinesApi
-@FlowPreview
 class SignUpViewModel : ViewModel() {
+
     companion object {
-        const val NAME = "NAME"
-        const val EMAIL = "EMAIL"
-        const val PASSWORD = "PASSWORD"
+        const val KEY_NAME = "NAME"
+        const val KEY_EMAIL = "EMAIL"
+        const val KEY_PASSWORD = "PASSWORD"
     }
 
-    private val field = mutableMapOf(NAME to false, EMAIL to false, PASSWORD to false)
-    private val queryChannel = BroadcastChannel<Map<String, Boolean>>(Channel.CONFLATED)
+    private val field = mutableMapOf(KEY_NAME to false, KEY_EMAIL to false, KEY_PASSWORD to false)
 
-    val fieldStats = queryChannel.asFlow().asLiveData()
+    private val inputStats = MutableLiveData(field)
 
-    fun put(key: String, value: Boolean) {
+    fun getInputStat(): LiveData<Boolean> = inputStats.map { !it.containsValue(false) }
+
+    fun put(key: String, value: Boolean) = if (field.containsKey(key)) {
         field[key] = value
-        viewModelScope.launch { queryChannel.send(field) }
+        inputStats.postValue(field)
+    } else {
+        throw Error("Field In $key Not Found")
     }
 }

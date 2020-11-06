@@ -32,26 +32,23 @@ class SignViewModel(private val auth: IInteractor) : ViewModel() {
     }
 
     @ExperimentalCoroutinesApi
-    fun validateName(input: TextInputEditText) = input.asFlow()
-        .map {
-            if (it.isBlank()) Result.Error("name not blank") else Result.Valid
-        }
+    fun validateName(input: TextInputEditText) = input.asFlow().map {
+        if (it.isBlank()) Result.Error("name not blank") else Result.Valid
+    }
 
     @ExperimentalCoroutinesApi
-    fun validateEmail(input: TextInputEditText) = input.asFlow()
-        .map {
-            return@map if (!Patterns.EMAIL_ADDRESS.matcher(it).matches())
-                Result.Error("email not valid") else Result.Valid
-        }
+    fun validateEmail(input: TextInputEditText) = input.asFlow().map {
+        return@map if (!Patterns.EMAIL_ADDRESS.matcher(it).matches())
+            Result.Error("email not valid") else Result.Valid
+    }
 
     @ExperimentalCoroutinesApi
-    fun validatePassword(input: TextInputEditText) = input.asFlow()
-        .map {
-            return@map when {
-                it.contains(" ") -> Result.Error("pass not contain space")
-                it.length <= 5 -> Result.Error("min length 6")
-                it.length > 10 -> Result.Error("max length 10")
-                else -> Result.Valid
-            }
+    fun validatePassword(input: TextInputEditText) = input.asFlow().map {
+        return@map when {
+            it.contains(" ") -> Result.Error("pass not contain space")
+            it.length <= 5 -> Result.Error("min length 6")
+            it.length > 10 -> Result.Error("max length 10")
+            else -> Result.Valid
         }
+    }
 }

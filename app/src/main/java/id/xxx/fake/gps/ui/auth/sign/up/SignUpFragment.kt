@@ -15,14 +15,15 @@ import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
 @FlowPreview
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
+    private val signUpViewModel by viewModel<SignUpViewModel>()
     private val iInteractor by inject<IInteractor>()
     private val signViewModel by inject<SignViewModel>()
-    private val signUpViewModel by inject<SignUpViewModel>()
 
     override val layoutFragment = R.layout.fragment_sign_up
 
@@ -35,24 +36,22 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
         val name = signViewModel.validateName(input_name)
         name.asLiveData().observe(viewLifecycleOwner, {
             input_name.error = if (it is Result.Error) it.errorMessage else null
-            signUpViewModel.put(SignUpViewModel.NAME, input_name.error == null)
+            signUpViewModel.put(SignUpViewModel.KEY_NAME, input_name.error == null)
         })
 
         val email = signViewModel.validateEmail(input_email)
         email.asLiveData().observe(viewLifecycleOwner, {
             input_email.error = if (it is Result.Error) it.errorMessage else null
-            signUpViewModel.put(SignUpViewModel.EMAIL, input_email.error == null)
+            signUpViewModel.put(SignUpViewModel.KEY_EMAIL, input_email.error == null)
         })
 
         val password = signViewModel.validatePassword(input_password)
         password.asLiveData().observe(viewLifecycleOwner, {
             input_password.error = if (it is Result.Error) it.errorMessage else null
-            signUpViewModel.put(SignUpViewModel.PASSWORD, input_password.error == null)
+            signUpViewModel.put(SignUpViewModel.KEY_PASSWORD, input_password.error == null)
         })
 
-        signUpViewModel.fieldStats.observe(viewLifecycleOwner, {
-            btn_sign_up.isEnabled = !it.values.contains(false)
-        })
+        signUpViewModel.getInputStat().observe(viewLifecycleOwner, { btn_sign_up.isEnabled = it })
     }
 
     private fun handleClick(it: View) {
