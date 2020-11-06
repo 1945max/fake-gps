@@ -13,14 +13,16 @@ import id.xxx.fake.gps.ui.auth.sign.SignViewModel
 import id.xxx.fake.gps.ui.auth.sign.statAuth
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
 
 @ExperimentalCoroutinesApi
+@FlowPreview
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
     private val iInteractor by inject<IInteractor>()
-    private val viewModel by inject<SignViewModel>()
+    private val signViewModel by inject<SignViewModel>()
+    private val signUpViewModel by inject<SignUpViewModel>()
 
     override val layoutFragment = R.layout.fragment_sign_up
 
@@ -30,18 +32,27 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
         binding.setOnClick { handleClick(it) }
 
-        val email = viewModel.validateEmail(input_email)
+        val name = signViewModel.validateName(input_name)
+        name.asLiveData().observe(viewLifecycleOwner, {
+            input_name.error = if (it is Result.Error) it.errorMessage else null
+            signUpViewModel.put(SignUpViewModel.NAME, input_name.error == null)
+        })
+
+        val email = signViewModel.validateEmail(input_email)
         email.asLiveData().observe(viewLifecycleOwner, {
             input_email.error = if (it is Result.Error) it.errorMessage else null
+            signUpViewModel.put(SignUpViewModel.EMAIL, input_email.error == null)
         })
 
-        val password = viewModel.validatePassword(input_password)
+        val password = signViewModel.validatePassword(input_password)
         password.asLiveData().observe(viewLifecycleOwner, {
             input_password.error = if (it is Result.Error) it.errorMessage else null
+            signUpViewModel.put(SignUpViewModel.PASSWORD, input_password.error == null)
         })
 
-        email.combine(password) { a, b -> a == Result.Valid && b == Result.Valid }
-            .asLiveData().observe(viewLifecycleOwner, { btn_sign_up.isEnabled = it })
+        signUpViewModel.fieldStats.observe(viewLifecycleOwner, {
+            btn_sign_up.isEnabled = !it.values.contains(false)
+        })
     }
 
     private fun handleClick(it: View) {

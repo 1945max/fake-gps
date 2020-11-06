@@ -1,14 +1,14 @@
 package id.xxx.fake.gps.utils
 
 import android.location.Address
+import id.xxx.data.source.fake.gps.local.entity.HistoryEntity
 import id.xxx.data.source.fake.gps.utils.IMapper
 import id.xxx.data.source.fake.gps.utils.IMapperList
 import id.xxx.data.source.fake.gps.utils.IMapperNullable
-import id.xxx.data.source.fake.gps.local.entity.HistoryEntity
-import id.xxx.fake.gps.domain.history.model.HistoryModel
-import id.xxx.fake.gps.domain.search.model.SearchModel
 import id.xxx.data.source.map.box.local.entity.PlacesEntity
 import id.xxx.data.source.map.box.remote.response.Features
+import id.xxx.fake.gps.domain.history.model.HistoryModel
+import id.xxx.fake.gps.domain.search.model.SearchModel
 
 object DataMapper {
     val searchModelToHistoryModel = object : IMapper<SearchModel, HistoryModel> {

@@ -10,4 +10,5 @@
     <string name="about">About</string>
     <string name="contact">Contact</string>
     <string name="sign_up">Sign Up</string>
+    <string name="prompt_name">Name</string>
 </resources>

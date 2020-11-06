@@ -5,7 +5,6 @@ import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import id.xxx.base.BaseActivityWithNavigation
@@ -34,7 +33,7 @@ class SearchActivity : BaseActivityWithNavigation<ActivitySearchBinding>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
-        setupActionBarWithNavController(findNavController(R.id.nav_host_search))
+        setupActionBarWithNavController(nav_host_search.findNavController())
         supportActionBar?.apply {
             setHomeButtonEnabled(true)
             setDisplayHomeAsUpEnabled(true)

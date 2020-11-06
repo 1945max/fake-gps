@@ -32,6 +32,12 @@ class SignViewModel(private val auth: IInteractor) : ViewModel() {
     }
 
     @ExperimentalCoroutinesApi
+    fun validateName(input: TextInputEditText) = input.asFlow()
+        .map {
+            if (it.isBlank()) Result.Error("name not blank") else Result.Valid
+        }
+
+    @ExperimentalCoroutinesApi
     fun validateEmail(input: TextInputEditText) = input.asFlow()
         .map {
             return@map if (!Patterns.EMAIL_ADDRESS.matcher(it).matches())

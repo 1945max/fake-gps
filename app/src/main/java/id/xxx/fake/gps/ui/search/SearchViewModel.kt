@@ -18,18 +18,18 @@ import kotlinx.coroutines.launch
 @FlowPreview
 @ExperimentalCoroutinesApi
 class SearchViewModel constructor(
-    application: Application, private val search: IInteractor
+    application: Application, private val iInteractor: IInteractor
 ) : AndroidViewModel(application) {
 
-    private val queryChannel = BroadcastChannel<String?>(Channel.CONFLATED)
+    private val queryChannel = BroadcastChannel<String>(Channel.CONFLATED)
     val searchResult = queryChannel.asFlow()
         .debounce(300)
         .distinctUntilChanged()
         .mapLatest {
-            search.getPlaceWithPagingData(it ?: "", viewModelScope).asLiveData()
+            iInteractor.getPlaceWithPagingData(it, viewModelScope).asLiveData()
         }.asLiveData()
 
-    fun getAddress(value: String) = search.getAddress(getApplication(), value)
+    fun getAddress(value: String) = iInteractor.getAddress(getApplication(), value)
 
     fun sendQuery(value: String) = viewModelScope.launch { queryChannel.send(value) }
 }

@@ -37,7 +37,7 @@
             app:layout_constraintGuide_percent="@fraction/guideline_top" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_username"
+            android:id="@+id/layout_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/layout_username">
+            app:layout_constraintTop_toBottomOf="@+id/layout_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_password"
