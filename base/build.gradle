@@ -31,7 +31,6 @@ dependencies {
 
     api "androidx.work:work-runtime:$work_manager_runtime_version"
     api "androidx.work:work-runtime-ktx:$work_manager_runtime_version"
-    api "androidx.work:work-rxjava2:$work_manager_runtime_version"
     api "androidx.work:work-gcm:$work_manager_runtime_version"
     androidTestImplementation "androidx.work:work-testing:$work_manager_runtime_version"
 }

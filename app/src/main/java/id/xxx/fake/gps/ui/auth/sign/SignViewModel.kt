@@ -32,14 +32,14 @@ class SignViewModel(private val auth: IInteractor) : ViewModel() {
     }
 
     @ExperimentalCoroutinesApi
-    fun validateEmail(a: TextInputEditText) = a.asFlow()
+    fun validateEmail(input: TextInputEditText) = input.asFlow()
         .map {
-            if (!Patterns.EMAIL_ADDRESS.matcher(it).matches())
+            return@map if (!Patterns.EMAIL_ADDRESS.matcher(it).matches())
                 Result.Error("email not valid") else Result.Valid
         }
 
     @ExperimentalCoroutinesApi
-    fun validatePassword(a: TextInputEditText) = a.asFlow()
+    fun validatePassword(input: TextInputEditText) = input.asFlow()
         .map {
             return@map when {
                 it.contains(" ") -> Result.Error("pass not contain space")
