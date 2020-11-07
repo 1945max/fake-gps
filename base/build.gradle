@@ -20,6 +20,8 @@ dependencies {
     api "androidx.palette:palette-ktx:$palette_ktx_version"
     api "androidx.core:core-ktx:$core_ktx_version"
 
+    api "com.airbnb.android:lottie:3.4.4"
+
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_android"
 

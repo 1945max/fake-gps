@@ -14,4 +14,7 @@ interface IRepository<Model> {
     fun sign(userName: String, pass: String): Flow<Resource<Model>>
     fun sign(token: String): Flow<Resource<Model>>
     fun createUser(userName: String, pass: String): Flow<Resource<Model>>
+    fun sendEmailVerifyAsFlow(): Flow<Boolean>
+    fun sendEmailVerify()
+    fun reload(): Flow<Void?>
 }

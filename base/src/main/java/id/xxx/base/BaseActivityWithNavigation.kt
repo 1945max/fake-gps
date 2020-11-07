@@ -30,9 +30,11 @@ abstract class BaseActivityWithNavigation<ActivityBinding : ViewDataBinding> : A
 
     /* Forwarding onOptionsItemSelected to fragment in NavHostFragment*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navHostFragment = supportFragmentManager.fragments.first() as NavHostFragment
-        val fragment = navHostFragment.childFragmentManager.fragments
-        fragment.forEach { it.onOptionsItemSelected(item) }
+        if (supportFragmentManager.fragments.isNotEmpty()) {
+            val navHostFragment = supportFragmentManager.fragments.first() as NavHostFragment
+            val fragment = navHostFragment.childFragmentManager.fragments
+            fragment.forEach { it.onOptionsItemSelected(item) }
+        }
         return super.onOptionsItemSelected(item)
     }
 }

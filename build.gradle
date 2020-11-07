@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        databinding_version = "4.2.0-alpha15"
+        databinding_version = "4.2.0-alpha16"
 
         material_version = "1.2.1"
         appcompact_version = "1.2.0"

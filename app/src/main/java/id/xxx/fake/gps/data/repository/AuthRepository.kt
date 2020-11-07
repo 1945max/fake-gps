@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import id.xxx.data.source.firebase.auth.Resource
 import id.xxx.data.source.firebase.auth.remote.ApiResponse
 import id.xxx.data.source.firebase.auth.remote.ApiResponse.*
@@ -22,21 +23,37 @@ import kotlinx.coroutines.tasks.await
 class AuthRepository : IRepository<UserModel> {
     private val remote = FirebaseAuth.getInstance()
 
+    private fun currentUser() = try {
+        remote.currentUser
+    } catch (e: FirebaseAuthInvalidUserException) {
+        null
+    }
+
     override fun signOut() = remote.signOut()
 
     override fun getUser() = remote.currentUser?.let { user ->
         User.Exist(UserModel(user.uid, user.isEmailVerified))
     } ?: User.Empty
 
+
+    override fun sendEmailVerifyAsFlow() = flow {
+        try {
+            currentUser()?.sendEmailVerification()?.await()
+            emit(true)
+        } catch (e: Exception) {
+            emit(false)
+        }
+    }
+
     override fun verifyEmail(scope: LifecycleCoroutineScope): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
-        val user = remote.currentUser
+        val user = currentUser()
         user?.apply {
             sendEmailVerification()
             scope.launch {
                 while (!isEmailVerified) {
                     delay(500)
-                    remote.currentUser?.reload()
+                    currentUser()?.reload()
                     if (isEmailVerified) result.postValue(isEmailVerified)
                 }
             }
@@ -81,5 +98,17 @@ class AuthRepository : IRepository<UserModel> {
             Resource.Success(UserModel(user.uid, user.isEmailVerified))
         } ?: Resource.Empty
         is Empty -> Resource.Empty
+    }
+
+    override fun sendEmailVerify() {
+        currentUser()?.sendEmailVerification()
+    }
+
+    override fun reload() = flow {
+        try {
+            emit(currentUser()?.reload()?.await())
+        } catch (e: Exception) {
+            emit(null)
+        }
     }
 }
