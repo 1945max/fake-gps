@@ -1,15 +1,13 @@
-package id.xxx.fake.gps.ui.auth.sign.up
+package id.xxx.fake.gps.ui.auth.sign.`in`
 
 import androidx.lifecycle.MutableLiveData
 import id.xxx.fake.gps.ui.auth.sign.BaseSignViewModel
-import id.xxx.fake.gps.ui.auth.sign.`in`.SignInWithTokenViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class SignUpViewModel : BaseSignViewModel() {
+class SignInWithEmailViewModel : BaseSignViewModel() {
 
     companion object {
-        const val KEY_NAME = "NAME"
         const val KEY_EMAIL = "EMAIL"
         const val KEY_PASSWORD = "PASSWORD"
     }

@@ -1,9 +1,7 @@
 package id.xxx.fake.gps.ui.auth.sign
 
 import android.util.Patterns
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.android.material.textfield.TextInputEditText
 import id.xxx.base.extention.asFlow
 import id.xxx.data.source.firebase.auth.Resource
@@ -14,35 +12,42 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class SignViewModel(private val auth: IInteractor) : ViewModel() {
+@ExperimentalCoroutinesApi
+abstract class BaseSignViewModel : ViewModel(), KoinComponent {
+
+    private val iInteractor: IInteractor by inject()
+
+    abstract val field: MutableMap<String, Boolean>
+    abstract val inputStats: MutableLiveData<MutableMap<String, Boolean>>
 
     val loginResult = MediatorLiveData<Resource<UserModel>>()
 
+    fun create(username: String, password: String) = iInteractor.createUser(username, password)
+
     fun login(username: String, password: String) {
         viewModelScope.launch {
-            auth.sign(username, password).collect { loginResult.postValue(it) }
+            iInteractor.sign(username, password).collect { loginResult.postValue(it) }
         }
     }
 
     fun login(token: String) {
         viewModelScope.launch {
-            auth.sign(token).collect { loginResult.postValue(it) }
+            iInteractor.sign(token).collect { loginResult.postValue(it) }
         }
     }
 
-    @ExperimentalCoroutinesApi
     fun validateName(input: TextInputEditText) = input.asFlow().map {
         if (it.isBlank()) Result.Error("name not blank") else Result.Valid
     }
 
-    @ExperimentalCoroutinesApi
     fun validateEmail(input: TextInputEditText) = input.asFlow().map {
         return@map if (!Patterns.EMAIL_ADDRESS.matcher(it).matches())
             Result.Error("email not valid") else Result.Valid
     }
 
-    @ExperimentalCoroutinesApi
     fun validatePassword(input: TextInputEditText) = input.asFlow().map {
         return@map when {
             it.contains(" ") -> Result.Error("pass not contain space")
@@ -50,5 +55,18 @@ class SignViewModel(private val auth: IInteractor) : ViewModel() {
             it.length > 10 -> Result.Error("max length 10")
             else -> Result.Valid
         }
+    }
+
+    fun validateToken(input: TextInputEditText) = input.asFlow().map {
+        if (it.length <= 10) Result.Error("min length 10") else Result.Valid
+    }
+
+    fun getInputStat(): LiveData<Boolean> = inputStats.map { !it.containsValue(false) }
+
+    fun put(key: String, value: Boolean) = if (field.containsKey(key)) {
+        field[key] = value
+        inputStats.postValue(field)
+    } else {
+        throw Error("Field In $key Not Found")
     }
 }
