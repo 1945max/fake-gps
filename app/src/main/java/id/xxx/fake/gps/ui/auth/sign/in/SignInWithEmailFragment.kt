@@ -25,7 +25,7 @@ class SignInWithEmailFragment : BaseFragment<FragmentSignInWithEmailBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loginResult.observe(viewLifecycleOwner, { statAuth(it) })
+        viewModel.getLoginResult().observe(viewLifecycleOwner, { statAuth(it) })
 
         binding.setOnClick { handleClick(it) }
 

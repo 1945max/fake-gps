@@ -17,13 +17,14 @@ import org.koin.core.inject
 
 @ExperimentalCoroutinesApi
 abstract class BaseSignViewModel : ViewModel(), KoinComponent {
-
     private val iInteractor: IInteractor by inject()
 
-    abstract val field: MutableMap<String, Boolean>
-    abstract val inputStats: MutableLiveData<MutableMap<String, Boolean>>
+    protected abstract val fieldStats: MutableMap<String, Boolean>
+    protected abstract val inputStats: MutableLiveData<MutableMap<String, Boolean>>
 
-    val loginResult = MediatorLiveData<Resource<UserModel>>()
+    private val loginResult = MediatorLiveData<Resource<UserModel>>()
+
+    fun getLoginResult(): LiveData<Resource<UserModel>> = loginResult
 
     fun create(username: String, password: String) = iInteractor.createUser(username, password)
 
@@ -63,9 +64,9 @@ abstract class BaseSignViewModel : ViewModel(), KoinComponent {
 
     fun getInputStat(): LiveData<Boolean> = inputStats.map { !it.containsValue(false) }
 
-    fun put(key: String, value: Boolean) = if (field.containsKey(key)) {
-        field[key] = value
-        inputStats.postValue(field)
+    fun put(key: String, value: Boolean) = if (fieldStats.containsKey(key)) {
+        fieldStats[key] = value
+        inputStats.postValue(fieldStats)
     } else {
         throw Error("Field In $key Not Found")
     }

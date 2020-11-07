@@ -11,7 +11,7 @@ class SignInWithTokenViewModel : BaseSignViewModel() {
         const val KEY_TOKEN = "TOKEN"
     }
 
-    override val field = mutableMapOf(KEY_TOKEN to false)
+    override val fieldStats = mutableMapOf(KEY_TOKEN to false)
 
-    override val inputStats = MutableLiveData(field)
+    override val inputStats = MutableLiveData(fieldStats)
 }

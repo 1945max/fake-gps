@@ -2,7 +2,6 @@ package id.xxx.fake.gps.ui.auth.sign.up
 
 import androidx.lifecycle.MutableLiveData
 import id.xxx.fake.gps.ui.auth.sign.BaseSignViewModel
-import id.xxx.fake.gps.ui.auth.sign.`in`.SignInWithTokenViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -14,7 +13,8 @@ class SignUpViewModel : BaseSignViewModel() {
         const val KEY_PASSWORD = "PASSWORD"
     }
 
-    override val field = mutableMapOf(SignInWithTokenViewModel.KEY_TOKEN to false)
+    override val fieldStats =
+        mutableMapOf(KEY_NAME to false, KEY_EMAIL to false, KEY_PASSWORD to false)
 
-    override val inputStats = MutableLiveData(field)
+    override val inputStats = MutableLiveData(fieldStats)
 }

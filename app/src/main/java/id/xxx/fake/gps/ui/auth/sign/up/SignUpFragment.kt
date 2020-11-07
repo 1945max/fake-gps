@@ -28,20 +28,17 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
         binding.setOnClick { handleClick(it) }
 
-        val name = viewModel.validateName(input_name)
-        name.asLiveData().observe(viewLifecycleOwner, {
+        viewModel.validateName(input_name).asLiveData().observe(viewLifecycleOwner, {
             input_name.error = if (it is Result.Error) it.errorMessage else null
             viewModel.put(SignUpViewModel.KEY_NAME, input_name.error == null)
         })
 
-        val email = viewModel.validateEmail(input_email)
-        email.asLiveData().observe(viewLifecycleOwner, {
+        viewModel.validateEmail(input_email).asLiveData().observe(viewLifecycleOwner, {
             input_email.error = if (it is Result.Error) it.errorMessage else null
             viewModel.put(SignUpViewModel.KEY_EMAIL, input_email.error == null)
         })
 
-        val password = viewModel.validatePassword(input_password)
-        password.asLiveData().observe(viewLifecycleOwner, {
+        viewModel.validatePassword(input_password).asLiveData().observe(viewLifecycleOwner, {
             input_password.error = if (it is Result.Error) it.errorMessage else null
             viewModel.put(SignUpViewModel.KEY_PASSWORD, input_password.error == null)
         })

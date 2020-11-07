@@ -1,4 +1,4 @@
-package id.xxx.fake.gps.worker
+package id.xxx.fake.gps.workers
 
 import android.content.Context
 import androidx.work.CoroutineWorker

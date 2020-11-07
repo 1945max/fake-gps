@@ -32,7 +32,7 @@ class SignInWithTokenFragment : BaseFragment<FragmentSignInWithTokenBinding>() {
 
         binding.setOnClick { handleClick(it) }
 
-        viewModel.loginResult.observe(viewLifecycleOwner, { statAuth(it) })
+        viewModel.getLoginResult().observe(viewLifecycleOwner, { statAuth(it) })
     }
 
     private fun handleClick(it: View) {
