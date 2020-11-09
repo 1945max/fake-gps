@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import id.xxx.fake.gps.domain.search.usecase.IInteractor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -31,7 +32,7 @@ class SearchViewModel constructor(
         .asLiveData()
 
     val searchResult = query.switchMap {
-        iInteractor.getPlaceWithPagingData(it).asLiveData()
+        iInteractor.getPlaceWithPagingData(it).cachedIn(viewModelScope).asLiveData()
     }
 
     fun sendQuery(value: String) = viewModelScope.launch { queryChannel.send(value) }
