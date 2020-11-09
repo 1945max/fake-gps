@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import id.xxx.data.source.fake.gps.local.dao.HistoryDao
-import id.xxx.data.source.fake.gps.local.database.Encryption
 import id.xxx.data.source.fake.gps.local.entity.HistoryEntity
 
 @Database(
@@ -28,7 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
                 instance = Room.databaseBuilder(app, AppDatabase::class.java, this::class.java.name)
                     .fallbackToDestructiveMigration()
                     .addCallback(CallbackDatabase(app))
-                    .openHelperFactory(Encryption.passphrase)
+//                    .openHelperFactory(Encryption.passphrase)
                     .build()
             }
             return instance as AppDatabase

@@ -1,7 +1,5 @@
 package id.xxx.base
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +16,5 @@ abstract class BaseFragment<ActivityBinding : ViewDataBinding> : Fragment() {
     override fun onCreateView(li: LayoutInflater, con: ViewGroup?, bundle: Bundle?): View? {
         binding = DataBindingUtil.inflate(li, layoutFragment, con, false)
         return binding.root
-    }
-
-    protected fun setResultAndFinish(intent: Intent?) {
-        requireActivity().apply {
-            this.setResult(Activity.RESULT_OK, intent)
-            this.finish()
-        }
     }
 }

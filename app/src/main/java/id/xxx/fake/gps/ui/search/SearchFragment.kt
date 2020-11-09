@@ -1,23 +1,24 @@
 package id.xxx.fake.gps.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.paging.PagingData
+import androidx.lifecycle.asLiveData
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.xxx.base.BaseFragment
 import id.xxx.base.adapter.ItemClicked
 import id.xxx.base.extention.setResultAndFinish
-import id.xxx.data.source.map.box.Resource
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentSearchBinding
 import id.xxx.fake.gps.domain.search.model.SearchModel
-import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filter
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 @ExperimentalCoroutinesApi
@@ -41,26 +42,29 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), ItemClicked<Search
             adapter = this@SearchFragment.adapter
         }
 
-        viewModel.searchResult.observe(viewLifecycleOwner, { stat(it) })
+        viewModel.searchResult.observe(viewLifecycleOwner) { adapter.submitData(lifecycle, it) }
+        adapter.addLoadStateListener { addLoadStateListener(it) }
+        adapter.loadStateFlow
+            .distinctUntilChangedBy { it.refresh }
+            .filter { it.refresh is LoadState.NotLoading }
+            .asLiveData().observe(viewLifecycleOwner, { binding.recyclerView.scrollToPosition(0) })
     }
 
-
-    private fun stat(liveData: LiveData<Resource<PagingData<SearchModel>>>) {
-        liveData.observe(viewLifecycleOwner, {
-            when (it) {
-                is Resource.Loading -> Log.i("TAG", "stat_loading: $it")
-                is Resource.Success -> adapter.submitData(lifecycle, it.data)
-                is Resource.Empty -> adapter.submitData(lifecycle, PagingData.empty())
-                is Resource.Error -> {
-                    it.data?.apply {
-                        adapter.submitData(lifecycle, this)
-                    } ?: run {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                    }
-                }
+    private fun addLoadStateListener(loadState: CombinedLoadStates) =
+        if (loadState.refresh is LoadState.Loading) {
+            loading_progress_bar.visibility = View.VISIBLE
+        } else {
+            loading_progress_bar.visibility = View.GONE
+            val error = when {
+                loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                else -> null
             }
-        })
-    }
+            error?.let {
+                Toast.makeText(context, it.error.message, Toast.LENGTH_LONG).show()
+            }
+        }
 
     override fun onItemClick(model: SearchModel) {
         setResultAndFinish {

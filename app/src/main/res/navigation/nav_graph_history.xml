@@ -2,18 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/mock_history_fragment">
+    app:startDestination="@id/history_fragment">
 
     <fragment
-        android:id="@+id/mock_history_fragment"
+        android:id="@+id/history_fragment"
         android:name="id.xxx.fake.gps.ui.history.HistoryFragment"
         android:label="History"
-        tools:layout="@layout/fragment_history">
-        <action
-            android:id="@+id/action_to_home_fragment"
-            app:destination="@id/home_fragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/home_fragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        tools:layout="@layout/fragment_history" />
 </navigation>

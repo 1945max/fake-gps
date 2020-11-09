@@ -15,37 +15,30 @@ import id.xxx.fake.gps.utils.Address
 import id.xxx.fake.gps.utils.DataMapper.toListSearchEntity
 import id.xxx.fake.gps.utils.DataMapper.toSearchModel
 import id.xxx.fake.gps.utils.Result
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
+@ExperimentalPagingApi
+@ExperimentalCoroutinesApi
+@FlowPreview
 class SearchRepository(
     private val local: LocalDataSource,
     private val remote: RemoteDataSource
 ) : IRepository<SearchModel> {
 
-    override fun getPlaceWithPagingData(
-        value: String, scope: CoroutineScope
-    ): Flow<Resource<PagingData<SearchModel>>> =
-        object : NetworkBoundResource<PagingData<SearchModel>, PlacesResponse>() {
-            override fun loadFromDB(): Flow<PagingData<SearchModel>> =
-                Pager(config = PagingConfig(pageSize = 10, enablePlaceholders = false)) {
-                    local.getPaging(value)
-                }.flow.map {
-                    return@map if (value == "") PagingData.empty() else it.map { searchEntity ->
-                        toSearchModel.map(searchEntity)
-                    }
-                }.cachedIn(scope)
-
-            override suspend fun createCall() = remote.getPlaces(value)
-
-            override suspend fun saveCallResult(data: PlacesResponse) {
-                local.insert(*toListSearchEntity.map(data.features).toTypedArray())
-            }
-        }.asFlow()
+    override fun getPlaceWithPagingData(value: String): Flow<PagingData<SearchModel>> = Pager(
+        config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+        remoteMediator = RemoteMediator(value, remote.apiService, local)
+    ) { local.getPaging(value) }.flow.map {
+        return@map if (value == "") PagingData.empty() else it.map { searchEntity ->
+            toSearchModel.map(searchEntity)
+        }
+    }
 
     override fun getPlaces(value: String): Flow<Resource<List<SearchModel>>> =
         object : NetworkBoundResource<List<SearchModel>, PlacesResponse>() {
@@ -92,4 +85,5 @@ class SearchRepository(
             }
         }
     }.flowOn(Dispatchers.IO)
+
 }

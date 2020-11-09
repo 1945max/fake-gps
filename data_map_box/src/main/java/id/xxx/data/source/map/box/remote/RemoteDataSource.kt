@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class RemoteDataSource constructor(private val apiService: ApiService) {
+class RemoteDataSource constructor(val apiService: ApiService) {
     fun getPlaces(query: String) = flow {
         try {
             val response = apiService.fetchPlaces(query)

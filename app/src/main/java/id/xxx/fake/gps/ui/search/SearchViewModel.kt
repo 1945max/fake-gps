@@ -3,6 +3,7 @@ package id.xxx.fake.gps.ui.search
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import id.xxx.fake.gps.domain.search.usecase.IInteractor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,18 +19,23 @@ import kotlinx.coroutines.launch
 @FlowPreview
 @ExperimentalCoroutinesApi
 class SearchViewModel constructor(
-    application: Application, private val iInteractor: IInteractor
+    private val iInteractor: IInteractor,
+    application: Application
 ) : AndroidViewModel(application) {
 
     private val queryChannel = BroadcastChannel<String>(Channel.CONFLATED)
-    val searchResult = queryChannel.asFlow()
+    private val query = queryChannel.asFlow()
         .debounce(300)
         .distinctUntilChanged()
-        .mapLatest {
-            iInteractor.getPlaceWithPagingData(it, viewModelScope).asLiveData()
-        }.asLiveData()
+        .mapLatest { it }
+        .asLiveData()
+
+    val searchResult = query.switchMap {
+        iInteractor.getPlaceWithPagingData(it).asLiveData()
+    }
+
+    fun sendQuery(value: String) = viewModelScope.launch { queryChannel.send(value) }
 
     fun getAddress(value: String) = iInteractor.getAddress(getApplication(), value)
 
-    fun sendQuery(value: String) = viewModelScope.launch { queryChannel.send(value) }
 }

@@ -14,9 +14,7 @@ import id.xxx.fake.gps.domain.history.model.HistoryModel
 
 class Adapter(
     itemLayout: Int, onItemClick: ItemClicked<HistoryModel>
-) : BaseAdapterWithPaging<HistoryModel, ItemHistoryBinding>(
-    itemLayout, diffCallback, onItemClick
-) {
+) : BaseAdapterWithPaging<HistoryModel, ItemHistoryBinding>(itemLayout, diffCallback, onItemClick) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<HistoryModel>() {
@@ -42,7 +40,7 @@ class Adapter(
                 val clip = ClipData.newPlainText("text", (it as AppCompatTextView).text)
                 clipboardManager.setPrimaryClip(clip)
                 Toast.makeText(it.context, "copy", Toast.LENGTH_SHORT).show()
-                true
+                return@setOnLongClickListener true
             }
 
             root.setOnClickListener { data?.let { onItemClick?.onItemClick(it) } }

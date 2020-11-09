@@ -3,8 +3,10 @@ package id.xxx.base.adapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemSwipeLR(onSwipedCallback: OnSwipedCallback) :
-    ItemTouchHelper(ItemTouchCallback(onSwipedCallback)) {
+class ItemSwipeLR(
+    onSwipedCallback: OnSwipedCallback
+) : ItemTouchHelper(ItemTouchCallback(onSwipedCallback)) {
+
     private class ItemTouchCallback(private val onSwipedCallback: OnSwipedCallback) :
         ItemTouchHelper.Callback() {
         override fun getMovementFlags(

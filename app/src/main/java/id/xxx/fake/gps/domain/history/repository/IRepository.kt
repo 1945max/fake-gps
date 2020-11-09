@@ -1,13 +1,11 @@
 package id.xxx.fake.gps.domain.history.repository
 
 import androidx.paging.PagingData
-import id.xxx.data.source.fake.gps.Resource
-import kotlinx.coroutines.CoroutineScope
+import id.xxx.fake.gps.domain.history.model.HistoryModel
 import kotlinx.coroutines.flow.Flow
 
 interface IRepository<Model : Any> {
-    fun getList(): Flow<Resource<List<Model>>>
-    fun getPagingData(scope: CoroutineScope): Flow<Resource<PagingData<Model>>>
-    suspend fun insert(model: Model)
-    suspend fun delete(model: Model)
+    fun getPagingData(): Flow<PagingData<HistoryModel>>
+    suspend fun insert(model: Model): Long
+    suspend fun delete(model: Model): Int
 }
