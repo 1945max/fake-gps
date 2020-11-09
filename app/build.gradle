@@ -7,15 +7,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion project.compile_sdk_version.toInteger()
-    buildToolsVersion project.build_tools_version
+    compileSdkVersion rootProject.compile_sdk_version
+    buildToolsVersion rootProject.build_tools_version
 
     defaultConfig {
         applicationId "id.xxx.fake.gps"
-        minSdkVersion project.min_sdk_version.toInteger()
-        targetSdkVersion project.target_sdk_version.toInteger()
-        versionCode project.version_code.toInteger()
-        versionName project.version_name
+        minSdkVersion rootProject.min_sdk_version
+        targetSdkVersion rootProject.target_sdk_version
+        versionCode rootProject.version_code
+        versionName rootProject.version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -23,9 +23,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions { jvmTarget = '1.8' }
+    kotlinOptions { jvmTarget = "1.8" }
 
-    ndkVersion project.ndk_version
+    ndkVersion rootProject.ndk_version
 
     buildTypes {
         release {
