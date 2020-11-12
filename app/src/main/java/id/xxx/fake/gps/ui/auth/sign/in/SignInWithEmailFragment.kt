@@ -51,7 +51,9 @@ class SignInWithEmailFragment : BaseFragment<FragmentSignInWithEmailBinding>() {
 
     private fun handleClick(view: View) {
         when (view.id) {
-            R.id.login -> viewModel.login("${input_email.text}", "${input_password.text}")
+            R.id.login -> {
+                viewModel.login("${input_email.text}", "${input_password.text}")
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 package id.xxx.fake.gps.domain.auth.usecase
 
 import id.xxx.fake.gps.domain.auth.model.UserModel
-import id.xxx.fake.gps.domain.auth.repository.IRepository
+import id.xxx.fake.gps.domain.auth.repository.AuthRepository
 
-interface IInteractor : IRepository<UserModel>
+interface IInteractor : AuthRepository<UserModel>

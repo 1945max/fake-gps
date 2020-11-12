@@ -1,6 +1,5 @@
 package id.xxx.fake.gps.ui.auth.sign.up
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -16,7 +15,6 @@ import kotlinx.coroutines.FlowPreview
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-@SuppressLint("CheckResult")
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
     private val viewModel by viewModels<SignUpViewModel>()
@@ -49,7 +47,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     private fun handleClick(it: View) {
         when (it.id) {
             R.id.btn_sign_up -> viewModel.create(
-                "${input_email.text}", "${input_password.text}"
+                    "${input_email.text}", "${input_password.text}"
             ).asLiveData().observe(viewLifecycleOwner, { resources -> statAuth(resources) })
         }
     }

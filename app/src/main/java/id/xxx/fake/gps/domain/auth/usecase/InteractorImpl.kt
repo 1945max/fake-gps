@@ -2,10 +2,10 @@ package id.xxx.fake.gps.domain.auth.usecase
 
 import androidx.lifecycle.LifecycleCoroutineScope
 import id.xxx.fake.gps.domain.auth.model.UserModel
-import id.xxx.fake.gps.domain.auth.repository.IRepository
+import id.xxx.fake.gps.domain.auth.repository.AuthRepository
 
-class Interactor constructor(
-    private val iRepository: IRepository<UserModel>
+class InteractorImpl constructor(
+        private val iRepository: AuthRepository<UserModel>
 ) : IInteractor {
 
     override fun getUser() = iRepository.getUser()

@@ -7,7 +7,7 @@ import id.xxx.fake.gps.domain.auth.model.User
 import id.xxx.fake.gps.domain.auth.model.UserModel
 import kotlinx.coroutines.flow.Flow
 
-interface IRepository<Model> {
+interface AuthRepository<Model> {
     fun getUser(): User<UserModel>
     fun signOut()
     fun verifyEmail(scope: LifecycleCoroutineScope): LiveData<Boolean>

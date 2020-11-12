@@ -11,7 +11,7 @@ import id.xxx.base.BaseFragment
 import id.xxx.base.adapter.Holder
 import id.xxx.base.adapter.ItemClicked
 import id.xxx.base.adapter.ItemSwipeLR
-import id.xxx.base.extention.setResultAndFinish
+import id.xxx.base.extention.setResult
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentHistoryBinding
 import id.xxx.fake.gps.databinding.ItemHistoryBinding
@@ -31,7 +31,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         adapterPaging = Adapter(R.layout.item_history, object : ItemClicked<HistoryModel> {
-            override fun onItemClick(model: HistoryModel) = setResultAndFinish {
+            override fun onItemClick(model: HistoryModel) = setResult {
                 putExtra("latitude", model.latitude)
                 putExtra("longitude", model.longitude)
             }

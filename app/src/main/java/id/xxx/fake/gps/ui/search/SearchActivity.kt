@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import id.xxx.base.BaseActivityWithNavigation
-import id.xxx.base.extention.setResultAdnFinis
+import id.xxx.base.extention.setResult
 import id.xxx.data.source.map.box.Resource
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.ActivitySearchBinding
@@ -72,7 +72,7 @@ class SearchActivity : BaseActivityWithNavigation<ActivitySearchBinding>(),
         }
     }
 
-    private fun setResultTextSubmit(lat: Double, long: Double) = setResultAdnFinis {
+    private fun setResultTextSubmit(lat: Double, long: Double) = setResult {
         putExtra("latitude", lat)
         putExtra("longitude", long)
     }

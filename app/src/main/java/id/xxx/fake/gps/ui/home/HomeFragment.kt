@@ -14,25 +14,30 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import id.xxx.base.BaseFragment
+import id.xxx.base.extention.openActivity
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentHomeBinding
 import id.xxx.fake.gps.domain.auth.usecase.IInteractor
 import id.xxx.fake.gps.map.Map
 import id.xxx.fake.gps.service.FakeLocation
 import id.xxx.fake.gps.service.FakeLocationService
-import id.xxx.fake.gps.ui.auth.AuthActivity
 import id.xxx.fake.gps.ui.history.HistoryActivity
 import id.xxx.fake.gps.ui.search.SearchActivity
+import id.xxx.fake.gps.ui.splash.SplashActivity
 import id.xxx.fake.gps.utils.formatDouble
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class HomeFragment :
-    BaseFragment<FragmentHomeBinding>(),
-    Map.Callback,
-    GoogleMap.OnCameraMoveListener,
-    GoogleMap.OnMarkerClickListener,
-    View.OnClickListener {
+        BaseFragment<FragmentHomeBinding>(),
+        Map.Callback,
+        GoogleMap.OnCameraMoveListener,
+        GoogleMap.OnMarkerClickListener,
+        View.OnClickListener {
 
     private lateinit var map: Map
 
@@ -61,7 +66,7 @@ class HomeFragment :
             HistoryActivity.REQUEST_CODE, SearchActivity.REQUEST_CODE -> {
                 intent?.apply {
                     LatLng(
-                        getDoubleExtra("latitude", 0.0), getDoubleExtra("longitude", 0.0)
+                            getDoubleExtra("latitude", 0.0), getDoubleExtra("longitude", 0.0)
                     ).apply { addSingleMaker(this) }
                 }
             }
@@ -81,9 +86,9 @@ class HomeFragment :
             val cameraPosition = cameraPosition
             cameraPosition.apply {
                 val a =
-                    formatDouble(target.latitude) == formatDouble(location.latitude)
+                        formatDouble(target.latitude) == formatDouble(location.latitude)
                 val b =
-                    formatDouble(target.longitude) == formatDouble(location.longitude)
+                        formatDouble(target.longitude) == formatDouble(location.longitude)
                 aci_my_position?.apply { visibility = if (a && b) GONE else VISIBLE }
             }
         }
@@ -120,9 +125,7 @@ class HomeFragment :
         when (view.id) {
             R.id.btn_logout -> {
                 inject<IInteractor>().value.signOut()
-                startActivity(Intent(requireContext(), AuthActivity::class.java).apply {
-                    requireActivity().finish()
-                })
+                openActivity<SplashActivity>(isFinish = true)
             }
 
             R.id.toolbar -> {
@@ -159,7 +162,7 @@ class HomeFragment :
     private fun moveCamera(latitude: Double, longitude: Double) {
         googleMap?.apply {
             animateCamera(
-                CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), cameraPosition.zoom)
+                    CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), cameraPosition.zoom)
             )
         }
     }

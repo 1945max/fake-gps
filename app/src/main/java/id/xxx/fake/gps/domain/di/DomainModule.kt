@@ -1,8 +1,8 @@
 package id.xxx.fake.gps.domain.di
 
+import id.xxx.fake.gps.domain.auth.usecase.InteractorImpl
 import org.koin.dsl.module
 import id.xxx.fake.gps.domain.auth.usecase.IInteractor as IAuthInteractor
-import id.xxx.fake.gps.domain.auth.usecase.Interactor as AuthInteractor
 import id.xxx.fake.gps.domain.history.usecase.IInteractor as IHistoryInteractor
 import id.xxx.fake.gps.domain.history.usecase.Interactor as HistoryInteractor
 import id.xxx.fake.gps.domain.search.usecase.IInteractor as ISearchInteractor
@@ -18,12 +18,12 @@ object DomainModule {
     }
 
     private val useCaseAuthModule = module {
-        single<IAuthInteractor> { AuthInteractor(get()) }
+        single<IAuthInteractor> { InteractorImpl(get()) }
     }
 
     val modules = listOf(
-        useCaseHistoryModule,
-        useCaseSearchModule,
-        useCaseAuthModule
+            useCaseHistoryModule,
+            useCaseSearchModule,
+            useCaseAuthModule
     )
 }

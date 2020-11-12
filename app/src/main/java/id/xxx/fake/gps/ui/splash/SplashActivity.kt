@@ -1,36 +1,36 @@
 package id.xxx.fake.gps.ui.splash
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import id.xxx.base.extention.openActivity
-import id.xxx.fake.gps.domain.auth.model.User
-import id.xxx.fake.gps.domain.auth.usecase.IInteractor
+import id.xxx.base.extention.startActivityForResult
 import id.xxx.fake.gps.ui.MainActivity
 import id.xxx.fake.gps.ui.auth.AuthActivity
-import id.xxx.fake.gps.ui.auth.verify.VerifyEmailActivity
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
 
-    private val interactor by inject<IInteractor>()
+    companion object {
+        const val AUTH_CODE = 321
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            interactor.reload().collectLatest {
-                when (val user = interactor.getUser()) {
-                    is User.Exist ->
-                        if (user.data.isEmailVerified)
-                            openActivity<MainActivity>()
-                        else
-                            openActivity<VerifyEmailActivity>()
-                    is User.Empty -> openActivity<AuthActivity>()
-                }.apply { finish() }
-            }
+            delay(100)
+            startActivityForResult<AuthActivity>(requestCode = AUTH_CODE)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AUTH_CODE && resultCode == Activity.RESULT_OK) {
+            if (data!!.getBooleanExtra("data", false)) openActivity<MainActivity>()
+        }; finish()
     }
 }

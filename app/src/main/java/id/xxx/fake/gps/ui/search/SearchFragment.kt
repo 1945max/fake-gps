@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.xxx.base.BaseFragment
 import id.xxx.base.adapter.ItemClicked
-import id.xxx.base.extention.setResultAndFinish
+import id.xxx.base.extention.setResult
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentSearchBinding
 import id.xxx.fake.gps.domain.search.model.SearchModel
@@ -67,7 +67,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), ItemClicked<Search
         }
 
     override fun onItemClick(model: SearchModel) {
-        setResultAndFinish {
+        setResult {
             putExtra("latitude", model.latitude)
             putExtra("longitude", model.longitude)
         }

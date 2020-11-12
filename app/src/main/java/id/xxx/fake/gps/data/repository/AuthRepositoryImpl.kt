@@ -11,7 +11,7 @@ import id.xxx.data.source.firebase.auth.remote.ApiResponse
 import id.xxx.data.source.firebase.auth.remote.ApiResponse.*
 import id.xxx.fake.gps.domain.auth.model.User
 import id.xxx.fake.gps.domain.auth.model.UserModel
-import id.xxx.fake.gps.domain.auth.repository.IRepository
+import id.xxx.fake.gps.domain.auth.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class AuthRepository : IRepository<UserModel> {
+class AuthRepositoryImpl : AuthRepository<UserModel> {
     private val remote = FirebaseAuth.getInstance()
 
     private fun currentUser() = try {
