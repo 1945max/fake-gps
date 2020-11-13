@@ -18,6 +18,10 @@ import org.koin.android.ext.android.inject
 
 class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
 
+    companion object {
+        const val AUTH_EXTRA = "AUTH_EXTRA"
+    }
+
     private val interactor by inject<IInteractor>()
 
     override val layoutRes = R.layout.activity_auth
@@ -30,7 +34,11 @@ class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
 
         lifecycleScope.launch {
             val data = interactor.getUser()
-            if (data is User.Exist && data.data.isEmailVerified) setResult { putExtra("data", true) }
+            if (data is User.Exist) {
+                if (data.data.isEmailVerified) setResult { putExtra(AUTH_EXTRA, data.data) } else {
+                    nav_host_auth.findNavController().navigate(R.id.action_all_to_verify)
+                }
+            }
         }
     }
 
@@ -40,6 +48,8 @@ class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        if (nav_host_auth.findNavController().currentDestination?.id == R.id.verify)
+            interactor.signOut()
         return super.onSupportNavigateUp() || nav_host_auth.findNavController().navigateUp()
     }
 

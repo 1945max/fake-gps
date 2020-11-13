@@ -19,14 +19,13 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.auth.verify.VerifyEmailActivity"
-            android:parentActivityName=".ui.auth.verify.VerifyEmailActivity"
-            android:label="Verify Email" />
+            android:name=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.auth.AuthActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.history.HistoryActivity"
@@ -45,11 +44,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
-            tools:replace="android:launchMode"
-            android:launchMode="standard" />
+            android:launchMode="standard"
+            tools:replace="android:launchMode" />
 
         <service
             android:name=".service.FakeLocationService"
@@ -71,9 +69,7 @@
         <receiver
             android:name=".receiver.FakeStopReceiver"
             android:enabled="true"
-            android:exported="false" />
-
-        <!-- Maps Meta Data -->
+            android:exported="false" /> <!-- Maps Meta Data -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

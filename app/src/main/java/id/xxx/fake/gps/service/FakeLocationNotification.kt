@@ -9,7 +9,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.maps.model.LatLng
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.receiver.FakeStopReceiver
-import id.xxx.fake.gps.ui.MainActivity
+import id.xxx.fake.gps.ui.home.HomeActivity
 import id.xxx.fake.gps.utils.formatDouble
 
 class FakeLocationNotification(context: Context) {
@@ -27,7 +27,7 @@ class FakeLocationNotification(context: Context) {
         .addAction(R.drawable.ic_action_call, "Stop", stopPendingIntent)
         .setContentIntent(
             PendingIntent.getActivity(
-                context, 0, Intent(context, MainActivity::class.java)
+                context, 0, Intent(context, HomeActivity::class.java)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK), 0
             )
         )

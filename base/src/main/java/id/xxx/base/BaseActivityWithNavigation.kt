@@ -10,7 +10,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
 
 abstract class BaseActivityWithNavigation<ActivityBinding : ViewDataBinding> : AppCompatActivity() {
+
     protected abstract val layoutRes: Int
+
     protected lateinit var binding: ActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

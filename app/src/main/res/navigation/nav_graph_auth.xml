@@ -30,17 +30,50 @@
         android:id="@+id/sign_with_email"
         android:name="id.xxx.fake.gps.ui.auth.sign.in.SignInWithEmailFragment"
         android:label="Login With Email"
-        tools:layout="@layout/fragment_sign_in_with_email" />
+        tools:layout="@layout/fragment_sign_in_with_email">
+        <action
+            android:id="@+id/action_all_to_verify"
+            app:destination="@id/verify"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/sign_with_email"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/sign_with_token"
         android:name="id.xxx.fake.gps.ui.auth.sign.in.SignInWithTokenFragment"
         android:label="Login With Token"
-        tools:layout="@layout/fragment_sign_in_with_token" />
+        tools:layout="@layout/fragment_sign_in_with_token">
+        <action
+            android:id="@+id/action_all_to_verify"
+            app:destination="@id/verify"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/sign_with_token"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/sign_up"
         android:name="id.xxx.fake.gps.ui.auth.sign.up.SignUpFragment"
         android:label="Sign Up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_all_to_verify"
+            app:destination="@id/verify"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/sign_up"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_all_to_verify"
+        app:destination="@id/verify"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/verify"
+        android:name="id.xxx.fake.gps.ui.auth.verify.VerifyFragment"
+        android:label="Verify"
+        tools:layout="@layout/fragment_verify" />
 </navigation>

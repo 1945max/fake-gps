@@ -13,4 +13,6 @@
     <string name="prompt_name">Name</string>
     <string name="action_confirm_verify_email">Confirm Verify Email</string>
     <string name="message_to_user">Message To User</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -7,16 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
-inline fun AppCompatActivity.setResult(
-        block: Intent.() -> Unit = {}
-) {
+inline fun AppCompatActivity.setResult(block: Intent.() -> Unit = {}) {
     val intent = Intent()
     block(intent)
     setResult(Activity.RESULT_OK, intent)
     finish()
 }
 
-inline fun <reified T : AppCompatActivity> Context.openActivity(block: Intent.() -> Unit = {}) {
+inline fun <reified T : AppCompatActivity> Context.openActivity(
+        block: Intent.() -> Unit = {}
+) {
     val intent = Intent(this, T::class.java)
     block(intent)
     startActivity(intent)

@@ -18,12 +18,12 @@ import id.xxx.base.extention.openActivity
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentHomeBinding
 import id.xxx.fake.gps.domain.auth.usecase.IInteractor
-import id.xxx.fake.gps.map.Map
 import id.xxx.fake.gps.service.FakeLocation
 import id.xxx.fake.gps.service.FakeLocationService
+import id.xxx.fake.gps.ui.MainActivity
 import id.xxx.fake.gps.ui.history.HistoryActivity
+import id.xxx.fake.gps.ui.home.map.Map
 import id.xxx.fake.gps.ui.search.SearchActivity
-import id.xxx.fake.gps.ui.splash.SplashActivity
 import id.xxx.fake.gps.utils.formatDouble
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -125,7 +125,7 @@ class HomeFragment :
         when (view.id) {
             R.id.btn_logout -> {
                 inject<IInteractor>().value.signOut()
-                openActivity<SplashActivity>(isFinish = true)
+                openActivity<MainActivity>(isFinish = true)
             }
 
             R.id.toolbar -> {

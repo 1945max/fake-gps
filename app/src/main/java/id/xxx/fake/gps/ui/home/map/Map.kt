@@ -1,4 +1,4 @@
-package id.xxx.fake.gps.map
+package id.xxx.fake.gps.ui.home.map
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION

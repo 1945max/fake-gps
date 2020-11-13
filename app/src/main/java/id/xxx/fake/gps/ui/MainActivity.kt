@@ -1,28 +1,32 @@
 package id.xxx.fake.gps.ui
 
-import androidx.navigation.fragment.findNavController
-import id.xxx.base.BaseActivityWithNavigation
-import id.xxx.fake.gps.R
-import id.xxx.fake.gps.databinding.ActivityMainBinding
-import id.xxx.fake.gps.map.Map
-import kotlinx.android.synthetic.main.activity_main.*
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import id.xxx.base.extention.openActivity
+import id.xxx.base.extention.startActivityForResult
+import id.xxx.fake.gps.domain.auth.model.UserModel
+import id.xxx.fake.gps.ui.auth.AuthActivity
+import id.xxx.fake.gps.ui.home.HomeActivity
+import kotlin.random.Random
 
-class MainActivity : BaseActivityWithNavigation<ActivityMainBinding>() {
-
-    override val layoutRes: Int = R.layout.activity_main
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            Map.REQUEST_PERMISSION_LOCATION -> if (grantResults[0] == 0 && grantResults[1] == 0) recreate()
-        }
+class MainActivity : AppCompatActivity() {
+    companion object {
+        private val AUTH_CODE by lazy { Random.nextInt(100, 1000) }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp() || nav_host_main.findNavController().navigateUp()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        startActivityForResult<AuthActivity>(requestCode = AUTH_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AUTH_CODE) {
+            if (resultCode == Activity.RESULT_OK && data?.getParcelableExtra<UserModel>(AuthActivity.AUTH_EXTRA) != null) {
+                openActivity<HomeActivity>()
+            }
+        }; finish()
     }
 }
