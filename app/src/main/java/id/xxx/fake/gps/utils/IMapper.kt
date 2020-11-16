@@ -1,4 +1,4 @@
-package id.xxx.data.source.fake.gps.utils
+package id.xxx.fake.gps.utils
 
 interface IMapper<I, O> {
     fun map(input: I): O

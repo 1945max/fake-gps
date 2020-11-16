@@ -50,6 +50,7 @@ class HomeFragment :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         val smf = (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
         map = Map(smf, this).apply { binding.onClick = this@HomeFragment }
 

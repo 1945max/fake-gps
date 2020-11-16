@@ -25,7 +25,7 @@ fun Fragment.statAuth(resource: Resource<UserModel>) {
         is Resource.Empty -> Toast.makeText(context, "Empty", Toast.LENGTH_SHORT).show()
         is Resource.Error -> {
             loading.visibility = View.GONE
-            Toast.makeText(context, resource.errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, resource.exception.localizedMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }

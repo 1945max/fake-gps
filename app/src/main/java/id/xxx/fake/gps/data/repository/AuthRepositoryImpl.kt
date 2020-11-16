@@ -67,7 +67,7 @@ class AuthRepositoryImpl : AuthRepository<UserModel> {
             emit(Success(remote.signInWithEmailAndPassword(userName, pass).await()))
         } catch (e: Exception) {
             e.printStackTrace()
-            emit(Error(e.message.toString()))
+            emit(Error(e))
         }
     }.flowOn(Dispatchers.IO).map { setResource(it) }
 
@@ -77,7 +77,7 @@ class AuthRepositoryImpl : AuthRepository<UserModel> {
             emit(Success(remote.signInWithCustomToken(token).await()))
         } catch (e: Exception) {
             e.printStackTrace()
-            emit(Error(e.message.toString()))
+            emit(Error(e))
         }
     }.flowOn(Dispatchers.IO).map { setResource(it) }
 
@@ -87,13 +87,13 @@ class AuthRepositoryImpl : AuthRepository<UserModel> {
             emit(Success(remote.createUserWithEmailAndPassword(userName, pass).await()))
         } catch (e: Exception) {
             e.printStackTrace()
-            emit(Error(e.message.toString()))
+            emit(Error(e))
         }
     }.flowOn(Dispatchers.IO).map { setResource(it) }
 
     private fun setResource(apiResponse: ApiResponse<AuthResult>) = when (apiResponse) {
         is Loading -> Resource.Loading
-        is Error -> Resource.Error(apiResponse.errorMessage)
+        is Error -> Resource.Error(apiResponse.exception)
         is Success -> apiResponse.data.user?.let { user ->
             Resource.Success(UserModel(user.uid, user.isEmailVerified))
         } ?: Resource.Empty

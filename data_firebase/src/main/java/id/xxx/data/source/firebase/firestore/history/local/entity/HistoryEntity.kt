@@ -1,25 +1,23 @@
-package id.xxx.data.source.fake.gps.local.entity
+package id.xxx.data.source.firebase.firestore.history.local.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
-import id.xxx.data.source.fake.gps.local.entity.HistoryEntity.Companion.FLH_ADDRESS
-import id.xxx.data.source.fake.gps.local.entity.HistoryEntity.Companion.FLH_TABLE
+import id.xxx.data.source.firebase.firestore.history.local.entity.HistoryEntity.Companion.FLH_TABLE
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(
     tableName = FLH_TABLE,
     indices = [
-        Index(value = [FLH_ADDRESS], unique = true)
+//        Index(value = [FLH_ADDRESS], unique = true)
     ]
 )
 data class HistoryEntity(
     @PrimaryKey
     @ColumnInfo(name = FLH_ID)
-    var id: Int? = null,
+    var id: String,
 
     @ColumnInfo(name = FLH_ADDRESS)
     var address: String = "",

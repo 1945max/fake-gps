@@ -1,0 +1,29 @@
+package id.xxx.data.source.firebase.firestore.history.model
+
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+
+@ExperimentalCoroutinesApi
+inline fun <ResultType, RequestType> networkBoundResourceFireStore(
+    crossinline onFetchFailed: (Throwable) -> Unit = { Unit },
+    crossinline loadFromDB: () -> Flow<ResultType>,
+    crossinline shouldFetch: (ResultType) -> Boolean = { true },
+    crossinline createCall: suspend () -> Flow<Type<RequestType>>,
+    crossinline saveFetchResult: suspend (Type<RequestType>) -> Unit,
+) = flow {
+
+//    val data = loadFromDB().first()
+//
+//    val flow =
+//        if (shouldFetch(data)) {
+//            createCall().map { saveFetchResult(it) }
+//                .flatMapLatest { loadFromDB() }
+//        } else {
+//            loadFromDB()
+//        }
+//    emitAll(flow)
+
+    val flowResultType = createCall().map { saveFetchResult(it) }
+        .flatMapLatest { loadFromDB() }
+    emitAll(flowResultType)
+}

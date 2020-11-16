@@ -13,8 +13,11 @@ import android.location.LocationManager.NETWORK_PROVIDER
 import android.location.LocationManager.PASSIVE_PROVIDER
 import android.os.Build
 import android.os.Bundle
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,22 +27,25 @@ import com.google.android.gms.maps.model.LatLng
 import id.xxx.fake.gps.utils.Request
 import id.xxx.fake.gps.utils.generateInt
 
-class Map(supportMapFragment: SupportMapFragment, private val callback: Callback) :
+class Map(private val supportMapFragment: SupportMapFragment, private val callback: Callback) :
     LocationListener,
     OnMapReadyCallback,
     GoogleMap.OnCameraIdleListener,
     GoogleMap.OnMapLongClickListener,
     GoogleMap.OnCameraMoveListener,
-    GoogleMap.OnMapClickListener {
+    GoogleMap.OnMapClickListener,
+    LifecycleObserver {
 
     init {
         supportMapFragment.getMapAsync(this)
+        supportMapFragment.lifecycle.addObserver(this)
     }
 
     private lateinit var googleMap: GoogleMap
 
     private val context = supportMapFragment.requireContext()
-    private var locationManager = getSystemService(context, LocationManager::class.java)
+    private var locationManager =
+        ContextCompat.getSystemService(context, LocationManager::class.java)
 
     override fun onMapReady(gm: GoogleMap?) {
         gm?.apply {
@@ -151,6 +157,11 @@ class Map(supportMapFragment: SupportMapFragment, private val callback: Callback
         private const val ZOOM = "ZOOM"
         private const val BEARING = "BEARING"
         private const val TILT = "TILT"
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun removeLocationUpdate() {
+        locationManager?.removeUpdates(this)
     }
 
     interface Callback {

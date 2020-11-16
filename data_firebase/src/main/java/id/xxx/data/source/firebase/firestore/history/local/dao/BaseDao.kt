@@ -1,4 +1,4 @@
-package id.xxx.data.source.fake.gps.local.dao
+package id.xxx.data.source.firebase.firestore.history.local.dao
 
 import androidx.room.Delete
 import androidx.room.Insert
@@ -7,7 +7,7 @@ import androidx.room.Update
 
 interface BaseDao<Entity> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     suspend fun insert(vararg varargEntity: Entity): List<Long>
+    suspend fun insert(vararg varargEntity: Entity): List<Long>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: Entity): Long

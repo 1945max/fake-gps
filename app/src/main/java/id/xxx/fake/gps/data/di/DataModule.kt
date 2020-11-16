@@ -1,7 +1,7 @@
 package id.xxx.fake.gps.data.di
 
 import androidx.paging.ExperimentalPagingApi
-import id.xxx.data.source.fake.gps.di.FakeDataModule
+import id.xxx.data.source.firebase.di.FirebaseModule
 import id.xxx.data.source.map.box.di.MapBoxModule
 import id.xxx.fake.gps.data.repository.AuthRepositoryImpl
 import id.xxx.fake.gps.data.repository.HistoryRepository
@@ -25,7 +25,7 @@ object DataModule {
     }
 
     private val historyRepositoryModule = module {
-        single<IHistoryRepository<HistoryModel>> { HistoryRepository(get()) }
+        single<IHistoryRepository<HistoryModel>> { HistoryRepository(get(), get()) }
     }
 
     private val authRepository = module {
@@ -36,6 +36,6 @@ object DataModule {
             historyRepositoryModule, searchRepositoryModule, authRepository
     ).apply {
         addAll(MapBoxModule.modules)
-        addAll(FakeDataModule.modules)
+        addAll(FirebaseModule.modules)
     }
 }

@@ -44,10 +44,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
-            android:launchMode="standard"
-            tools:replace="android:launchMode" />
 
         <service
             android:name=".service.FakeLocationService"

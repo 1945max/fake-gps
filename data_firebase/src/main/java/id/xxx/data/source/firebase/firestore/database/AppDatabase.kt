@@ -1,11 +1,11 @@
-package id.xxx.data.source.fake.gps.local.database.room
+package id.xxx.data.source.firebase.firestore.database
 
 import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import id.xxx.data.source.fake.gps.local.dao.HistoryDao
-import id.xxx.data.source.fake.gps.local.entity.HistoryEntity
+import id.xxx.data.source.firebase.firestore.history.local.dao.HistoryDao
+import id.xxx.data.source.firebase.firestore.history.local.entity.HistoryEntity
 
 @Database(
     entities = [
@@ -26,8 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
             instance ?: synchronized(AppDatabase::class.java) {
                 instance = Room.databaseBuilder(app, AppDatabase::class.java, this::class.java.name)
                     .fallbackToDestructiveMigration()
-                    .addCallback(CallbackDatabase(app))
-//                    .openHelperFactory(Encryption.passphrase)
+//                    .openHelperFactory(SupportFactory(SQLiteDatabase.getBytes("xxx.base.data".toCharArray())))
                     .build()
             }
             return instance as AppDatabase
