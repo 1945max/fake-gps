@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -28,6 +29,7 @@ import id.xxx.fake.gps.utils.formatDouble
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 @FlowPreview
@@ -124,7 +126,7 @@ class HomeFragment :
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_logout -> {
+            R.id.btn_logout -> lifecycleScope.launch {
                 inject<IInteractor>().value.signOut()
                 openActivity<MainActivity>(isFinish = true)
             }

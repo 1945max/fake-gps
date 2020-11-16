@@ -49,7 +49,9 @@ class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
 
     override fun onSupportNavigateUp(): Boolean {
         if (nav_host_auth.findNavController().currentDestination?.id == R.id.verify)
-            interactor.signOut()
+            lifecycleScope.launch {
+                interactor.signOut()
+            }
         return super.onSupportNavigateUp() || nav_host_auth.findNavController().navigateUp()
     }
 

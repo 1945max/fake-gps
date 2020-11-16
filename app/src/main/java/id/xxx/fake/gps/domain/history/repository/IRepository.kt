@@ -8,4 +8,5 @@ interface IRepository<Model : Any> {
     fun getHistory(): Flow<PagingData<HistoryModel>>
     fun insert(model: Model)
     fun delete(model: Model)
+    suspend fun clear()
 }

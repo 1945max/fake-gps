@@ -12,13 +12,14 @@ import kotlinx.coroutines.flow.callbackFlow
 @ExperimentalCoroutinesApi
 class RemoteDataSource {
     private val fireStore = FirebaseFirestore.getInstance()
-    private val collectionReference = fireStore
+
+    private fun collectionReference() = fireStore
         .collection(FirebaseAuth.getInstance().currentUser!!.uid)
         .document("data")
         .collection("history")
 
     fun addSnapshotListener() = callbackFlow {
-        val listenerRegistration = collectionReference.addSnapshotListener { value, error ->
+        val listenerRegistration = collectionReference().addSnapshotListener { value, error ->
             value?.documentChanges?.forEach {
                 val dataHistoryModel = it.document.toObject(HistoryFireStoreModel::class.java)
                 val type = when (it.type) {
@@ -31,12 +32,12 @@ class RemoteDataSource {
     }
 
     fun insert(model: HistoryFireStoreModel) {
-        collectionReference.add(model).addOnCompleteListener {
+        collectionReference().add(model).addOnCompleteListener {
             it.result?.apply { update("id", id) }
         }
     }
 
     fun delete(model: HistoryFireStoreModel) {
-        collectionReference.document(model.id).delete()
+        collectionReference().document(model.id).delete()
     }
 }

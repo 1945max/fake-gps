@@ -23,7 +23,9 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            interactor.signOut().run { findNavController().popBackStack() }
+            lifecycleScope.launch {
+                interactor.signOut().run { findNavController().popBackStack() }
+            }
         }
     }
 

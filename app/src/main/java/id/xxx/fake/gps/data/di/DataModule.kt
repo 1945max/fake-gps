@@ -29,7 +29,7 @@ object DataModule {
     }
 
     private val authRepository = module {
-        single<AuthRepository<UserModel>> { AuthRepositoryImpl() }
+        single<AuthRepository<UserModel>> { AuthRepositoryImpl(get()) }
     }
 
     val modules = mutableListOf(

@@ -10,5 +10,6 @@ class Interactor constructor(
     override fun getHistory() = iRepository.getHistory()
     override fun insert(model: HistoryModel) = iRepository.insert(model)
     override fun delete(model: HistoryModel) = iRepository.delete(model)
+    override suspend fun clear() = iRepository.clear()
 
 }

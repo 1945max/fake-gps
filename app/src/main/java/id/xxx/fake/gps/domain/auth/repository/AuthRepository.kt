@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository<Model> {
     fun getUser(): User<UserModel>
-    fun signOut()
+    suspend fun signOut()
     fun verifyEmail(scope: LifecycleCoroutineScope): LiveData<Boolean>
     fun sign(userName: String, pass: String): Flow<Resource<Model>>
     fun sign(token: String): Flow<Resource<Model>>

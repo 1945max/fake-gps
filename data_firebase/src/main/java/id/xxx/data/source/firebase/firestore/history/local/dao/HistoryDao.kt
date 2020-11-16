@@ -12,4 +12,7 @@ interface HistoryDao : BaseDao<HistoryEntity> {
 
     @Query("SELECT ${FLH_TABLE}.* FROM $FLH_TABLE ORDER BY $FLH_ID DESC")
     fun getPagingSource(): PagingSource<Int, HistoryEntity>
+
+    @Query("DELETE FROM $FLH_TABLE")
+    suspend fun clear()
 }

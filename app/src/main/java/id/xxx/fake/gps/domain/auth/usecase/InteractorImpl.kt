@@ -9,7 +9,7 @@ class InteractorImpl constructor(
 ) : IInteractor {
 
     override fun getUser() = iRepository.getUser()
-    override fun signOut() = iRepository.signOut()
+    override suspend fun signOut() = iRepository.signOut()
     override fun verifyEmail(scope: LifecycleCoroutineScope) = iRepository.verifyEmail(scope)
     override fun sign(userName: String, pass: String) = iRepository.sign(userName, pass)
     override fun sign(token: String) = iRepository.sign(token)

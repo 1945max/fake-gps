@@ -13,4 +13,5 @@ class LocalDataSource(private val dao: HistoryDao) {
 
     suspend fun delete(entity: HistoryEntity) = dao.delete(entity)
 
+    suspend fun clear() = dao.clear()
 }

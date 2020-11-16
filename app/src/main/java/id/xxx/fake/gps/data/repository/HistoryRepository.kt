@@ -23,6 +23,10 @@ class HistoryRepository(
     override fun insert(model: HistoryModel) =
         remote.insert(historyModelToHistoryFireStoreModel.map(model))
 
+    override suspend fun clear() {
+        local.clear()
+    }
+
     override fun delete(model: HistoryModel) =
         remote.delete(historyModelToHistoryFireStoreModel.map(model))
 
