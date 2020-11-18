@@ -6,7 +6,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.dsl.module
 
 @ExperimentalCoroutinesApi
-object HistoryModule {
+object HistoryModules {
     private val dataSource = module {
         single { LocalDataSource(get()) }
         single { RemoteDataSource() }

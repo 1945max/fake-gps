@@ -1,7 +1,7 @@
 package id.xxx.data.source.firebase.firestore.di
 
 import id.xxx.data.source.firebase.firestore.database.AppDatabase
-import id.xxx.data.source.firebase.firestore.history.di.HistoryModule
+import id.xxx.data.source.firebase.firestore.history.di.HistoryModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.dsl.module
 
@@ -16,6 +16,6 @@ object FireStoreModules {
     val modules = mutableListOf(
         databaseModule,
     ).apply {
-        addAll(HistoryModule.modules)
+        addAll(HistoryModules.modules)
     }
 }

@@ -10,7 +10,7 @@ import id.xxx.fake.gps.domain.search.model.SearchModel
 object DataMapper {
     val searchModelToHistoryModel = object : IMapper<SearchModel, HistoryModel> {
         override fun map(input: SearchModel) = HistoryModel(
-            id = "${input.id}",
+            id = "",
             address = input.address,
             longitude = input.longitude,
             latitude = input.latitude,

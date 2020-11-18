@@ -33,12 +33,8 @@ class DataProvider : ContentProvider() {
         selectionArgs: Array<String>?, sortOrder: String?
     ): Cursor? {
         return when (URI_MATCHER.match(uri)) {
-            NAME_TABLE -> {
-                null
-            }
-            ID -> {
-                null
-            }
+            NAME_TABLE -> null
+            ID -> null
             else -> null
         }
     }

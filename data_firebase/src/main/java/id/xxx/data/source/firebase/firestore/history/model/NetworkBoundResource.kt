@@ -12,17 +12,6 @@ inline fun <ResultType, RequestType> networkBoundResourceFireStore(
     crossinline saveFetchResult: suspend (RequestType) -> Unit,
 ) = flow {
 
-//    val data = loadFromDB().first()
-//
-//    val flow =
-//        if (shouldFetch(data)) {
-//            createCall().map { saveFetchResult(it) }
-//                .flatMapLatest { loadFromDB() }
-//        } else {
-//            loadFromDB()
-//        }
-//    emitAll(flow)
-
     val flowResultType = createCall().map { saveFetchResult(it) }
         .flatMapLatest { loadFromDB() }
     emitAll(flowResultType)
