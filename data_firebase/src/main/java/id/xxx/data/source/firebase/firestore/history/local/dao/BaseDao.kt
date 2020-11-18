@@ -9,7 +9,7 @@ interface BaseDao<Entity> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg varargEntity: Entity): List<Long>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(entity: Entity): Long
 
     @Delete

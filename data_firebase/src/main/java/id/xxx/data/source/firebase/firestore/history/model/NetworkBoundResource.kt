@@ -8,8 +8,8 @@ inline fun <ResultType, RequestType> networkBoundResourceFireStore(
     crossinline onFetchFailed: (Throwable) -> Unit = { Unit },
     crossinline loadFromDB: () -> Flow<ResultType>,
     crossinline shouldFetch: (ResultType) -> Boolean = { true },
-    crossinline createCall: suspend () -> Flow<Type<RequestType>>,
-    crossinline saveFetchResult: suspend (Type<RequestType>) -> Unit,
+    crossinline createCall: suspend () -> Flow<RequestType>,
+    crossinline saveFetchResult: suspend (RequestType) -> Unit,
 ) = flow {
 
 //    val data = loadFromDB().first()

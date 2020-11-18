@@ -39,8 +39,19 @@ object DataMapper {
         )
     }
 
-    val historyFireStoreModelToHistoryEntity = object : IMapper<HistoryFireStoreModel, HistoryEntity> {
-        override fun map(input: HistoryFireStoreModel) = HistoryEntity(
+    val historyFireStoreModelToHistoryEntity =
+        object : IMapper<HistoryFireStoreModel, HistoryEntity> {
+            override fun map(input: HistoryFireStoreModel) = HistoryEntity(
+                id = input.id,
+                address = input.address,
+                latitude = input.latitude,
+                longitude = input.longitude,
+                date = input.date
+            )
+        }
+
+    val historyModelToHistoryEntity = object : IMapper<HistoryModel, HistoryEntity> {
+        override fun map(input: HistoryModel) = HistoryEntity(
             id = input.id,
             address = input.address,
             latitude = input.latitude,
@@ -49,15 +60,16 @@ object DataMapper {
         )
     }
 
-    val historyModelToHistoryFireStoreModel = object : IMapper<HistoryModel, HistoryFireStoreModel> {
-        override fun map(input: HistoryModel) = HistoryFireStoreModel(
-            id = input.id,
-            address = input.address,
-            latitude = input.latitude,
-            longitude = input.longitude,
-            date = input.date
-        )
-    }
+    val historyModelToHistoryFireStoreModel =
+        object : IMapper<HistoryModel, HistoryFireStoreModel> {
+            override fun map(input: HistoryModel) = HistoryFireStoreModel(
+                id = input.id,
+                address = input.address,
+                latitude = input.latitude,
+                longitude = input.longitude,
+                date = input.date
+            )
+        }
 
     val historyEntityToHistoryModel = object : IMapper<HistoryEntity, HistoryModel> {
         override fun map(input: HistoryEntity) = HistoryModel(
