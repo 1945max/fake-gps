@@ -10,7 +10,7 @@ node "Presentation" as presentation {
 }
 
 node "Domain" as domain {
-    component "IInteractor" as IInteractor
+    component "Interactor_Impl" as InteractorImpl
     component "Interactor" as Interactor
     component "iRepository" as IRepository
 }
@@ -20,7 +20,7 @@ node "Data Source" as data_source {
     component "Local Data" as LocalDataSource
     component "Remote Data" as RemoteDataSource
     database "Database" as database
-    database "Network" as network
+    database "Network" as Network
 }
 
 component "model" as model
@@ -30,28 +30,29 @@ component "api_response" as api_response
 /' Layer Presentation '/
 Activity -down-> ViewModel
 Service -down-> ViewModel
-Service -down-> IInteractor
-ViewModel -down-> IInteractor
-Worker -down-> IInteractor
-BroadcastReceiver -down-> IInteractor
-ContentProvider -down-> IInteractor
+Service -down-> InteractorImpl
+ViewModel -down-> InteractorImpl
+Worker -down-> InteractorImpl
+BroadcastReceiver -down-> InteractorImpl
+ContentProvider -down-> InteractorImpl
 presentation -down-> model
 
 /' Layer Domain '/
 IRepository <-up-> Interactor
-Interactor <-up-> IInteractor
+Interactor <-up-> InteractorImpl
 IRepository -down-> RepositoryImpl
 domain -left-> model
 
-/' Layer Data '/
-RemoteDataSource -left- api_response
+/' Layer Data Source '/
+RemoteDataSource -left-> api_response
+RepositoryImpl -left-> api_response
 LocalDataSource -right-> entity
 RepositoryImpl -up-> model
 RepositoryImpl -up-> IRepository
 RepositoryImpl -left-> entity
 LocalDataSource <-up-> RepositoryImpl
 RemoteDataSource <-up-> RepositoryImpl
-network <-up-> RemoteDataSource
+Network <-up-> RemoteDataSource
 database <-up-> LocalDataSource
 
 @enduml
