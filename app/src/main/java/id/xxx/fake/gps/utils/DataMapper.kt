@@ -10,14 +10,14 @@ import id.xxx.fake.gps.domain.search.model.SearchModel
 object DataMapper {
     val searchModelToHistoryModel = object : IMapper<SearchModel, HistoryModel> {
         override fun map(input: SearchModel) = HistoryModel(
-            id = "",
+            id = "${input.id}",
             address = input.address,
             longitude = input.longitude,
             latitude = input.latitude,
         )
     }
 
-    val toListSearchEntity = object : IMapperList<Features, PlacesEntity> {
+    val toListSearchEntity = object : IMapper<List<Features>, List<PlacesEntity>> {
         override fun map(input: List<Features>): List<PlacesEntity> = input.map {
             PlacesEntity(
                 name = it.text,
@@ -38,17 +38,6 @@ object DataMapper {
             address = input.address
         )
     }
-
-    val historyFireStoreModelToHistoryEntity =
-        object : IMapper<HistoryFireStoreModel, HistoryEntity> {
-            override fun map(input: HistoryFireStoreModel) = HistoryEntity(
-                id = input.id,
-                address = input.address,
-                latitude = input.latitude,
-                longitude = input.longitude,
-                date = input.date
-            )
-        }
 
     val historyModelToHistoryEntity = object : IMapper<HistoryModel, HistoryEntity> {
         override fun map(input: HistoryModel) = HistoryEntity(

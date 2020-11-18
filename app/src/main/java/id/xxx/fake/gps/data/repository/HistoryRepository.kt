@@ -25,8 +25,7 @@ class HistoryRepository(
 
     override suspend fun clear() = local.clear()
 
-    override fun delete(model: HistoryModel) =
-        remote.delete(model.id)
+    override fun delete(model: HistoryModel) = remote.delete(model.id)
 
     override fun getHistory() = networkBoundResourceFireStore(
         loadFromDB = {
