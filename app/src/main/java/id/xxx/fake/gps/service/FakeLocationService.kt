@@ -5,22 +5,23 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.widget.Toast
 import androidx.core.content.getSystemService
-import androidx.lifecycle.lifecycleScope
 import androidx.work.Data
 import com.google.android.gms.maps.model.LatLng
-import id.xxx.base.BaseLifecycleService
+import id.xxx.base.BaseService
 import id.xxx.base.utils.Network
 import id.xxx.data.source.map.box.Resource
 import id.xxx.fake.gps.domain.search.model.SearchModel
 import id.xxx.fake.gps.utils.DataMapper
 import id.xxx.fake.gps.workers.MyWorker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import id.xxx.fake.gps.domain.history.usecase.IInteractor as IHistoryInteractor
 import id.xxx.fake.gps.domain.search.usecase.IInteractor as ISearchInteractor
 
-class FakeLocationService : BaseLifecycleService(), FakeLocation.Callback {
+class FakeLocationService : BaseService(), FakeLocation.Callback {
     private val iHistoryRepo: IHistoryInteractor by inject()
     private val iSearchRepo: ISearchInteractor by inject()
 
@@ -42,7 +43,8 @@ class FakeLocationService : BaseLifecycleService(), FakeLocation.Callback {
             latitude = getDoubleExtra("latitude", 0.0)
             longitude = getDoubleExtra("longitude", 0.0)
             fakeLocation.run(latitude, longitude)
-            lifecycleScope.launch {
+
+            CoroutineScope(Dispatchers.IO).launch {
                 iSearchRepo.getAddress(baseContext, "$latitude,$longitude").collect {
                     if (it is Resource.Success<SearchModel>) {
                         iHistoryRepo.insert(DataMapper.searchModelToHistoryModel.map(it.data))

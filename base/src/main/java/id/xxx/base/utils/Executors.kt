@@ -12,11 +12,7 @@ class Executors @VisibleForTesting constructor(
     private val mainThread: Executor
 ) {
 
-    companion object {
-        private const val THREAD_COUNT = 3
-    }
-
-    constructor() : this(
+    constructor(THREAD_COUNT: Int) : this(
         diskIO = Executors.newSingleThreadExecutor(),
         networkIO = Executors.newFixedThreadPool(THREAD_COUNT),
         mainThread = MainThreadExecutor()

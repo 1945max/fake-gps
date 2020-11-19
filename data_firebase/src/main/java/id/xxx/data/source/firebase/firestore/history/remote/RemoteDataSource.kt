@@ -16,9 +16,9 @@ class RemoteDataSource {
         .document("data")
         .collection("history")
 
-    fun addSnapshotListener() = callbackFlow {
+    suspend fun addSnapshotListener() = callbackFlow {
         val listenerRegistration = collectionReference().addSnapshotListener { value, error ->
-            value?.documentChanges?.forEach { offer(it) }
+            offer(value?.documentChanges)
         }; awaitClose { listenerRegistration.remove() }
     }
 

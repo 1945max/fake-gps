@@ -21,6 +21,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
+    private var isLoaded = false
+
     private lateinit var adapterPaging: Adapter
 
     private val viewModel: HistoryViewModel by viewModel()
@@ -53,11 +55,12 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         adapterPaging.addLoadStateListener { handleLoadStateListener(it) }
     }
 
-    private fun handleLoadStateListener(loadState: CombinedLoadStates) =
+    private fun handleLoadStateListener(loadState: CombinedLoadStates) {
         if (loadState.refresh is LoadState.Loading) {
             loading_progress_bar.visibility = View.VISIBLE
+            isLoaded = true
         } else {
-            loading_progress_bar.visibility = View.GONE
+            if (isLoaded) loading_progress_bar.visibility = View.GONE
             val error = when {
                 loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
                 loadState.append is LoadState.Error -> loadState.append as LoadState.Error
@@ -68,4 +71,5 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
                 Toast.makeText(context, it.error.message, Toast.LENGTH_LONG).show()
             }
         }
+    }
 }
