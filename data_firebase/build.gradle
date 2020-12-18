@@ -60,7 +60,7 @@ dependencies {
     api "org.koin:koin-android-viewmodel:$koin_version"
 
     api "com.google.firebase:firebase-auth:20.0.1"
-    api 'com.google.firebase:firebase-firestore:22.0.0'
+    api 'com.google.firebase:firebase-firestore:22.0.1'
     /* this dependencies required com.google.gms.google-services */
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 }
