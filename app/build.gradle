@@ -11,7 +11,7 @@ android {
     buildToolsVersion rootProject.build_tools_version
 
     defaultConfig {
-        applicationId "id.xxx.fake.gps"
+        applicationId "id.xxx.fake.test"
         minSdkVersion rootProject.min_sdk_version
         targetSdkVersion rootProject.target_sdk_version
         versionCode rootProject.version_code
@@ -26,15 +26,15 @@ android {
     kotlinOptions { jvmTarget = "1.8" }
 
     buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
         debug {
             minifyEnabled false
             shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -43,17 +43,16 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation project(path: ':base')
     implementation project(path: ':data_map_box')
     implementation project(path: ':data_firebase')
-
-//    testImplementation project(path: ':test')
-//    androidTestImplementation project(path: ':test')
+    implementation project(path: ':domain')
 
     /* Google Maps */
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    kapt "androidx.room:room-compiler:$room_version"
 }

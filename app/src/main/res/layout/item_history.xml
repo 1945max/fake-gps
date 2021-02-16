@@ -6,11 +6,11 @@
 
     <data>
 
-        <import type="id.xxx.fake.gps.utils.FormatDate" />
+        <import type="id.xxx.fake.test.utils.FormatDate" />
 
         <variable
             name="data"
-            type="id.xxx.fake.gps.domain.history.model.HistoryModel" />
+            type="id.xxx.fake.test.domain.history.model.HistoryModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

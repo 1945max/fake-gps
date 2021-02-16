@@ -8,7 +8,7 @@
 
         <variable
             name="data"
-            type="id.xxx.fake.gps.domain.search.model.SearchModel" />
+            type="id.xxx.fake.test.domain.search.model.SearchModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/welcome"
-        android:name="id.xxx.fake.gps.ui.auth.welcome.WelcomeFragment"
+        android:name="id.xxx.fake.test.ui.auth.welcome.WelcomeFragment"
         android:label="Welcome"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/sign_with_email"
-        android:name="id.xxx.fake.gps.ui.auth.sign.in.SignInWithEmailFragment"
+        android:name="id.xxx.fake.test.ui.auth.sign.in.SignInWithEmailFragment"
         android:label="Login With Email"
         tools:layout="@layout/fragment_sign_in_with_email">
         <action
@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/sign_with_token"
-        android:name="id.xxx.fake.gps.ui.auth.sign.in.SignInWithTokenFragment"
+        android:name="id.xxx.fake.test.ui.auth.sign.in.SignInWithTokenFragment"
         android:label="Login With Token"
         tools:layout="@layout/fragment_sign_in_with_token">
         <action
@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/sign_up"
-        android:name="id.xxx.fake.gps.ui.auth.sign.up.SignUpFragment"
+        android:name="id.xxx.fake.test.ui.auth.sign.up.SignUpFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -73,7 +73,7 @@
 
     <fragment
         android:id="@+id/verify"
-        android:name="id.xxx.fake.gps.ui.auth.verify.VerifyFragment"
+        android:name="id.xxx.fake.test.ui.auth.verify.VerifyFragment"
         android:label="Verify"
         tools:layout="@layout/fragment_verify" />
 </navigation>

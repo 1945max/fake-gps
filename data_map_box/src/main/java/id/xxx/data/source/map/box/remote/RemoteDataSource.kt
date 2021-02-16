@@ -1,6 +1,6 @@
 package id.xxx.data.source.map.box.remote
 
-import id.xxx.data.source.map.box.remote.network.ApiResponse
+import id.xxx.fake.test.domain.halper.ApiResponse
 import id.xxx.data.source.map.box.remote.network.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow

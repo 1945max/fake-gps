@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "702501564910",
-    "firebase_url": "https://fake-gps-9ea2f.firebaseio.com",
-    "project_id": "fake-gps-9ea2f",
-    "storage_bucket": "fake-gps-9ea2f.appspot.com"
+    "project_number": "480728947370",
+    "project_id": "test-effad",
+    "storage_bucket": "test-effad.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:702501564910:android:52c5a46c9668a5355bdeff",
+        "mobilesdk_app_id": "1:480728947370:android:d868e7eaf9bfdaba6f8ed3",
         "android_client_info": {
-          "package_name": "id.xxx.fake.gps"
+          "package_name": "id.xxx.fake.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "702501564910-mqrinm9at2oso651oju9sb2jiliuj7s3.apps.googleusercontent.com",
+          "client_id": "480728947370-og5e6qkj9ctueb05hc7hvom7okf1d39s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.xxx.fake.test",
+            "certificate_hash": "577e15ee4feeb15ffbe84a8e0331dbb6f6ef82ba"
+          }
+        },
+        {
+          "client_id": "480728947370-402ch4fl3pikc4rr8as4ed78qjrbdpdo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD4eDwu-_ku7i8p-InSUgPZO2_WibE0MWk"
+          "current_key": "AIzaSyDU8vg5i1O-PD9z1R_AcXXD_uupxDVEMZc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "702501564910-mqrinm9at2oso651oju9sb2jiliuj7s3.apps.googleusercontent.com",
+              "client_id": "480728947370-402ch4fl3pikc4rr8as4ed78qjrbdpdo.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
