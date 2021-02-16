@@ -1,24 +1,21 @@
 buildscript {
 
+    apply from: "build_version.gradle"
+
     ext.kotlin_version = "1.4.30"
 
-    repositories {
-        google()
-        jcenter()
-    }
+    addRepos(repositories)
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2"
-        classpath 'com.google.gms:google-services:4.3.4'
+        classpath deps.gradle
+        classpath deps.kotlin_gradle_plugin
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.3"
+        classpath 'com.google.gms:google-services:4.3.5'
     }
 }
 
 allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
+    addRepos(repositories)
 }
 
 task clean(type: Delete) {

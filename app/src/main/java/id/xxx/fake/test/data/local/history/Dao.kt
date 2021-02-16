@@ -8,14 +8,14 @@ import androidx.room.Query
 @Dao
 interface Dao {
     @Insert
-    suspend fun insert(entity: Entity): Long
+    suspend fun insert(entity: HistoryEntity): Long
 
-    @Query("DELETE FROM ${Entity.FLH_TABLE}")
+    @Query("DELETE FROM ${HistoryEntity.FLH_TABLE}")
     suspend fun clear()
 
-    @Query("DELETE FROM ${Entity.FLH_TABLE} WHERE FLH_ID=:id")
+    @Query("DELETE FROM ${HistoryEntity.FLH_TABLE} WHERE FLH_ID=:id")
     suspend fun delete(id: Long): Int
 
-    @Query("SELECT ${Entity.FLH_TABLE}.* FROM ${Entity.FLH_TABLE} ORDER BY ${Entity.FLH_DATE} DESC")
-    fun getPaging(): PagingSource<Int, Entity>
+    @Query("SELECT ${HistoryEntity.FLH_TABLE}.* FROM ${HistoryEntity.FLH_TABLE} ORDER BY ${HistoryEntity.FLH_DATE} DESC")
+    fun getPaging(): PagingSource<Int, HistoryEntity>
 }

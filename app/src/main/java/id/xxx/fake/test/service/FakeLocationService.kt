@@ -11,7 +11,7 @@ import id.xxx.base.BaseService
 import id.xxx.base.utils.Network
 import id.xxx.fake.test.domain.halper.Resource
 import id.xxx.fake.test.domain.search.model.SearchModel
-import id.xxx.fake.test.utils.DataMapper
+import id.xxx.fake.test.data.DataMapper
 import id.xxx.fake.test.workers.MyWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

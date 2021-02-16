@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import id.xxx.fake.test.data.local.history.Dao
-import id.xxx.fake.test.data.local.history.Entity
+import id.xxx.fake.test.data.local.history.HistoryEntity
 
 @Database(
     entities = [
-        Entity::class
+        HistoryEntity::class
     ],
     version = 1,
     exportSchema = false

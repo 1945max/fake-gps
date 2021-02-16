@@ -7,8 +7,8 @@ import androidx.paging.map
 import id.xxx.fake.test.data.local.history.LocalDataSource
 import id.xxx.fake.test.domain.history.model.HistoryModel
 import id.xxx.fake.test.domain.history.repository.IRepository
-import id.xxx.fake.test.utils.DataMapper.toHistoryEntity
-import id.xxx.fake.test.utils.DataMapper.toHistoryModel
+import id.xxx.fake.test.data.DataMapper.toHistoryEntity
+import id.xxx.fake.test.data.DataMapper.toHistoryModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

@@ -6,15 +6,16 @@ plugins {
 }
 
 android {
-    compileSdkVersion project.compile_sdk_version.toInteger()
-    buildToolsVersion project.build_tools_version
+    compileSdkVersion build_versions.compile_sdk_version
+    buildToolsVersion build_versions.build_tools_version
 
     defaultConfig {
-        minSdkVersion project.min_sdk_version.toInteger()
-        targetSdkVersion project.target_sdk_version.toInteger()
-        versionCode project.version_code.toInteger()
-        versionName project.version_name
+        minSdkVersion build_versions.min_sdk_version
+        targetSdkVersion build_versions.target_sdk_version
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
 
+        consumerProguardFiles "consumer-rules.pro"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_URL", '"https://api.mapbox.com"')

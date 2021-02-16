@@ -1,6 +1,6 @@
-package id.xxx.fake.test.utils
+package id.xxx.fake.test.data
 
-import id.xxx.fake.test.data.local.history.Entity
+import id.xxx.fake.test.data.local.history.HistoryEntity
 import id.xxx.fake.test.domain.halper.IMapper
 import id.xxx.fake.test.domain.history.model.HistoryModel
 import id.xxx.fake.test.domain.search.model.SearchModel
@@ -14,14 +14,14 @@ object DataMapper {
         )
     }
 
-    fun HistoryModel.toHistoryEntity() = Entity(
+    fun HistoryModel.toHistoryEntity() = HistoryEntity(
         address = address,
         latitude = latitude,
         longitude = longitude,
         date = date
     )
 
-    fun Entity.toHistoryModel() = HistoryModel(
+    fun HistoryEntity.toHistoryModel() = HistoryModel(
         id = id,
         address = address,
         latitude = latitude,

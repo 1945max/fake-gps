@@ -5,7 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import id.xxx.base.utils.Network
 import id.xxx.fake.test.domain.halper.Resource
-import id.xxx.fake.test.utils.DataMapper
+import id.xxx.fake.test.data.DataMapper
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 import org.koin.core.KoinComponent

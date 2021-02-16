@@ -3,12 +3,12 @@ package id.xxx.fake.test.data.local.history
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import id.xxx.fake.test.data.local.history.Entity.Companion.FLH_TABLE
+import id.xxx.fake.test.data.local.history.HistoryEntity.Companion.FLH_TABLE
 
 @Entity(
     tableName = FLH_TABLE,
 )
-data class Entity(
+data class HistoryEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = FLH_ID)
     var id: Long? = null,
