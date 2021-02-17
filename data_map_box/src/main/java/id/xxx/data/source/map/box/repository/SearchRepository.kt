@@ -5,14 +5,12 @@ import androidx.paging.*
 import id.xxx.data.source.map.box.local.LocalDataSource
 import id.xxx.data.source.map.box.local.entity.PlacesEntity
 import id.xxx.data.source.map.box.remote.RemoteDataSource
-import id.xxx.data.source.map.box.remote.response.PlacesResponse
 import id.xxx.data.source.map.box.utils.Address
 import id.xxx.data.source.map.box.utils.DataMapper.toListSearchEntity
 import id.xxx.data.source.map.box.utils.DataMapper.toSearchModel
 import id.xxx.data.source.map.box.utils.Result
-import id.xxx.fake.test.domain.halper.ApiResponse
-import id.xxx.fake.test.domain.halper.NetworkBoundResource
 import id.xxx.fake.test.domain.halper.Resource
+import id.xxx.fake.test.domain.halper.networkBoundResource
 import id.xxx.fake.test.domain.search.model.SearchModel
 import id.xxx.fake.test.domain.search.repository.IRepository
 import kotlinx.coroutines.Dispatchers
@@ -40,20 +38,15 @@ class SearchRepository(
         }
     }
 
-    override fun getPlaces(value: String): Flow<Resource<List<SearchModel>>> =
-        object : NetworkBoundResource<List<SearchModel>, PlacesResponse>() {
-            override fun loadFromDB(): Flow<List<SearchModel>> =
-                local.search(value).map {
-                    it.map { data -> data.toSearchModel() }
-                }
-
-            override suspend fun createCall(): Flow<ApiResponse<PlacesResponse>> =
-                remote.getPlaces(value)
-
-            override suspend fun saveCallResult(data: PlacesResponse) {
-                local.insert(*toListSearchEntity.map(data.features).toTypedArray())
-            }
-        }.asFlow()
+    override fun getPlaces(value: String): Flow<Resource<List<SearchModel>>> = networkBoundResource(
+        loadFromDB = {
+            local.search(value).map { it.map { data -> data.toSearchModel() } }
+        },
+        fetch = { remote.getPlaces(value) },
+        saveFetchResult = { data ->
+            local.insert(*toListSearchEntity.map(data.features).toTypedArray())
+        }
+    )
 
     override fun getAddress(context: Context, value: String) = flow {
         emit(Resource.Loading)

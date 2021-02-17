@@ -1,46 +1,51 @@
 package id.xxx.fake.test.domain.halper
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
-abstract class NetworkBoundResource<ResultType, RequestType> {
+inline fun <ResultType, RequestType> networkBoundResource(
+    crossinline loadFromDB: () -> Flow<ResultType>,
+    crossinline onFetchError: (Throwable) -> Unit = { },
+    crossinline onFetchEmpty: (ResultType?) -> Unit = { },
+    crossinline shouldFetch: (ResultType?) -> Boolean = { true },
+    crossinline fetch: suspend () -> Flow<ApiResponse<RequestType>>,
+    crossinline saveFetchResult: suspend (RequestType) -> Unit,
+    crossinline isValid: (ResultType?) -> Boolean = {
+        when (it) {
+            is BaseModel<*> -> it.isValid
+            is List<*> -> it.isNotEmpty()
+            else -> if (it == null) false else throw IllegalArgumentException("resultType not support")
+        }
+    },
+) = flow {
 
-    private var result: Flow<Resource<ResultType>> = flow {
-        emit(Resource.Loading)
-        val dbSource = loadFromDB().first()
-        if (shouldFetch(dbSource)) {
-            emit(Resource.Loading)
-            when (val apiResponse = createCall().first()) {
-                is ApiResponse.Success -> {
-                    saveCallResult(apiResponse.data)
-                    emitAll(loadFromDB().map { Resource.Success(it) })
+    val resourceSuccessOrEmpty = { type: ResultType ->
+        if (isValid(type)) Resource.Success(type) else Resource.Empty
+    }
+
+    val resultType = loadFromDB().firstOrNull()
+    val firstResource = resultType
+        ?.let { (if (isValid(it)) Resource.Success(it) else Resource.Loading) }
+        ?: Resource.Loading
+    emit(firstResource)
+
+    val result =
+        if (shouldFetch(resultType)) {
+            when (val apiResponse = fetch().first()) {
+                is ApiResponse.Success -> saveFetchResult(apiResponse.data).run {
+                    loadFromDB().map { Resource.Success(it) }
                 }
-                is ApiResponse.Empty -> {
-                    emitAll(loadFromDB().map { Resource.Empty })
+                is ApiResponse.Empty -> onFetchEmpty(resultType).run {
+                    loadFromDB().map { resourceSuccessOrEmpty(it) }
                 }
-                is ApiResponse.Error -> {
-                    onFetchFailed()
-                    emitAll(loadFromDB().map {
-                        Resource.Error(
-                            errorMessage = Throwable(apiResponse.errorMessage),
-                            it
-                        )
-                    })
+                is ApiResponse.Error -> onFetchError(apiResponse.error).run {
+                    loadFromDB().map {
+                        Resource.Error(apiResponse.error, if (isValid(it)) it else null)
+                    }
                 }
             }
         } else {
-            emitAll(loadFromDB().map { Resource.Success(it) })
+            loadFromDB().map { resourceSuccessOrEmpty(it) }
         }
-    }
-
-    protected open fun onFetchFailed() {}
-
-    protected abstract fun loadFromDB(): Flow<ResultType>
-
-    protected open fun shouldFetch(data: ResultType?): Boolean = true
-
-    protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
-
-    protected abstract suspend fun saveCallResult(data: RequestType)
-
-    fun asFlow(): Flow<Resource<ResultType>> = result
-}
+    emitAll(result)
+}.flowOn(Dispatchers.IO)
