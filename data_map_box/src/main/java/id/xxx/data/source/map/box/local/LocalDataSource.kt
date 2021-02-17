@@ -5,7 +5,7 @@ import id.xxx.data.source.map.box.local.entity.PlacesEntity
 
 class LocalDataSource constructor(private val dao: PlacesDao) {
 
-    fun getPaging(value: String) = dao.getPaged(value)
+    fun getPaging(value: String) = dao.getPaging(value)
 
     fun getByID(id: Int) = dao.getByID(id)
 

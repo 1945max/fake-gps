@@ -10,11 +10,11 @@ class InteractorImpl constructor(
     private val iSearchRepo: IRepository<SearchModel>
 ) : IInteractor {
 
-    override fun getPlaceWithPagingData(value: String) =
-        iSearchRepo.getPlaceWithPagingData(value)
+    override fun getPlaceWithPagingData(query: String) =
+        iSearchRepo.getPlaceWithPagingData(query)
 
-    override fun getPlaces(value: String): Flow<Resource<List<SearchModel>>> =
-        iSearchRepo.getPlaces(value)
+    override fun getPlaces(query: String): Flow<Resource<List<SearchModel>>> =
+        iSearchRepo.getPlaces(query)
 
     override fun getAddress(context: Context, value: String): Flow<Resource<SearchModel>> =
         iSearchRepo.getAddress(context, value)

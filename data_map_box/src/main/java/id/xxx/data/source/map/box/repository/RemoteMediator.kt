@@ -21,33 +21,16 @@ class RemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, PlacesEntity>
     ): MediatorResult {
-        try {
+        return try {
             val apiResponse = service.fetchPlaces(query)
             database.insert(*toListSearchEntity.map(apiResponse.features).toTypedArray())
-
-//            val repos = apiResponse.items
-//            val endOfPaginationReached = repos.isEmpty()
-//            repoDatabase.withTransaction {
-//                // clear all tables in the database
-//                if (loadType == LoadType.REFRESH) {
-//                    repoDatabase.remoteKeysDao().clearRemoteKeys()
-//                    repoDatabase.reposDao().clearRepos()
-//                }
-//                val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
-//                val nextKey = if (endOfPaginationReached) null else page + 1
-//                val keys = repos.map {
-//                    RemoteKeys(repoId = it.id, prevKey = prevKey, nextKey = nextKey)
-//                }
-//                repoDatabase.remoteKeysDao().insertAll(keys)
-//                repoDatabase.reposDao().insertAll(repos)
-//            }
-            return MediatorResult.Success(endOfPaginationReached = true)
+            MediatorResult.Success(endOfPaginationReached = true)
         } catch (exception: IOException) {
             exception.printStackTrace()
-            return MediatorResult.Error(exception)
+            MediatorResult.Error(exception)
         } catch (exception: HttpException) {
             exception.printStackTrace()
-            return MediatorResult.Error(exception)
+            MediatorResult.Error(exception)
         }
     }
 }

@@ -19,7 +19,7 @@ interface PlacesDao : BaseDao<PlacesEntity> {
     fun getByID(id: Int): PlacesEntity
 
     @Query("SELECT * FROM $SH_TABLE WHERE $SH_NAME LIKE '%' || :value || '%' OR $SH_ADDRESS LIKE '%' || :value || '%' ORDER BY $SH_ID DESC")
-    fun getPaged(value: String): PagingSource<Int, PlacesEntity>
+    fun getPaging(value: String): PagingSource<Int, PlacesEntity>
 
     @Query("SELECT * FROM $SH_TABLE WHERE $SH_NAME LIKE '%' || :value || '%' OR $SH_ADDRESS LIKE '%' || :value || '%' ORDER BY $SH_ID DESC")
     fun likeColumnNameOrAddress(value: String): Flow<List<PlacesEntity>>

@@ -7,7 +7,7 @@ import id.xxx.data.source.map.box.local.database.room.AppDatabase
 import id.xxx.data.source.map.box.remote.RemoteDataSource
 import id.xxx.data.source.map.box.remote.network.ApiConfig
 import id.xxx.data.source.map.box.remote.network.ApiService
-import id.xxx.data.source.map.box.repository.SearchRepository
+import id.xxx.data.source.map.box.repository.RepositoryImpl
 import id.xxx.fake.test.domain.search.model.SearchModel
 import id.xxx.fake.test.domain.search.repository.IRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,7 +34,7 @@ object MapBoxModule {
     }
 
     private val searchRepositoryModule = module {
-        single<IRepository<SearchModel>> { SearchRepository(get(), get()) }
+        single<IRepository<SearchModel>> { RepositoryImpl(get(), get()) }
     }
 
     val modules = listOf(

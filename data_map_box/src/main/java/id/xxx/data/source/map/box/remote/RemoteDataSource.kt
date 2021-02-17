@@ -9,11 +9,14 @@ import kotlinx.coroutines.flow.flowOn
 class RemoteDataSource constructor(val apiService: ApiService) {
     fun getPlaces(query: String) = flow {
         try {
-            val response = apiService.fetchPlaces(query)
-            emit(
-                if (response.features.isNotEmpty()) ApiResponse.Success(response) else ApiResponse.Empty
-            )
-        } catch (e: Exception) {
+            val response = if (query.isBlank()) {
+                ApiResponse.Empty
+            } else {
+                val placesResponse = apiService.fetchPlaces(query)
+                if (placesResponse.features.isNotEmpty()) ApiResponse.Success(placesResponse) else ApiResponse.Empty
+            }
+            emit(response)
+        } catch (e: Throwable) {
             emit(ApiResponse.Error(e))
         }
     }.flowOn(Dispatchers.IO)

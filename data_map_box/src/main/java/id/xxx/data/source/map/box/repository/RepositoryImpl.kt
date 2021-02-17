@@ -14,35 +14,31 @@ import id.xxx.fake.test.domain.halper.networkBoundResource
 import id.xxx.fake.test.domain.search.model.SearchModel
 import id.xxx.fake.test.domain.search.repository.IRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 @ExperimentalPagingApi
-@ExperimentalCoroutinesApi
-@FlowPreview
-class SearchRepository(
+class RepositoryImpl(
     private val local: LocalDataSource,
     private val remote: RemoteDataSource
 ) : IRepository<SearchModel> {
 
-    override fun getPlaceWithPagingData(value: String): Flow<PagingData<SearchModel>> = Pager(
+    override fun getPlaceWithPagingData(query: String): Flow<PagingData<SearchModel>> = Pager(
         config = PagingConfig(pageSize = 10, enablePlaceholders = false),
-        remoteMediator = RemoteMediator(value, remote.apiService, local)
-    ) { local.getPaging(value) }.flow.map {
-        return@map if (value == "") PagingData.empty() else it.map { searchEntity ->
+        remoteMediator = RemoteMediator(query, remote.apiService, local)
+    ) { local.getPaging(query) }.flow.map {
+        return@map if (query.isBlank()) PagingData.empty() else it.map { searchEntity ->
             searchEntity.toSearchModel()
         }
     }
 
-    override fun getPlaces(value: String): Flow<Resource<List<SearchModel>>> = networkBoundResource(
+    override fun getPlaces(query: String) = networkBoundResource(
         loadFromDB = {
-            local.search(value).map { it.map { data -> data.toSearchModel() } }
+            local.search(query).map { it.map { data -> data.toSearchModel() } }
         },
-        fetch = { remote.getPlaces(value) },
+        fetch = { remote.getPlaces(query) },
         saveFetchResult = { data ->
             local.insert(*toListSearchEntity.map(data.features).toTypedArray())
         }
