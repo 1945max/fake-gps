@@ -1,4 +1,4 @@
-package id.xxx.data.source.map.box
+package id.xxx.data.source.map.box.utils
 
 import id.xxx.data.source.map.box.local.entity.PlacesEntity
 import id.xxx.data.source.map.box.remote.response.Features

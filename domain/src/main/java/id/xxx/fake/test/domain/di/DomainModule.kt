@@ -4,9 +4,9 @@ import id.xxx.fake.test.domain.auth.usecase.InteractorImpl
 import org.koin.dsl.module
 import id.xxx.fake.test.domain.auth.usecase.IInteractor as IAuthInteractor
 import id.xxx.fake.test.domain.history.usecase.IInteractor as IHistoryInteractor
-import id.xxx.fake.test.domain.history.usecase.Interactor as HistoryInteractor
+import id.xxx.fake.test.domain.history.usecase.InteractorImpl as HistoryInteractor
 import id.xxx.fake.test.domain.search.usecase.IInteractor as ISearchInteractor
-import id.xxx.fake.test.domain.search.usecase.Interactor as SearchInteractor
+import id.xxx.fake.test.domain.search.usecase.InteractorImpl as SearchInteractor
 
 object DomainModule {
     private val useCaseSearchModule = module {

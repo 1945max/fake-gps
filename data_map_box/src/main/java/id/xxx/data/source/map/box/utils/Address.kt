@@ -1,4 +1,4 @@
-package id.xxx.data.source.map.box
+package id.xxx.data.source.map.box.utils
 
 import android.content.Context
 import android.location.Geocoder

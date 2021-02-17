@@ -6,7 +6,7 @@ import id.xxx.fake.test.domain.search.model.SearchModel
 import id.xxx.fake.test.domain.search.repository.IRepository
 import kotlinx.coroutines.flow.Flow
 
-class Interactor constructor(
+class InteractorImpl constructor(
     private val iSearchRepo: IRepository<SearchModel>
 ) : IInteractor {
 

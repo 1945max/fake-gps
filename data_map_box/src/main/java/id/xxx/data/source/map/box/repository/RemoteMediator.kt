@@ -4,10 +4,10 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import id.xxx.data.source.map.box.DataMapper.toListSearchEntity
 import id.xxx.data.source.map.box.local.LocalDataSource
 import id.xxx.data.source.map.box.local.entity.PlacesEntity
 import id.xxx.data.source.map.box.remote.network.ApiService
+import id.xxx.data.source.map.box.utils.DataMapper.toListSearchEntity
 import retrofit2.HttpException
 import java.io.IOException
 

@@ -2,14 +2,14 @@ package id.xxx.data.source.map.box.repository
 
 import android.content.Context
 import androidx.paging.*
-import id.xxx.data.source.map.box.Address
-import id.xxx.data.source.map.box.DataMapper.toListSearchEntity
-import id.xxx.data.source.map.box.DataMapper.toSearchModel
-import id.xxx.data.source.map.box.Result
 import id.xxx.data.source.map.box.local.LocalDataSource
 import id.xxx.data.source.map.box.local.entity.PlacesEntity
 import id.xxx.data.source.map.box.remote.RemoteDataSource
 import id.xxx.data.source.map.box.remote.response.PlacesResponse
+import id.xxx.data.source.map.box.utils.Address
+import id.xxx.data.source.map.box.utils.DataMapper.toListSearchEntity
+import id.xxx.data.source.map.box.utils.DataMapper.toSearchModel
+import id.xxx.data.source.map.box.utils.Result
 import id.xxx.fake.test.domain.halper.ApiResponse
 import id.xxx.fake.test.domain.halper.NetworkBoundResource
 import id.xxx.fake.test.domain.halper.Resource
