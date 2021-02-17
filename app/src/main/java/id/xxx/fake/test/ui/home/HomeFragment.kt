@@ -10,7 +10,6 @@ import android.view.View.VISIBLE
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.base.binding.delegate.viewBinding
-import com.base.extension.openActivityAndFinis
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -19,10 +18,8 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentHomeBinding
-import id.xxx.fake.test.domain.auth.usecase.IInteractor
 import id.xxx.fake.test.service.FakeLocation
 import id.xxx.fake.test.service.FakeLocationService
-import id.xxx.fake.test.ui.MainActivity
 import id.xxx.fake.test.ui.history.HistoryActivity
 import id.xxx.fake.test.ui.home.map.Map
 import id.xxx.fake.test.ui.search.SearchActivity
@@ -31,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -127,8 +123,8 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_logout -> lifecycleScope.launch {
-                inject<IInteractor>().value.signOut()
-                openActivityAndFinis<MainActivity>()
+//                inject<IInteractor>().value.signOut()
+//                openActivityAndFinis<MainActivity>()
             }
 
             R.id.toolbar -> {
