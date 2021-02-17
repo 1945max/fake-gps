@@ -1,7 +1,9 @@
-include ':domain'
-include ':app'
 rootProject.name = "Fake Gps Kotlin With Koin And Coroutine Flow"
 
-include ':base'
-include(':data_map_box')
-include ':data_firebase'
+include(
+        ":app",
+        ":domain",
+        ":base",
+        ":data_map_box",
+        ":data_firebase"
+)
