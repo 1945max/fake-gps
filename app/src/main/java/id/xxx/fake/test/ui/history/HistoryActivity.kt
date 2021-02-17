@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import id.xxx.base.BaseActivityWithNavigation
+import com.base.binding.activity.BaseActivityWithNavigation
+import com.base.binding.delegate.viewBinding
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.ActivityHistoryBinding
 import id.xxx.fake.test.utils.generateInt
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_history.*
 
 class HistoryActivity : BaseActivityWithNavigation<ActivityHistoryBinding>() {
 
-    override val layoutRes: Int = R.layout.activity_history
+    override val binding by viewBinding(ActivityHistoryBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

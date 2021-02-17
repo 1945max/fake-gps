@@ -9,6 +9,8 @@ android {
 }
 dependencies {
 
+    api "com.github.x-syaifullah-x:android-module-base:2.0"
+
     api "androidx.databinding:databinding-runtime:$databinding_version"
 
     api "com.google.android.material:material:$material_version"

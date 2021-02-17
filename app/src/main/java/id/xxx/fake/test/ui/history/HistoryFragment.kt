@@ -3,15 +3,16 @@ package id.xxx.fake.test.ui.history
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import id.xxx.base.BaseFragment
+import com.base.binding.delegate.viewBinding
+import com.base.extension.setResult
 import id.xxx.base.adapter.Holder
 import id.xxx.base.adapter.ItemClicked
 import id.xxx.base.adapter.ItemSwipeLR
-import id.xxx.base.extention.setResult
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentHistoryBinding
 import id.xxx.fake.test.databinding.ItemHistoryBinding
@@ -19,15 +20,15 @@ import id.xxx.fake.test.domain.history.model.HistoryModel
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
+class HistoryFragment : Fragment(R.layout.fragment_history) {
+
+    private val binding by viewBinding<FragmentHistoryBinding>()
 
     private var isLoaded = false
 
     private lateinit var adapterPaging: Adapter
 
     private val viewModel: HistoryViewModel by viewModel()
-
-    override val layoutFragment: Int = R.layout.fragment_history
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

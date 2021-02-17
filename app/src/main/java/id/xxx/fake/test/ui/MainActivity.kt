@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import id.xxx.base.extention.openActivity
+import com.base.extension.openActivity
 import id.xxx.fake.test.domain.auth.model.UserModel
 import id.xxx.fake.test.ui.auth.AuthActivity
 import id.xxx.fake.test.ui.home.HomeActivity

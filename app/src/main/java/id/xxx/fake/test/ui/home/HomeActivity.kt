@@ -1,15 +1,15 @@
 package id.xxx.fake.test.ui.home
 
 import androidx.navigation.fragment.findNavController
-import id.xxx.base.BaseActivityWithNavigation
-import id.xxx.fake.test.R
+import com.base.binding.activity.BaseActivityWithNavigation
+import com.base.binding.delegate.viewBinding
 import id.xxx.fake.test.databinding.ActivityHomeBinding
 import id.xxx.fake.test.ui.home.map.Map
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivityWithNavigation<ActivityHomeBinding>() {
 
-    override val layoutRes: Int = R.layout.activity_home
+    override val binding by viewBinding(ActivityHomeBinding::inflate)
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

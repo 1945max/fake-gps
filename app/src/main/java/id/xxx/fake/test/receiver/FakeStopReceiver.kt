@@ -2,7 +2,7 @@ package id.xxx.fake.test.receiver
 
 import android.content.ContextWrapper
 import android.content.Intent
-import id.xxx.base.BaseReceiver
+import com.base.reciver.BaseReceiver
 import id.xxx.fake.test.service.FakeLocationService
 
 class FakeStopReceiver : BaseReceiver() {

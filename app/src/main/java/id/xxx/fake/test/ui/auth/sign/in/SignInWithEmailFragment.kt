@@ -3,9 +3,10 @@ package id.xxx.fake.test.ui.auth.sign.`in`
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
-import id.xxx.base.BaseFragment
+import com.base.binding.delegate.viewBinding
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentSignInWithEmailBinding
 import id.xxx.fake.test.domain.auth.model.Result
@@ -16,11 +17,11 @@ import kotlinx.android.synthetic.main.fragment_sign_in_with_email.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class SignInWithEmailFragment : BaseFragment<FragmentSignInWithEmailBinding>() {
+class SignInWithEmailFragment : Fragment(R.layout.fragment_sign_in_with_email) {
+
+    private val binding by viewBinding<FragmentSignInWithEmailBinding>()
 
     private val viewModel by viewModels<SignInWithEmailViewModel>()
-
-    override val layoutFragment = R.layout.fragment_sign_in_with_email
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

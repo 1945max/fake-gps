@@ -7,15 +7,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.base.binding.delegate.viewBinding
+import com.base.extension.openActivityAndFinis
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import id.xxx.base.BaseFragment
-import id.xxx.base.extention.openActivity
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentHomeBinding
 import id.xxx.fake.test.domain.auth.usecase.IInteractor
@@ -34,12 +35,13 @@ import org.koin.android.ext.android.inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class HomeFragment :
-        BaseFragment<FragmentHomeBinding>(),
-        Map.Callback,
-        GoogleMap.OnCameraMoveListener,
-        GoogleMap.OnMarkerClickListener,
-        View.OnClickListener {
+class HomeFragment : Fragment(R.layout.fragment_home),
+    Map.Callback,
+    GoogleMap.OnCameraMoveListener,
+    GoogleMap.OnMarkerClickListener,
+    View.OnClickListener {
+
+    private val binding by viewBinding<FragmentHomeBinding>()
 
     private lateinit var map: Map
 
@@ -47,8 +49,6 @@ class HomeFragment :
     private var location: Location = Location(GPS_PROVIDER)
     private var markerPosition: Marker? = null
     private var markerOptions: MarkerOptions? = null
-
-    override val layoutFragment: Int = R.layout.fragment_home
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -128,7 +128,7 @@ class HomeFragment :
         when (view.id) {
             R.id.btn_logout -> lifecycleScope.launch {
                 inject<IInteractor>().value.signOut()
-                openActivity<MainActivity>(isFinish = true)
+                openActivityAndFinis<MainActivity>()
             }
 
             R.id.toolbar -> {

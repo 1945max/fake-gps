@@ -3,14 +3,15 @@ package id.xxx.fake.test.ui.search
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import id.xxx.base.BaseFragment
+import com.base.binding.delegate.viewBinding
+import com.base.extension.setResult
 import id.xxx.base.adapter.ItemClicked
-import id.xxx.base.extention.setResult
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentSearchBinding
 import id.xxx.fake.test.domain.search.model.SearchModel
@@ -23,13 +24,13 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-class SearchFragment : BaseFragment<FragmentSearchBinding>(), ItemClicked<SearchModel> {
+class SearchFragment : Fragment(R.layout.fragment_search), ItemClicked<SearchModel> {
+
+    private val binding by viewBinding<FragmentSearchBinding>()
 
     private lateinit var adapter: AdapterWithPaging
 
     private val viewModel by sharedViewModel<SearchViewModel>()
-
-    override val layoutFragment: Int = R.layout.fragment_search
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

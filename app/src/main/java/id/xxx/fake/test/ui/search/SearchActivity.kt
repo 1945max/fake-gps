@@ -7,9 +7,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import id.xxx.base.BaseActivityWithNavigation
-import id.xxx.base.extention.setResult
-import id.xxx.fake.test.R
+import com.base.binding.activity.BaseActivityWithNavigation
+import com.base.binding.delegate.viewBinding
+import com.base.extension.setResult
 import id.xxx.fake.test.databinding.ActivitySearchBinding
 import id.xxx.fake.test.domain.halper.Resource
 import id.xxx.fake.test.domain.search.model.SearchModel
@@ -28,7 +28,7 @@ class SearchActivity : BaseActivityWithNavigation<ActivitySearchBinding>(),
 
     private val viewModel: SearchViewModel by viewModel()
 
-    override val layoutRes: Int = R.layout.activity_search
+    override val binding by viewBinding(ActivitySearchBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

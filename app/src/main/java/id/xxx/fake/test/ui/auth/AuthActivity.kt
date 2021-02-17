@@ -6,8 +6,9 @@ import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import id.xxx.base.BaseActivityWithNavigation
-import id.xxx.base.extention.setResult
+import com.base.binding.activity.BaseActivityWithNavigation
+import com.base.binding.delegate.viewBinding
+import com.base.extension.setResult
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.ActivityAuthBinding
 import id.xxx.fake.test.domain.auth.model.User
@@ -24,7 +25,7 @@ class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
 
     private val interactor by inject<IInteractor>()
 
-    override val layoutRes = R.layout.activity_auth
+    override val binding by viewBinding(ActivityAuthBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

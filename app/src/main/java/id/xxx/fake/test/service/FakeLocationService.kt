@@ -6,12 +6,12 @@ import android.os.Build.VERSION_CODES
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.work.Data
+import com.base.service.BaseService
 import com.google.android.gms.maps.model.LatLng
-import id.xxx.base.BaseService
 import id.xxx.base.utils.Network
+import id.xxx.fake.test.data.DataMapper
 import id.xxx.fake.test.domain.halper.Resource
 import id.xxx.fake.test.domain.search.model.SearchModel
-import id.xxx.fake.test.data.DataMapper
 import id.xxx.fake.test.workers.MyWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
