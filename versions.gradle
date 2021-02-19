@@ -7,16 +7,41 @@ build_versions.version_code = 1
 build_versions.version_name = "1.0"
 ext.build_versions = build_versions
 
-ext.deps = [:]
+ext {
+    vGradle = "4.1.2"
+    vKotlin = "1.4.30"
 
-def version = [:]
-version.gradle = "4.1.2"
-version.kotlin_version = "1.4.30"
-
-deps.gradle = "com.android.tools.build:gradle:$version.gradle"
-deps.kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version.kotlin_version"
-deps.kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version.kotlin_version"
-ext.deps = deps
+    databinding_version = "7.0.0-alpha06"
+    material_version = "1.3.0"
+    appcompact_version = "1.2.0"
+    constraintlayout_version = "2.0.4"
+    navigation_version = "2.3.3"
+    legacy_version = "1.0.0"
+    palette_ktx_version = "1.0.0"
+    core_ktx_version = "1.3.2"
+    kotlinx_coroutines_android = "1.4.1"
+    lifecycle_version = "2.2.0"
+    lifecycle_ktx_version = "2.3.0"
+    paging_version = "3.0.0-beta01"
+    work_manager_runtime_version = "2.5.0"
+    room_version = "2.3.0-beta01"
+    sqlite_version = "2.1.0"
+    sql_cipher_version = "4.4.2"
+    okhttp_version = "4.9.0"
+    retrofit_version = "2.9.0"
+    gson_version = "2.8.6"
+    mockito_version = "3.6.0"
+    mockito_kotlin_version = "2.2.0"
+    robolectric_version = "4.4"
+    espresso_version = "3.3.0"
+    junit_version = "4.13.2"
+    core_testing_version = "2.1.0"
+    test_ext_version = "1.1.2"
+    test_rules_version = "1.3.0"
+    core_version = "1.3.0"
+    lottie_version = "3.5.0"
+    koin_version = "2.1.6"
+}
 
 static def addRepos(RepositoryHandler handler) {
     handler.google()

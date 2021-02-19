@@ -1,15 +1,12 @@
 package id.xxx.data.source.map.box.local.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import id.xxx.data.source.map.box.local.entity.PlacesEntity.Companion.SH_NAME
 import id.xxx.data.source.map.box.local.entity.PlacesEntity.Companion.SH_TABLE
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 @Entity(
     tableName = SH_TABLE,
     indices = [
@@ -35,7 +32,7 @@ data class PlacesEntity(
 
     @ColumnInfo(name = SH_DATE)
     var date: Long = System.currentTimeMillis()
-) : Parcelable {
+) {
     companion object {
         const val SH_TABLE = "SEARCH_HISTORY"
         const val SH_ID = "SH_ID"

@@ -3,13 +3,15 @@ package id.xxx.fake.test.ui.home
 import androidx.navigation.fragment.findNavController
 import com.base.binding.activity.BaseActivityWithNavigation
 import com.base.binding.delegate.viewBinding
+import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.ActivityHomeBinding
 import id.xxx.fake.test.ui.home.map.Map
-import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivityWithNavigation<ActivityHomeBinding>() {
 
     override val binding by viewBinding(ActivityHomeBinding::inflate)
+
+    override fun getIdNavHost() = R.id.nav_host_main
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -23,6 +25,6 @@ class HomeActivity : BaseActivityWithNavigation<ActivityHomeBinding>() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp() || nav_host_main.findNavController().navigateUp()
+        return super.onSupportNavigateUp() || navHostFragment.findNavController().navigateUp()
     }
 }

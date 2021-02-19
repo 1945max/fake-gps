@@ -13,7 +13,6 @@ import id.xxx.fake.test.databinding.FragmentVerifyBinding
 import id.xxx.fake.test.domain.auth.model.User
 import id.xxx.fake.test.domain.auth.usecase.IInteractor
 import id.xxx.fake.test.ui.auth.AuthActivity
-import kotlinx.android.synthetic.main.fragment_verify.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -39,7 +38,7 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
 
-        btn_confirm_verify_email.setOnClickListener {
+        binding.btnConfirmVerifyEmail.setOnClickListener {
             lifecycleScope.launch {
                 interactor.reload().collectLatest {
                     val user = interactor.getUser()

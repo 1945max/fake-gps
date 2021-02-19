@@ -1,13 +1,10 @@
 package id.xxx.data.source.firebase.firestore.history.local.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import id.xxx.data.source.firebase.firestore.history.local.entity.HistoryEntity.Companion.FLH_TABLE
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 @Entity(
     tableName = FLH_TABLE,
     indices = [
@@ -30,7 +27,7 @@ data class HistoryEntity(
 
     @ColumnInfo(name = FLH_DATE)
     var date: Long = System.currentTimeMillis()
-) : Parcelable {
+) {
     companion object {
         const val FLH_TABLE = "FAKE_LOCATION_HISTORY"
         const val FLH_ID = "FLH_ID"

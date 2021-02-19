@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.base.binding.activity.BaseActivityWithNavigation
 import com.base.binding.delegate.viewBinding
+import com.base.extension.setHomeButton
 import com.base.extension.setResult
+import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.ActivitySearchBinding
 import id.xxx.fake.test.domain.halper.Resource
 import id.xxx.fake.test.domain.search.model.SearchModel
@@ -30,32 +32,30 @@ class SearchActivity : BaseActivityWithNavigation<ActivitySearchBinding>(),
 
     override val binding by viewBinding(ActivitySearchBinding::inflate)
 
+    override fun getIdNavHost() = R.id.nav_host_search
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(toolbar)
-        setupActionBarWithNavController(nav_host_search.findNavController())
-        supportActionBar?.apply {
-            setHomeButtonEnabled(true)
-            setDisplayHomeAsUpEnabled(true)
-        }
-        search_view.setOnQueryTextListener(this)
+        setSupportActionBar(binding.toolbar)
+        setupActionBarWithNavController(navHostFragment.findNavController())
+        supportActionBar.setHomeButton(isHomeButtonEnabled = true, isDisplayHomeAsUpEnabled = true)
+        binding.searchView.setOnQueryTextListener(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp() || nav_host_search.findNavController().navigateUp()
+        return super.onSupportNavigateUp() || navHostFragment.findNavController().navigateUp()
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         lifecycleScope.launch {
-            viewModel.getAddress(query ?: "").collect {
-                resultOnQueryTextSubmit(it)
-            }
+            viewModel.getAddress(query ?: return@launch)
+                .collect { resultOnQueryTextSubmit(it) }
         }
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        viewModel.sendQuery(newText ?: "")
+        viewModel.sendQuery(newText ?: return false)
         return true
     }
 
@@ -66,7 +66,11 @@ class SearchActivity : BaseActivityWithNavigation<ActivitySearchBinding>(),
             is Resource.Success -> resource.data.apply { setResultTextSubmit(latitude, longitude) }
             is Resource.Error -> {
                 resource.data?.apply { setResultTextSubmit(latitude, longitude) } ?: run {
-                    makeText(baseContext, resource.errorMessage?.localizedMessage, LENGTH_SHORT).show()
+                    makeText(
+                        baseContext,
+                        resource.errorMessage?.localizedMessage,
+                        LENGTH_SHORT
+                    ).show()
                 }
             }
         }

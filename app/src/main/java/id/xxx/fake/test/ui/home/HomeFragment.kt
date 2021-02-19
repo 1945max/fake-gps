@@ -24,7 +24,6 @@ import id.xxx.fake.test.ui.history.HistoryActivity
 import id.xxx.fake.test.ui.home.map.Map
 import id.xxx.fake.test.ui.search.SearchActivity
 import id.xxx.fake.test.utils.formatDouble
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
@@ -53,7 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         map = Map(smf, this).apply { binding.onClick = this@HomeFragment }
 
         FakeLocation.isRunning.observe(viewLifecycleOwner, {
-            btn_stop_fake.visibility = if (it) VISIBLE else GONE
+            binding.btnStopFake.visibility = if (it) VISIBLE else GONE
         })
     }
 
@@ -88,7 +87,7 @@ class HomeFragment : Fragment(R.layout.fragment_home),
                         formatDouble(target.latitude) == formatDouble(location.latitude)
                 val b =
                         formatDouble(target.longitude) == formatDouble(location.longitude)
-                aci_my_position?.apply { visibility = if (a && b) GONE else VISIBLE }
+                binding.aciMyPosition.apply { visibility = if (a && b) GONE else VISIBLE }
             }
         }
     }
@@ -111,7 +110,7 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         googleMap?.let { googleMap ->
             markerOptions?.let { markerOptions ->
                 markerPosition = googleMap.addMarker(markerOptions).apply {
-                    btn_start_fake.visibility = VISIBLE
+                    binding.btnStartFake.visibility = VISIBLE
                     showInfoWindow()
                     googleMap.setOnMarkerClickListener(this@HomeFragment)
 //                    googleMap.setOnInfoWindowClickListener(this@HomeFragment)
@@ -167,14 +166,14 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     }
 
     private fun addSingleMaker(latLng: LatLng) {
-        btn_start_fake.visibility = GONE
+        binding.btnStartFake.visibility = GONE
         googleMap?.clear()
         moveCamera(latLng.latitude, latLng.longitude)
         markerOptions = MarkerOptions().title("show location").position(latLng)
     }
 
     private fun removeSingleMarker() {
-        btn_start_fake.visibility = GONE
+        binding.btnStartFake.visibility = GONE
         googleMap?.clear()
         markerPosition = null
         markerOptions = null

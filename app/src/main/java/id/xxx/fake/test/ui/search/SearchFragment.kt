@@ -15,7 +15,6 @@ import id.xxx.base.adapter.ItemClicked
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentSearchBinding
 import id.xxx.fake.test.domain.search.model.SearchModel
-import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -36,7 +35,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), ItemClicked<SearchMod
         super.onViewCreated(view, savedInstanceState)
 
         adapter = AdapterWithPaging(R.layout.item_search, this)
-        recycler_view.apply {
+        binding.recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, 1))
@@ -53,9 +52,9 @@ class SearchFragment : Fragment(R.layout.fragment_search), ItemClicked<SearchMod
 
     private fun addLoadStateListener(loadState: CombinedLoadStates) =
         if (loadState.refresh is LoadState.Loading) {
-            loading_progress_bar.visibility = View.VISIBLE
+            binding.loadingProgressBar.visibility = View.VISIBLE
         } else {
-            loading_progress_bar.visibility = View.GONE
+            binding.loadingProgressBar.visibility = View.GONE
             val error = when {
                 loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
                 loadState.append is LoadState.Error -> loadState.append as LoadState.Error

@@ -13,7 +13,6 @@ import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.ActivityAuthBinding
 import id.xxx.fake.test.domain.auth.model.User
 import id.xxx.fake.test.domain.auth.usecase.IInteractor
-import kotlinx.android.synthetic.main.activity_auth.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -27,17 +26,19 @@ class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
 
     override val binding by viewBinding(ActivityAuthBinding::inflate)
 
+    override fun getIdNavHost() = R.id.nav_host_auth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setSupportActionBar(toolbar)
-        setupActionBarWithNavController(nav_host_auth.findNavController())
+        setSupportActionBar(binding.toolbar)
+        setupActionBarWithNavController(navHostFragment.findNavController())
 
         lifecycleScope.launch {
             val data = interactor.getUser()
             if (data is User.Exist) {
                 if (data.data.isEmailVerified) setResult { putExtra(AUTH_EXTRA, data.data) } else {
-                    nav_host_auth.findNavController().navigate(R.id.action_all_to_verify)
+                    navHostFragment.findNavController().navigate(R.id.action_all_to_verify)
                 }
             }
         }
@@ -49,11 +50,11 @@ class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        if (nav_host_auth.findNavController().currentDestination?.id == R.id.verify)
+        if (navHostFragment.findNavController().currentDestination?.id == R.id.verify)
             lifecycleScope.launch {
                 interactor.signOut()
             }
-        return super.onSupportNavigateUp() || nav_host_auth.findNavController().navigateUp()
+        return super.onSupportNavigateUp() || navHostFragment.findNavController().navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {

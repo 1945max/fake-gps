@@ -17,7 +17,6 @@ import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentHistoryBinding
 import id.xxx.fake.test.databinding.ItemHistoryBinding
 import id.xxx.fake.test.domain.history.model.HistoryModel
-import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
@@ -39,7 +38,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
                 putExtra("longitude", model.longitude)
             }
         })
-        recycler_view.apply {
+        binding.recyclerView.apply {
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, 1))
             ItemSwipeLR(object : ItemSwipeLR.OnSwipedCallback {
@@ -58,10 +57,10 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     private fun handleLoadStateListener(loadState: CombinedLoadStates) {
         if (loadState.refresh is LoadState.Loading) {
-            loading_progress_bar.visibility = View.VISIBLE
+            binding.loadingProgressBar.visibility = View.VISIBLE
             isLoaded = true
         } else {
-            if (isLoaded) loading_progress_bar.visibility = View.GONE
+            if (isLoaded) binding.loadingProgressBar.visibility = View.GONE
             val error = when {
                 loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
                 loadState.append is LoadState.Error -> loadState.append as LoadState.Error

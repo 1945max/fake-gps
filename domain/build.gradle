@@ -35,7 +35,7 @@ android {
 
 dependencies {
 
-    api deps.kotlin_stdlib
+    api "org.jetbrains.kotlin:kotlin-stdlib:$vKotlin"
 
     api "org.koin:koin-core:$koin_version"
     api "org.koin:koin-android:$koin_version"
@@ -50,4 +50,8 @@ dependencies {
 
     api "androidx.paging:paging-runtime-ktx:$paging_version"
     api "androidx.paging:paging-common-ktx:$paging_version"
+
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "androidx.test:core:$core_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
 }

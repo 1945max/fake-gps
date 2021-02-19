@@ -37,6 +37,6 @@ class SearchViewModel constructor(
 
     fun sendQuery(value: String) = viewModelScope.launch { queryChannel.send(value) }
 
-    fun getAddress(value: String) = iInteractor.getAddress(getApplication(), value)
-
+    fun getAddress(value: String) =
+        iInteractor.getAddress(getApplication(), value)
 }
