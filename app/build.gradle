@@ -28,13 +28,11 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
             minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -43,13 +41,15 @@ android {
         viewBinding true
         dataBinding true
     }
+
+    dynamicFeatures = [':auth']
 }
 
 dependencies {
-    implementation project(path: ':base')
+
+    implementation project(path: ':domain')
     implementation project(path: ':data_map_box')
     implementation project(path: ':data_firebase')
-    implementation project(path: ':domain')
 
     /* Google Maps */
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

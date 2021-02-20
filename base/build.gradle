@@ -35,7 +35,7 @@ android {
 
 dependencies {
 
-    api "com.github.x-syaifullah-x:android-module-base:1.0.4"
+    api "com.github.x-syaifullah-x:android-module-base:1.0.13"
 
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_android"
 

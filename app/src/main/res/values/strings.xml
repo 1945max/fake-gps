@@ -13,5 +13,6 @@
     <string name="prompt_name">Name</string>
     <string name="action_confirm_verify_email">Confirm Verify Email</string>
     <string name="message_to_user">Message To User</string>
+    <string name="title_auth">Module Title</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

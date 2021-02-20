@@ -1,7 +1,7 @@
 package id.xxx.fake.test
 
-import android.app.Application
 import androidx.paging.ExperimentalPagingApi
+import com.google.android.play.core.splitcompat.SplitCompatApplication
 import id.xxx.fake.test.di.AppModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -13,7 +13,7 @@ import org.koin.core.logger.Level
 @FlowPreview
 @ExperimentalPagingApi
 @ExperimentalCoroutinesApi
-class App : Application() {
+class App : SplitCompatApplication() {
     override fun onCreate() {
         super.onCreate()
 

@@ -1,13 +1,13 @@
-package id.xxx.base.adapter
+package id.xxx.fake.test.domain.adapter
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 class ItemSwipeLR(
-    onSwipedCallback: OnSwipedCallback
-) : ItemTouchHelper(ItemTouchCallback(onSwipedCallback)) {
+    blockOnSwipe: (RecyclerView.ViewHolder) -> Unit
+) : ItemTouchHelper(ItemTouchCallback(blockOnSwipe)) {
 
-    private class ItemTouchCallback(private val onSwipedCallback: OnSwipedCallback) :
+    private class ItemTouchCallback(private val blockOnSwipe: (RecyclerView.ViewHolder) -> Unit) :
         ItemTouchHelper.Callback() {
         override fun getMovementFlags(
             recyclerView: RecyclerView,
@@ -23,11 +23,8 @@ class ItemSwipeLR(
         ): Boolean = false
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            onSwipedCallback.onItemSwipedLR(viewHolder, direction)
+            @Suppress("UNCHECKED_CAST")
+            blockOnSwipe((viewHolder))
         }
-    }
-
-    interface OnSwipedCallback {
-        fun onItemSwipedLR(holder: RecyclerView.ViewHolder, direction: Int)
     }
 }

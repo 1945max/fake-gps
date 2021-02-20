@@ -1,7 +1,7 @@
 package id.xxx.fake.test.domain.history.repository
 
 import androidx.paging.PagingData
-import id.xxx.fake.test.domain.halper.BaseModel
+import com.base.model.BaseModel
 import kotlinx.coroutines.flow.Flow
 
 interface IRepository<Model : BaseModel<*>> {

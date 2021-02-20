@@ -1,5 +1,6 @@
 package id.xxx.fake.test.domain.halper
 
+import com.base.model.BaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 

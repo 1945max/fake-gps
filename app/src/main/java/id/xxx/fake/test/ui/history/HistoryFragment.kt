@@ -7,16 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
+import com.base.binding.adapter.HolderWithBinding
 import com.base.binding.delegate.viewBinding
 import com.base.extension.setResult
-import id.xxx.base.adapter.Holder
-import id.xxx.base.adapter.ItemClicked
-import id.xxx.base.adapter.ItemSwipeLR
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentHistoryBinding
 import id.xxx.fake.test.databinding.ItemHistoryBinding
-import id.xxx.fake.test.domain.history.model.HistoryModel
+import id.xxx.fake.test.domain.adapter.ItemSwipeLR
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
@@ -32,21 +29,20 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapterPaging = Adapter(R.layout.item_history, object : ItemClicked<HistoryModel> {
-            override fun onItemClick(model: HistoryModel) = setResult {
+        adapterPaging = Adapter { _, model ->
+            setResult {
                 putExtra("latitude", model.latitude)
                 putExtra("longitude", model.longitude)
             }
-        })
+        }
         binding.recyclerView.apply {
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, 1))
-            ItemSwipeLR(object : ItemSwipeLR.OnSwipedCallback {
-                override fun onItemSwipedLR(holder: RecyclerView.ViewHolder, direction: Int) {
-                    ((holder as Holder<*>).binding as ItemHistoryBinding)
-                        .data?.apply { viewModel.delete(this) }
-                }
-            }).attachToRecyclerView(this)
+            ItemSwipeLR {
+                @Suppress("UNCHECKED_CAST")
+                val holderWithBinding = (it as HolderWithBinding<ItemHistoryBinding>)
+                holderWithBinding.binding.data?.apply { viewModel.delete(this) }
+            }.attachToRecyclerView(this)
             adapter = this@HistoryFragment.adapterPaging
         }
 

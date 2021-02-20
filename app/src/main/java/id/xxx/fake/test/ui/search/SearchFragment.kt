@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.binding.delegate.viewBinding
 import com.base.extension.setResult
-import id.xxx.base.adapter.ItemClicked
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentSearchBinding
-import id.xxx.fake.test.domain.search.model.SearchModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -23,7 +21,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-class SearchFragment : Fragment(R.layout.fragment_search), ItemClicked<SearchModel> {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private val binding by viewBinding<FragmentSearchBinding>()
 
@@ -34,7 +32,12 @@ class SearchFragment : Fragment(R.layout.fragment_search), ItemClicked<SearchMod
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = AdapterWithPaging(R.layout.item_search, this)
+        adapter = AdapterWithPaging { _, data ->
+            setResult {
+                putExtra("latitude", data.latitude)
+                putExtra("longitude", data.longitude)
+            }
+        }
         binding.recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -65,11 +68,4 @@ class SearchFragment : Fragment(R.layout.fragment_search), ItemClicked<SearchMod
                 Toast.makeText(context, it.error.message, Toast.LENGTH_LONG).show()
             }
         }
-
-    override fun onItemClick(model: SearchModel) {
-        setResult {
-            putExtra("latitude", model.latitude)
-            putExtra("longitude", model.longitude)
-        }
-    }
 }

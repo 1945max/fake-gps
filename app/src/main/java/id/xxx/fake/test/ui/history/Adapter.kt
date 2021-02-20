@@ -3,37 +3,31 @@ package id.xxx.fake.test.ui.history
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.recyclerview.widget.DiffUtil
-import id.xxx.base.adapter.BaseAdapterWithPaging
-import id.xxx.base.adapter.Holder
-import id.xxx.base.adapter.ItemClicked
+import com.base.binding.adapter.BaseAdapter
+import com.base.binding.adapter.HolderWithBinding
 import id.xxx.fake.test.databinding.ItemHistoryBinding
 import id.xxx.fake.test.domain.history.model.HistoryModel
 
 class Adapter(
-    itemLayout: Int, onItemClick: ItemClicked<HistoryModel>
-) : BaseAdapterWithPaging<HistoryModel, ItemHistoryBinding>(itemLayout, diffCallback, onItemClick) {
+    private val onItemClick: (ItemHistoryBinding, HistoryModel) -> Unit = { _, _ -> }
+) : BaseAdapter.WithPaging3AndViewHolder<HistoryModel, ItemHistoryBinding>() {
 
-    companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<HistoryModel>() {
-            override fun areItemsTheSame(
-                oldItem: HistoryModel,
-                newItem: HistoryModel
-            ): Boolean = oldItem.id == newItem.id
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = HolderWithBinding(
+        ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
-            override fun areContentsTheSame(
-                oldItem: HistoryModel,
-                newItem: HistoryModel
-            ): Boolean = oldItem == newItem
-        }
-    }
+    override fun onBindViewHolder(holder: HolderWithBinding<ItemHistoryBinding>, position: Int) {
+        val data = getItem(position) ?: return
 
-    override fun onBindViewHolder(holder: Holder<ItemHistoryBinding>, position: Int) {
-        val data = getItem(position)
-        holder.binding?.apply {
+        holder.binding.apply {
             this.data = data
+
+            root.setOnClickListener { onItemClick(this, data) }
+
             addressHistory.setOnLongClickListener {
                 val clipboardManager =
                     it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -42,8 +36,6 @@ class Adapter(
                 Toast.makeText(it.context, "copy", Toast.LENGTH_SHORT).show()
                 return@setOnLongClickListener true
             }
-
-            root.setOnClickListener { data?.let { onItemClick?.onItemClick(it) } }
         }
     }
 }

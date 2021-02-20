@@ -31,9 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    api project(':base')
 
     api "org.jetbrains.kotlin:kotlin-stdlib:$vKotlin"
 
