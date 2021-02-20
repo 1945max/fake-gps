@@ -1,9 +1,10 @@
+include ':auth_domain'
 include ':auth'
 rootProject.name = "Fake Gps Kotlin With Koin And Coroutine Flow"
 
 include(
         ":app",
-        ":domain",
+        ':app_domain',
         ":base",
         ":data_map_box",
         ":data_firebase"

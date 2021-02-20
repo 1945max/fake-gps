@@ -6,7 +6,9 @@
 
     <fragment
         android:id="@+id/welcome"
-        android:name="id.xxx.fake.test.auth.WelcomeFragment"
+        android:name="id.xxx.auth.WelcomeFragment"
         android:label="Welcome"
-        tools:layout="@layout/fragment_welcome" />
+        tools:layout="@layout/fragment_welcome">
+
+    </fragment>
 </navigation>

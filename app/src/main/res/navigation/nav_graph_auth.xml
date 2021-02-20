@@ -6,9 +6,7 @@
 
     <fragment
         android:id="@+id/welcome"
-        android:name="id.xxx.fake.test.ui.auth.welcome.WelcomeFragment"
-        android:label="Welcome"
-        tools:layout="@layout/fragment_welcome">
+        android:label="Welcome">
         <action
             android:id="@+id/action_to_sign_with_token"
             app:destination="@id/sign_with_token"

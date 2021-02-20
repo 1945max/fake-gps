@@ -61,5 +61,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias=".85" />
 
+        <TextView
+            android:id="@+id/tv_anonymous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{onClick::onClick}"
+            android:text="Anonymous"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/btn_sign_up" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

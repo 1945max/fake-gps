@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.base.extension.hideSystemUI
 import com.base.extension.openActivityAndFinish
 import com.base.extension.openDynamicFeature
+import id.xxx.fake.test.ui.home.HomeActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -18,13 +19,17 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             delay(500)
-            baseContext.openDynamicFeature(
-                dynamicModuleName = "auth",
-                onOpen = { openActivityAndFinish("id.xxx.fake.test.auth.AuthActivity") },
-                onFailure = {
-                    makeText(baseContext, "load module failure", LENGTH_SHORT).show()
-                }
-            )
+            if (false /*is User Login*/) {
+                openActivityAndFinish<HomeActivity>()
+            } else {
+                baseContext.openDynamicFeature(
+                    dynamicModuleName = "auth",
+                    onOpen = { openActivityAndFinish("id.xxx.auth.AuthActivity") },
+                    onFailure = {
+                        makeText(baseContext, "load module failure", LENGTH_SHORT).show()
+                    }
+                )
+            }
         }
     }
 

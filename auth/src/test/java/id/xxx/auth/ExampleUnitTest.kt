@@ -1,4 +1,4 @@
-package id.xxx.fake.test.auth
+package id.xxx.auth
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

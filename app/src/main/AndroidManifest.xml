@@ -19,9 +19,6 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="id.xxx.fake.test.ui.auth.AuthActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name="id.xxx.fake.test.ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

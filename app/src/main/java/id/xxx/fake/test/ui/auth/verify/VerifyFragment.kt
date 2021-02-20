@@ -7,12 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.base.binding.delegate.viewBinding
-import com.base.extension.setResult
 import id.xxx.fake.test.R
 import id.xxx.fake.test.databinding.FragmentVerifyBinding
 import id.xxx.fake.test.domain.auth.model.User
 import id.xxx.fake.test.domain.auth.usecase.IInteractor
-import id.xxx.fake.test.ui.auth.AuthActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -44,7 +42,7 @@ class VerifyFragment : Fragment(R.layout.fragment_verify) {
                     val user = interactor.getUser()
                     if (user is User.Exist)
                         if (user.data.isEmailVerified) {
-                            setResult { putExtra(AuthActivity.AUTH_EXTRA, user.data) }
+//                            setResult { putExtra(AuthActivity.AUTH_EXTRA, user.data) }
                         } else {
                             Toast.makeText(requireContext(), "please verify your email", Toast.LENGTH_SHORT).show()
                         }

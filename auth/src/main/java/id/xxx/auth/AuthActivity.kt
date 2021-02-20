@@ -1,11 +1,11 @@
-package id.xxx.fake.test.auth
+package id.xxx.auth
 
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.base.binding.activity.BaseActivityWithNavigation
 import com.base.binding.delegate.viewBinding
-import id.xxx.fake.test.auth.databinding.ActivityAuthBinding
+import id.xxx.auth.databinding.ActivityAuthBinding
 
 class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
 
@@ -15,7 +15,6 @@ class AuthActivity : BaseActivityWithNavigation<ActivityAuthBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navHostFragment.findNavController())
     }
