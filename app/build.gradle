@@ -24,6 +24,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions { jvmTarget = "1.8" }
 
     buildTypes {
@@ -43,8 +44,6 @@ android {
         dataBinding true
     }
 
-    dynamicFeatures = [':auth']
-
     packagingOptions {
         exclude "**/attach_hotspot_windows.dll"
         exclude "META-INF/licenses/**"
@@ -59,13 +58,16 @@ dependencies {
     androidTestImplementation "com.github.x-syaifullah-x:android-module-test_utils:$vModuleTestUtils"
 
     implementation project(path: ':app_domain')
-    implementation project(path: ':auth_domain')
+
+    implementation project(path: ':auth:auth_presentation')
+    implementation project(path: ':auth:auth_domain')
+
     implementation project(path: ':data_map_box')
     implementation project(path: ':data_firebase')
 
     /* Google Maps */
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.1.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     kapt "androidx.room:room-compiler:$room_version"
 }

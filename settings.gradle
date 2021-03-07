@@ -1,11 +1,23 @@
-include ':auth_domain'
-include ':auth'
-rootProject.name = "Fake Gps Kotlin With Koin And Coroutine Flow"
+rootProject.name = "Fake Gps"
 
 include(
         ":app",
         ':app_domain',
+
         ":base",
+
         ":data_map_box",
-        ":data_firebase"
+
+        ":data_firebase",
+
+        ":di",
+
+        ":auth",
+        ":auth:auth_presentation",
+        ":auth:auth_data",
+        ":auth:auth_domain",
+
+        ":base_domain"
 )
+
+project(":base_domain").projectDir = file("/home/xxx/Desktop/gitHub/android-module-base-domain/base_domain")

@@ -23,7 +23,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,20 +35,14 @@ android {
 
 dependencies {
 
-    api "com.github.x-syaifullah-x:android-module-base:1.0.13"
+    api "com.github.x-syaifullah-x:android-module-base:$vModuleBase"
 
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_android"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$vKotlinxCoroutinesAndroid"
 
-    api "androidx.databinding:databinding-runtime:$databinding_version"
-    api "androidx.navigation:navigation-ui-ktx:$navigation_version"
-    api "androidx.palette:palette-ktx:$palette_ktx_version"
+    api "androidx.navigation:navigation-ui-ktx:$vNavigationUiKtx"
 
-    api "androidx.paging:paging-runtime-ktx:$paging_version"
-
-    api "androidx.work:work-runtime:$work_manager_runtime_version"
-    api "androidx.work:work-runtime-ktx:$work_manager_runtime_version"
-    api "androidx.work:work-gcm:$work_manager_runtime_version"
-    androidTestImplementation "androidx.work:work-testing:$work_manager_runtime_version"
-
-    api "com.airbnb.android:lottie:$lottie_version"
+    api "androidx.work:work-runtime:$vWorkManager"
+    api "androidx.work:work-runtime-ktx:$vWorkManager"
+    api "androidx.work:work-gcm:$vWorkManager"
+    androidTestImplementation "androidx.work:work-testing:$vWorkManager"
 }

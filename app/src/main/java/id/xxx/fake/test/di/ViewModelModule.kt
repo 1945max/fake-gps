@@ -1,7 +1,7 @@
 package id.xxx.fake.test.di
 
-import id.xxx.fake.test.ui.history.HistoryViewModel
-import id.xxx.fake.test.ui.search.SearchViewModel
+import id.xxx.fake.test.presentation.ui.history.HistoryViewModel
+import id.xxx.fake.test.presentation.ui.search.SearchViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.android.viewmodel.dsl.viewModel

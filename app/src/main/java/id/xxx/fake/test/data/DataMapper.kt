@@ -1,7 +1,7 @@
 package id.xxx.fake.test.data
 
+import id.xxx.base.domain.mapper.IMapper
 import id.xxx.fake.test.data.local.history.HistoryEntity
-import id.xxx.fake.test.domain.halper.IMapper
 import id.xxx.fake.test.domain.history.model.HistoryModel
 import id.xxx.fake.test.domain.search.model.SearchModel
 

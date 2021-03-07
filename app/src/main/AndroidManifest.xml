@@ -19,18 +19,18 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="id.xxx.fake.test.ui.home.HomeActivity"
+            android:name="id.xxx.fake.test.presentation.ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="id.xxx.fake.test.ui.history.HistoryActivity"
-            android:parentActivityName="id.xxx.fake.test.ui.history.HistoryActivity"
+            android:name="id.xxx.fake.test.presentation.ui.history.HistoryActivity"
+            android:parentActivityName="id.xxx.fake.test.presentation.ui.history.HistoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="id.xxx.fake.test.ui.search.SearchActivity"
-            android:parentActivityName="id.xxx.fake.test.ui.search.SearchActivity"
+            android:name="id.xxx.fake.test.presentation.ui.search.SearchActivity"
+            android:parentActivityName="id.xxx.fake.test.presentation.ui.search.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="id.xxx.fake.test.ui.splash.SplashActivity"
+            android:name="id.xxx.fake.test.presentation.ui.splash.SplashActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +40,7 @@
         </activity>
 
         <service
-            android:name="id.xxx.fake.test.service.FakeLocationService"
+            android:name="id.xxx.fake.test.presentation.service.FakeLocationService"
             android:enabled="true"
             android:exported="false" />
 
@@ -55,7 +55,7 @@
         <!--        </provider>-->
 
         <receiver
-            android:name="id.xxx.fake.test.receiver.FakeStopReceiver"
+            android:name="id.xxx.fake.test.presentation.receiver.FakeStopReceiver"
             android:enabled="true"
             android:exported="false" /> <!-- Maps Meta Data -->
 

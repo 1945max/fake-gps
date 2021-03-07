@@ -2,6 +2,7 @@ package id.xxx.data.source.map.box.repository
 
 import android.content.Context
 import androidx.paging.*
+import id.xxx.base.domain.model.Resource
 import id.xxx.data.source.map.box.local.LocalDataSource
 import id.xxx.data.source.map.box.local.entity.PlacesEntity
 import id.xxx.data.source.map.box.remote.RemoteDataSource
@@ -9,8 +10,6 @@ import id.xxx.data.source.map.box.utils.Address
 import id.xxx.data.source.map.box.utils.DataMapper.toListSearchEntity
 import id.xxx.data.source.map.box.utils.DataMapper.toSearchModel
 import id.xxx.data.source.map.box.utils.Result
-import id.xxx.fake.test.domain.halper.Resource
-import id.xxx.fake.test.domain.halper.networkBoundResource
 import id.xxx.fake.test.domain.search.model.SearchModel
 import id.xxx.fake.test.domain.search.repository.IRepository
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +33,7 @@ class RepositoryImpl(
         }
     }
 
-    override fun getPlaces(query: String) = networkBoundResource(
+    override fun getPlaces(query: String) = id.xxx.base.domain.helper.networkBoundResource(
         loadFromDB = {
             local.search(query).map { it.map { data -> data.toSearchModel() } }
         },
@@ -70,7 +69,11 @@ class RepositoryImpl(
                         local.select(data[latitude], data[longitude])
                     else
                         local.select(value)
-                emit(Resource.Error(Throwable(result.message), searchEntity?.let { toSearchModel.map(it) }))
+                emit(
+                    Resource.Error(
+                        error = Throwable(result.message),
+                        data = searchEntity?.let { toSearchModel.map(it) })
+                )
             }
         }
     }.flowOn(Dispatchers.IO)

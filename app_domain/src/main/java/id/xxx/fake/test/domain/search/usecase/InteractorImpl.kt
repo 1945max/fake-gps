@@ -1,7 +1,7 @@
 package id.xxx.fake.test.domain.search.usecase
 
 import android.content.Context
-import id.xxx.fake.test.domain.halper.Resource
+import id.xxx.base.domain.model.Resource
 import id.xxx.fake.test.domain.search.model.SearchModel
 import id.xxx.fake.test.domain.search.repository.IRepository
 import kotlinx.coroutines.flow.Flow

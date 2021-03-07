@@ -2,7 +2,7 @@ package id.xxx.fake.test.domain.search.repository
 
 import android.content.Context
 import androidx.paging.PagingData
-import id.xxx.fake.test.domain.halper.Resource
+import id.xxx.base.domain.model.Resource
 import id.xxx.fake.test.domain.search.model.SearchModel
 import kotlinx.coroutines.flow.Flow
 

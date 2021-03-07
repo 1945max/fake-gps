@@ -1,8 +1,8 @@
 package id.xxx.data.source.map.box.utils
 
+import id.xxx.base.domain.mapper.IMapper
 import id.xxx.data.source.map.box.local.entity.PlacesEntity
 import id.xxx.data.source.map.box.remote.response.Features
-import id.xxx.fake.test.domain.halper.IMapper
 import id.xxx.fake.test.domain.search.model.SearchModel
 
 object DataMapper {

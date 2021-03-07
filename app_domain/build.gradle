@@ -39,6 +39,8 @@ android {
 
 dependencies {
     api project(':base')
+    api project(':di')
+    api project(":base_domain")
 
     api "org.jetbrains.kotlin:kotlin-stdlib:$vKotlin"
 
