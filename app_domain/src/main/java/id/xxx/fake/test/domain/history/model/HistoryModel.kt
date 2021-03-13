@@ -1,7 +1,7 @@
 package id.xxx.fake.test.domain.history.model
 
 import android.os.Parcelable
-import com.base.model.BaseModel
+import id.xxx.base.domain.model.BaseModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

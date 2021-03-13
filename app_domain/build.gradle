@@ -38,9 +38,8 @@ android {
 }
 
 dependencies {
-    api project(':base')
     api project(':di')
-    api project(":base_domain")
+    api "com.github.x-syaifullah-x.android-base:base_domain:0.0.1"
 
     api "org.jetbrains.kotlin:kotlin-stdlib:$vKotlin"
 
@@ -48,7 +47,7 @@ dependencies {
     api "org.koin:koin-android:$koin_version"
     api "org.koin:koin-android-viewmodel:$koin_version"
 
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
 
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_ktx_version"
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"

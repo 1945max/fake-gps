@@ -11,13 +11,4 @@ include(
         ":data_firebase",
 
         ":di",
-
-        ":auth",
-        ":auth:auth_presentation",
-        ":auth:auth_data",
-        ":auth:auth_domain",
-
-        ":base_domain"
 )
-
-project(":base_domain").projectDir = file("/home/xxx/Desktop/gitHub/android-module-base-domain/base_domain")

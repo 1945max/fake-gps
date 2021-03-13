@@ -11,7 +11,7 @@ android {
     buildToolsVersion build_versions.build_tools_version
 
     defaultConfig {
-        applicationId "id.xxx.fake.test"
+        applicationId "id.xxx.fake.gps"
         minSdkVersion build_versions.min_sdk_version
         targetSdkVersion build_versions.target_sdk_version
         versionCode build_versions.version_code
@@ -54,13 +54,15 @@ android {
 
 dependencies {
 
-    testImplementation "com.github.x-syaifullah-x:android-module-test_utils:$vModuleTestUtils"
-    androidTestImplementation "com.github.x-syaifullah-x:android-module-test_utils:$vModuleTestUtils"
+    testImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"
+    androidTestImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"
+
+    api project(':base')
 
     implementation project(path: ':app_domain')
 
-    implementation project(path: ':auth:auth_presentation')
-    implementation project(path: ':auth:auth_domain')
+    implementation "com.github.x-syaifullah-x.android-module-auth:auth_presentation:0.0.1"
+    implementation "com.github.x-syaifullah-x.android-module-auth:auth_domain:0.0.1"
 
     implementation project(path: ':data_map_box')
     implementation project(path: ':data_firebase')

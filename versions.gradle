@@ -9,7 +9,7 @@ ext.build_versions = build_versions
 
 ext {
     vGradle = "4.1.2"
-    vKotlin = "1.4.30"
+    vKotlin = "1.4.31"
 
     vModuleTestUtils = "1.0.0"
     vModuleBase = "1.0.13"

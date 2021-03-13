@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="id.xxx.fake.test.utils.FormatDate" />
+        <import type="id.xxx.fake.gps.utils.FormatDate" />
 
         <variable
             name="data"

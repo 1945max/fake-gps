@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/history_fragment"
-        android:name="id.xxx.fake.test.presentation.ui.history.HistoryFragment"
+        android:name="id.xxx.fake.gps.presentation.ui.history.HistoryFragment"
         android:label="History"
         tools:layout="@layout/fragment_history" />
 </navigation>

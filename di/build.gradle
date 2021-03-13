@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation project(":auth:auth_domain")
-    implementation project(":auth:auth_data")
-    implementation project(":auth:auth_presentation")
+    implementation "com.github.x-syaifullah-x.android-module-auth:auth_presentation:0.0.1"
+    implementation "com.github.x-syaifullah-x.android-module-auth:auth_domain:0.0.1"
+    implementation "com.github.x-syaifullah-x.android-module-auth:auth_data:0.0.1"
 }

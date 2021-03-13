@@ -2,6 +2,7 @@ package id.xxx.data.source.map.box.repository
 
 import android.content.Context
 import androidx.paging.*
+import id.xxx.base.domain.mediator.flow.networkBoundResource
 import id.xxx.base.domain.model.Resource
 import id.xxx.data.source.map.box.local.LocalDataSource
 import id.xxx.data.source.map.box.local.entity.PlacesEntity
@@ -33,8 +34,8 @@ class RepositoryImpl(
         }
     }
 
-    override fun getPlaces(query: String) = id.xxx.base.domain.helper.networkBoundResource(
-        loadFromDB = {
+    override fun getPlaces(query: String) = networkBoundResource(
+        loadFromLocal = {
             local.search(query).map { it.map { data -> data.toSearchModel() } }
         },
         fetch = { remote.getPlaces(query) },

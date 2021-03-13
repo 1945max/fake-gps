@@ -1,5 +1,7 @@
 package id.xxx.di.koin
 
+import id.xxx.auth.data.di.AutDataSourceModule
+import id.xxx.auth.domain.di.AuthDomainModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.core.module.Module
 
@@ -7,12 +9,12 @@ import org.koin.core.module.Module
 object AuthModule {
 
     val dataModule = mutableListOf<Module>().apply {
-        addAll(id.xxx.auth.data.source.di.DataModule.modules)
+        addAll(AutDataSourceModule.modules)
     }.toList()
 
     val domainModule = mutableListOf<Module>().apply {
         addAll(dataModule)
-        addAll(id.xxx.auth.domain.di.DomainModule.modules)
+        addAll(AuthDomainModule.modules)
     }.toList()
 
     val presentationModules = mutableListOf<Module>().apply {
