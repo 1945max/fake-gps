@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -14,9 +15,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import id.xxx.auth.domain.model.UserModel
 import id.xxx.auth.domain.usecase.IAuthIntractor
 import id.xxx.auth.presentation.ui.AuthActivity
-import id.xxx.auth.presentation.ui.AuthActivity.Companion.authData
+import id.xxx.auth.presentation.ui.AuthActivity.Companion.putAuthDestination
 import id.xxx.base.binding.delegate.viewBinding
 import id.xxx.base.extension.openActivityAndFinis
 import id.xxx.fake.gps.R
@@ -59,6 +61,11 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         FakeLocation.isRunning.observe(viewLifecycleOwner, {
             binding.btnStopFake.visibility = if (it) VISIBLE else GONE
         })
+
+        val user = requireActivity().intent.getParcelableExtra<UserModel>(HomeActivity.DATA_EXTRA)
+        val isUser = user != null && user.isEmailVerify
+        binding.btnLogout.isVisible = isUser
+        binding.btnSign.isVisible = !isUser
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
@@ -128,9 +135,15 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         when (view.id) {
             R.id.btn_logout -> {
                 interactor.signOut()
-                openActivityAndFinis<AuthActivity> {
-                    authData(requireActivity()::class)
-                }
+                binding.btnLogout.isVisible = false
+                binding.btnSign.isVisible = true
+//                openActivityAndFinis<AuthActivity> {
+//                    authData(requireActivity()::class)
+//                }
+            }
+
+            R.id.btn_sign -> {
+                openActivityAndFinis<AuthActivity> { putAuthDestination(requireActivity()::class) }
             }
 
             R.id.toolbar -> {

@@ -1,14 +1,12 @@
 package id.xxx.fake.gps.presentation.ui.splash
 
-import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
+import id.xxx.auth.domain.model.UserModel
+import id.xxx.auth.domain.model.UserResource
 import id.xxx.auth.domain.usecase.IAuthIntractor
-import id.xxx.auth.presentation.ui.AuthActivity
-import id.xxx.auth.presentation.ui.AuthActivity.Companion.authData
-import id.xxx.base.domain.model.get
+import id.xxx.base.domain.model.Resource
 import id.xxx.base.extension.hideSystemUI
 import id.xxx.base.extension.openActivityAndFinish
 import id.xxx.fake.gps.presentation.ui.home.HomeActivity
@@ -22,26 +20,14 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         interactor.currentUser().asLiveData().observe(this) {
-            it.get(
-                blockError = { _, e ->
-                    finish()
-                    Log.i("TAG", "onCreate: ${e.printStackTrace()}")
-                },
-                blockEmpty = { finishActivityAndSignOut<AuthActivity>(false) },
-                blockSuccess = { user ->
-                    if (user.isEmailVerify) {
-                        finishActivityAndSignOut<HomeActivity>(false)
-                    } else {
-                        finishActivityAndSignOut<AuthActivity>(true)
-                    }
+            if (it != Resource.Loading) {
+                openActivityAndFinish<HomeActivity> {
+                    val data =
+                        if (it is Resource.Success) if (it.data is UserResource.Valid) (it.data as UserResource.Valid<UserModel>).data else null else null
+                    putExtra(HomeActivity.DATA_EXTRA, data)
                 }
-            )
+            }
         }
-    }
-
-    private inline fun <reified T : Activity> finishActivityAndSignOut(isSignOut: Boolean) {
-        if (isSignOut) interactor.signOut()
-        openActivityAndFinish<T> { authData(HomeActivity::class) }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
