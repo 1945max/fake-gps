@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+
     compileSdkVersion build_versions.compile_sdk_version
     buildToolsVersion build_versions.build_tools_version
 
@@ -54,22 +55,29 @@ android {
 
 dependencies {
 
+    implementation project(path: ':fake_gps_domain')
+
+    implementation project(path: ':data_firebase')
+
+    implementation "com.github.x-syaifullah-x.android-auth:auth_presentation:0.0.1"
+
+    implementation "com.github.x-syaifullah-x.android-map-box:map_box:0.0.1"
+
     testImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"
     androidTestImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"
-
-    api project(':base')
-
-    implementation project(path: ':app_domain')
-
-    implementation "com.github.x-syaifullah-x.android-module-auth:auth_presentation:0.0.1"
-    implementation "com.github.x-syaifullah-x.android-module-auth:auth_domain:0.0.1"
-
-    implementation project(path: ':data_map_box')
-    implementation project(path: ':data_firebase')
 
     /* Google Maps */
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     kapt "androidx.room:room-compiler:$room_version"
+
+    api "com.github.x-syaifullah-x.android-base:base_presentation:0.0.1"
+
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$vKotlinxCoroutinesAndroid"
+
+    api "androidx.work:work-runtime:$vWorkManager"
+    api "androidx.work:work-runtime-ktx:$vWorkManager"
+    api "androidx.work:work-gcm:$vWorkManager"
+    androidTestImplementation "androidx.work:work-testing:$vWorkManager"
 }

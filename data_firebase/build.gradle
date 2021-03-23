@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':app_domain')
+    implementation project(path: ':fake_gps_domain')
 
     api "androidx.sqlite:sqlite-ktx:$sqlite_version"
     api "net.zetetic:android-database-sqlcipher:$sql_cipher_version"

@@ -9,26 +9,26 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import id.xxx.auth.domain.model.UserModel
-import id.xxx.auth.domain.usecase.IAuthIntractor
+import id.xxx.auth.domain.user.usecase.IInteractor
 import id.xxx.auth.presentation.ui.AuthActivity
-import id.xxx.auth.presentation.ui.AuthActivity.Companion.putAuthDestination
-import id.xxx.base.binding.delegate.viewBinding
-import id.xxx.base.extension.openActivityAndFinis
+import id.xxx.base.domain.model.Resource
+import id.xxx.base.presentation.binding.delegate.viewBinding
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentHomeBinding
 import id.xxx.fake.gps.presentation.service.FakeLocation
 import id.xxx.fake.gps.presentation.service.FakeLocationService
 import id.xxx.fake.gps.presentation.ui.history.HistoryActivity
 import id.xxx.fake.gps.presentation.ui.home.map.Map
-import id.xxx.fake.gps.presentation.ui.search.SearchActivity
 import id.xxx.fake.gps.utils.formatDouble
+import id.xxx.map.box.search.domain.model.PlacesModel
+import id.xxx.map.box.search.presentation.ui.SearchActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
@@ -41,9 +41,14 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     GoogleMap.OnMarkerClickListener,
     View.OnClickListener {
 
+    companion object {
+        private const val SIGN_IN_CODE = 322
+        private const val SEARCH_REQUEST_CODE = 262
+    }
+
     private val binding by viewBinding<FragmentHomeBinding>()
 
-    private val interactor by inject<IAuthIntractor>()
+    private val interactor by inject<IInteractor>()
 
     private lateinit var map: Map
 
@@ -62,10 +67,10 @@ class HomeFragment : Fragment(R.layout.fragment_home),
             binding.btnStopFake.visibility = if (it) VISIBLE else GONE
         })
 
-        val user = requireActivity().intent.getParcelableExtra<UserModel>(HomeActivity.DATA_EXTRA)
-        val isUser = user != null && user.isEmailVerify
-        binding.btnLogout.isVisible = isUser
-        binding.btnSign.isVisible = !isUser
+        interactor.currentUser().asLiveData().observe(viewLifecycleOwner) {
+            binding.btnLogout.isVisible = it is Resource.Success
+            binding.btnSign.isVisible = !binding.btnLogout.isVisible
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
@@ -73,10 +78,16 @@ class HomeFragment : Fragment(R.layout.fragment_home),
             Map.REQUEST_CODE_ENABLE_GPS -> googleMap?.apply {
                 map.enableMyPosition(requireActivity(), this)
             }
-            HistoryActivity.REQUEST_CODE, SearchActivity.REQUEST_CODE -> {
+            SEARCH_REQUEST_CODE -> {
+                intent?.apply {
+                    val data = getParcelableExtra<PlacesModel>(SearchActivity.DATA_EXTRA) ?: return
+                    addSingleMaker(LatLng(data.latitude, data.longitude))
+                }
+            }
+            HistoryActivity.REQUEST_CODE -> {
                 intent?.apply {
                     LatLng(
-                            getDoubleExtra("latitude", 0.0), getDoubleExtra("longitude", 0.0)
+                        getDoubleExtra("latitude", 0.0), getDoubleExtra("longitude", 0.0)
                     ).apply { addSingleMaker(this) }
                 }
             }
@@ -134,21 +145,24 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_logout -> {
-                interactor.signOut()
-                binding.btnLogout.isVisible = false
-                binding.btnSign.isVisible = true
-//                openActivityAndFinis<AuthActivity> {
-//                    authData(requireActivity()::class)
-//                }
+                interactor.signOut().asLiveData().observe(viewLifecycleOwner) {
+                    if (it is Resource.Success) {
+                        binding.btnLogout.isVisible = false
+                        binding.btnSign.isVisible = true
+                    }
+                }
             }
 
             R.id.btn_sign -> {
-                openActivityAndFinis<AuthActivity> { putAuthDestination(requireActivity()::class) }
+                startActivityForResult(
+                    Intent(requireContext(), AuthActivity::class.java),
+                    SIGN_IN_CODE
+                )
             }
 
             R.id.toolbar -> {
                 val intent = Intent(requireContext(), SearchActivity::class.java)
-                requireActivity().startActivityForResult(intent, SearchActivity.REQUEST_CODE)
+                requireActivity().startActivityForResult(intent, SEARCH_REQUEST_CODE)
             }
             R.id.aci_my_position -> googleMap?.apply {
                 map.enableMyPosition(requireActivity(), this)

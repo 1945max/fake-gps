@@ -1,8 +1,8 @@
 package id.xxx.fake.gps.presentation.ui.home
 
 import androidx.navigation.fragment.findNavController
-import id.xxx.base.binding.activity.BaseActivityWithNavigation
-import id.xxx.base.binding.delegate.viewBinding
+import id.xxx.base.presentation.binding.activity.BaseActivityWithNavigation
+import id.xxx.base.presentation.binding.delegate.viewBinding
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.ActivityHomeBinding
 import id.xxx.fake.gps.presentation.ui.home.map.Map

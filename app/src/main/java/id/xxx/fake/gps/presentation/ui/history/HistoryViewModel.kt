@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import id.xxx.fake.test.domain.history.model.HistoryModel
-import id.xxx.fake.test.domain.history.usecase.IInteractor
+import id.xxx.fake.gps.domain.history.model.HistoryModel
+import id.xxx.fake.gps.domain.history.usecase.IInteractor
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(private val iInteractor: IInteractor) : ViewModel() {

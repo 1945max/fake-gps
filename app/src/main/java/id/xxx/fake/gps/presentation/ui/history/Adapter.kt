@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import id.xxx.base.domain.adapter.BaseAdapter
 import id.xxx.base.domain.adapter.HolderWithBinding
 import id.xxx.fake.gps.databinding.ItemHistoryBinding
-import id.xxx.fake.test.domain.history.model.HistoryModel
+import id.xxx.fake.gps.domain.history.model.HistoryModel
 
 class Adapter(
     private val onItemClick: (ItemHistoryBinding, HistoryModel) -> Unit = { _, _ -> }

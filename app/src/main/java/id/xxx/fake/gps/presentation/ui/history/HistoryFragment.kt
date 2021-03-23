@@ -7,13 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
-import id.xxx.base.binding.delegate.viewBinding
 import id.xxx.base.domain.adapter.HolderWithBinding
-import id.xxx.base.extension.setResult
+import id.xxx.base.presentation.binding.delegate.viewBinding
+import id.xxx.base.presentation.extension.setResult
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentHistoryBinding
 import id.xxx.fake.gps.databinding.ItemHistoryBinding
-import id.xxx.fake.test.domain.adapter.ItemSwipeLR
+import id.xxx.fake.gps.domain.adapter.ItemSwipeLR
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {

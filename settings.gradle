@@ -2,13 +2,9 @@ rootProject.name = "Fake Gps"
 
 include(
         ":app",
-        ':app_domain',
-
-        ":base",
-
-        ":data_map_box",
-
+        ':fake_gps_domain',
         ":data_firebase",
-
-        ":di",
 )
+
+//include ":auth_presentation"
+//project(":auth_presentation").projectDir = file("../auth/auth_presentation")

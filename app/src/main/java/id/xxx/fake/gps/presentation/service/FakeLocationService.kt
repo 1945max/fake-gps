@@ -7,23 +7,20 @@ import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.work.Data
 import com.google.android.gms.maps.model.LatLng
-import id.xxx.base.domain.model.Resource
-import id.xxx.base.service.BaseService
-import id.xxx.base.utils.Network
-import id.xxx.fake.gps.data.DataMapper
+import id.xxx.base.domain.model.ApiResponse
+import id.xxx.base.presentation.service.BaseService
+import id.xxx.fake.gps.data.helper.Address
+import id.xxx.fake.gps.data.helper.Network
+import id.xxx.fake.gps.data.mapper.toHistoryModel
 import id.xxx.fake.gps.presentation.workers.MyWorker
-import id.xxx.fake.test.domain.search.model.SearchModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import id.xxx.fake.test.domain.history.usecase.IInteractor as IHistoryInteractor
-import id.xxx.fake.test.domain.search.usecase.IInteractor as ISearchInteractor
+import id.xxx.fake.gps.domain.history.usecase.IInteractor as IHistoryInteractor
 
 class FakeLocationService : BaseService(), FakeLocation.Callback {
     private val iHistoryRepo: IHistoryInteractor by inject()
-    private val iSearchRepo: ISearchInteractor by inject()
 
     private lateinit var fakeLocation: FakeLocation
     private lateinit var fakeNotification: FakeLocationNotification
@@ -45,16 +42,17 @@ class FakeLocationService : BaseService(), FakeLocation.Callback {
             fakeLocation.run(latitude, longitude)
 
             CoroutineScope(Dispatchers.IO).launch {
-                iSearchRepo.getAddress(baseContext, "$latitude,$longitude").collect {
-                    if (it is Resource.Success<SearchModel>) {
-                        iHistoryRepo.insert(DataMapper.searchModelToHistoryModel.map(it.data))
-                    } else if (it is Resource.Error) {
-                        Network.onConnected(
-                            baseContext, MyWorker::class.java, Data.Builder()
-                                .putString(Network.DATA_EXTRA, "$latitude,$longitude")
-                                .build()
-                        )
-                    }
+                val address =
+                    Address.getInstance(baseContext).geoCoder("$latitude,$longitude")
+                if (address is ApiResponse.Success) {
+                    val data = address.data
+                    iHistoryRepo.insert(data.toHistoryModel())
+                } else if (address is ApiResponse.Error) {
+                    Network.onConnected(
+                        baseContext, MyWorker::class.java, Data.Builder()
+                            .putString(MyWorker.DATA_EXTRA, "$latitude,$longitude")
+                            .build()
+                    )
                 }
             }
         } ?: stopSelf()

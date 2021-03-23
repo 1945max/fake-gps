@@ -3,8 +3,8 @@ package id.xxx.fake.gps.presentation.ui.history
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import id.xxx.base.binding.activity.BaseActivityWithNavigation
-import id.xxx.base.binding.delegate.viewBinding
+import id.xxx.base.presentation.binding.activity.BaseActivityWithNavigation
+import id.xxx.base.presentation.binding.delegate.viewBinding
 import id.xxx.fake.gps.R.id.nav_host_history
 import id.xxx.fake.gps.databinding.ActivityHistoryBinding
 import id.xxx.fake.gps.utils.generateInt

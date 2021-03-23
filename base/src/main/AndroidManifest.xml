@@ -1,6 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="id.xxx.base">
-
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-</manifest>

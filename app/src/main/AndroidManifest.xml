@@ -26,10 +26,6 @@
             android:parentActivityName=".presentation.ui.history.HistoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".presentation.ui.search.SearchActivity"
-            android:parentActivityName=".presentation.ui.search.SearchActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".presentation.ui.splash.SplashActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>

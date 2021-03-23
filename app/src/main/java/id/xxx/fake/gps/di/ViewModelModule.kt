@@ -1,7 +1,6 @@
 package id.xxx.fake.gps.di
 
 import id.xxx.fake.gps.presentation.ui.history.HistoryViewModel
-import id.xxx.fake.gps.presentation.ui.search.SearchViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.android.viewmodel.dsl.viewModel
@@ -12,7 +11,6 @@ import org.koin.dsl.module
 object ViewModelModule {
     private val viewModel = module {
         viewModel { HistoryViewModel(get()) }
-        viewModel { SearchViewModel(get(), get()) }
     }
 
     val modules = listOf(viewModel)
