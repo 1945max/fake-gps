@@ -55,13 +55,11 @@ android {
 
 dependencies {
 
-    implementation project(path: ':fake_gps_domain')
-
-    implementation project(path: ':data_firebase')
+    implementation project(path: ':fake_gps_history')
 
     implementation "com.github.x-syaifullah-x.android-auth:auth_presentation:0.0.1"
 
-    implementation "com.github.x-syaifullah-x.android-map-box:map_box:0.0.1"
+    implementation 'com.github.x-syaifullah-x:android-map-box:0.0.100'
 
     testImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"
     androidTestImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"

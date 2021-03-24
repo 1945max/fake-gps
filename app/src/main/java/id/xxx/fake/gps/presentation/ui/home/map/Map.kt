@@ -24,8 +24,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import id.xxx.fake.gps.utils.Request
-import id.xxx.fake.gps.utils.generateInt
+import id.xxx.fake.gps.presentation.utils.Request
+import id.xxx.fake.gps.presentation.utils.generateInt
 
 class Map(supportMapFragment: SupportMapFragment, private val callback: Callback) :
     LocationListener,

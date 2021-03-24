@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':fake_gps_domain')
+    implementation project(path: ':fake_gps_history:fake_gps_history_domain')
 
     api "androidx.sqlite:sqlite-ktx:$sqlite_version"
     api "net.zetetic:android-database-sqlcipher:$sql_cipher_version"
@@ -53,8 +53,8 @@ dependencies {
 
     api "com.google.code.gson:gson:$gson_version"
 
-    api "com.google.firebase:firebase-auth:20.0.2"
-    api 'com.google.firebase:firebase-firestore:22.1.0'
+    api "com.google.firebase:firebase-auth:20.0.3"
+    api 'com.google.firebase:firebase-firestore:22.1.1'
     /* this dependencies required com.google.gms.google-services */
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 }

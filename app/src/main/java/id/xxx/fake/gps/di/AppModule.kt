@@ -4,8 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import id.xxx.auth.data.di.AutDataModule
 import id.xxx.auth.domain.di.AuthDomainModule
 import id.xxx.auth.presentation.di.AuthPresentationModule
-import id.xxx.fake.gps.data.di.DataModule
-import id.xxx.fake.gps.domain.di.AppDomainModule
+import id.xxx.fake.gps.history.di.HistoryComponent
 import id.xxx.map.box.di.MapBoxModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -15,10 +14,11 @@ import org.koin.core.module.Module
 @ExperimentalCoroutinesApi
 @FlowPreview
 object AppModule {
-    val modules = mutableListOf<Module>().apply {
-        addAll(ViewModelModule.modules)
-        addAll(AppDomainModule.modules)
-        addAll(DataModule.modules)
+
+    val modules = mutableListOf<Module>(
+        AppDatabaseModule.module
+    ).apply {
+        addAll(HistoryComponent.component)
 
         /* Auth Module */
         addAll(AuthPresentationModule.modules)

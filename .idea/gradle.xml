@@ -13,7 +13,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/data_firebase" />
-            <option value="$PROJECT_DIR$/fake_gps_domain" />
+            <option value="$PROJECT_DIR$/fake_gps_history" />
+            <option value="$PROJECT_DIR$/fake_gps_history/fake_gps_history_data" />
+            <option value="$PROJECT_DIR$/fake_gps_history/fake_gps_history_domain" />
+            <option value="$PROJECT_DIR$/fake_gps_history/fake_gps_history_presentation" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

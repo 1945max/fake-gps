@@ -7,20 +7,23 @@ import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.work.Data
 import com.google.android.gms.maps.model.LatLng
-import id.xxx.base.domain.model.ApiResponse
+import id.xxx.base.domain.model.Resource
 import id.xxx.base.presentation.service.BaseService
-import id.xxx.fake.gps.data.helper.Address
-import id.xxx.fake.gps.data.helper.Network
-import id.xxx.fake.gps.data.mapper.toHistoryModel
+import id.xxx.fake.gps.mapper.toHistoryModel
+import id.xxx.fake.gps.presentation.helper.Network
 import id.xxx.fake.gps.presentation.workers.MyWorker
+import id.xxx.map.box.search.domain.usecase.IInteractor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import id.xxx.fake.gps.domain.history.usecase.IInteractor as IHistoryInteractor
+import id.xxx.fake.gps.history.domain.usecase.IInteractor as IHistoryInteractor
 
 class FakeLocationService : BaseService(), FakeLocation.Callback {
     private val iHistoryRepo: IHistoryInteractor by inject()
+    private val search by inject<IInteractor>()
 
     private lateinit var fakeLocation: FakeLocation
     private lateinit var fakeNotification: FakeLocationNotification
@@ -42,12 +45,11 @@ class FakeLocationService : BaseService(), FakeLocation.Callback {
             fakeLocation.run(latitude, longitude)
 
             CoroutineScope(Dispatchers.IO).launch {
-                val address =
-                    Address.getInstance(baseContext).geoCoder("$latitude,$longitude")
-                if (address is ApiResponse.Success) {
+                val address = search.getAddress("$latitude,$longitude").drop(1).first()
+                if (address is Resource.Success) {
                     val data = address.data
                     iHistoryRepo.insert(data.toHistoryModel())
-                } else if (address is ApiResponse.Error) {
+                } else if (address is Resource.Error) {
                     Network.onConnected(
                         baseContext, MyWorker::class.java, Data.Builder()
                             .putString(MyWorker.DATA_EXTRA, "$latitude,$longitude")

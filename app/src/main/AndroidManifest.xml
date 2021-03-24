@@ -22,10 +22,6 @@
             android:name=".presentation.ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".presentation.ui.history.HistoryActivity"
-            android:parentActivityName=".presentation.ui.history.HistoryActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".presentation.ui.splash.SplashActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>

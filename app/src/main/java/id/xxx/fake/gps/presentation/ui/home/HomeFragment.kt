@@ -22,11 +22,11 @@ import id.xxx.base.domain.model.Resource
 import id.xxx.base.presentation.binding.delegate.viewBinding
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.databinding.FragmentHomeBinding
+import id.xxx.fake.gps.history.presentation.HistoryActivity
 import id.xxx.fake.gps.presentation.service.FakeLocation
 import id.xxx.fake.gps.presentation.service.FakeLocationService
-import id.xxx.fake.gps.presentation.ui.history.HistoryActivity
 import id.xxx.fake.gps.presentation.ui.home.map.Map
-import id.xxx.fake.gps.utils.formatDouble
+import id.xxx.fake.gps.presentation.utils.formatDouble
 import id.xxx.map.box.search.domain.model.PlacesModel
 import id.xxx.map.box.search.presentation.ui.SearchActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -168,8 +168,14 @@ class HomeFragment : Fragment(R.layout.fragment_home),
                 map.enableMyPosition(requireActivity(), this)
             }
             R.id.btn_move_to_history -> {
-                val intent = Intent(requireActivity(), HistoryActivity::class.java)
-                requireActivity().startActivityForResult(intent, HistoryActivity.REQUEST_CODE)
+                val intent = Intent(
+                    requireActivity(),
+                    HistoryActivity::class.java
+                )
+                requireActivity().startActivityForResult(
+                    intent,
+                    HistoryActivity.REQUEST_CODE
+                )
             }
             R.id.btn_start_fake -> {
                 markerPosition?.apply {

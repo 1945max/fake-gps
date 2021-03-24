@@ -10,7 +10,7 @@ import com.google.android.gms.maps.model.LatLng
 import id.xxx.fake.gps.R
 import id.xxx.fake.gps.presentation.receiver.FakeStopReceiver
 import id.xxx.fake.gps.presentation.ui.home.HomeActivity
-import id.xxx.fake.gps.utils.formatDouble
+import id.xxx.fake.gps.presentation.utils.formatDouble
 
 class FakeLocationNotification(context: Context) {
     private val notificationManager = NotificationManagerCompat.from(context)
