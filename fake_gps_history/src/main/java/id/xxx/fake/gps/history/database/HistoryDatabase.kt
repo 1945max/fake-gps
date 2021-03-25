@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import id.xxx.fake.gps.history.data.local.dao.IHistoryDao
 import id.xxx.fake.gps.history.data.local.entity.HistoryEntity
+import org.koin.dsl.module
 
 @Database(
     entities = [
@@ -17,14 +18,21 @@ import id.xxx.fake.gps.history.data.local.entity.HistoryEntity
 abstract class HistoryDatabase : RoomDatabase(), IHistoryDao {
 
     companion object {
+
+        val module = module {
+            single { getInstance(get()) }
+            single { get<HistoryDatabase>().historyDao() }
+        }
+
         @Volatile
         private var instance: HistoryDatabase? = null
 
-        fun getInstance(app: Application): HistoryDatabase {
+        private fun getInstance(app: Application): HistoryDatabase {
             instance ?: synchronized(HistoryDatabase::class.java) {
-                instance = Room.databaseBuilder(app, HistoryDatabase::class.java, "id.xxx.fake.gps")
+                instance = Room.databaseBuilder(app, HistoryDatabase::class.java, "id.xxx.fake.gps.history")
 //                instance = Room.inMemoryDatabaseBuilder(app, HistoryDatabase::class.java)
                     .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
 //                    .openHelperFactory(SupportFactory(SQLiteDatabase.getBytes("xxx.base.data".toCharArray())))
                     .build()
             }
