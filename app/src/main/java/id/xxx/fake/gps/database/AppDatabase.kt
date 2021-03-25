@@ -25,6 +25,8 @@ abstract class AppDatabase : RoomDatabase(), IHistoryDao, IAuthDao, ISearchDao {
 
     companion object {
 
+        private const val DATA_BASE_NAME = "id.xxx.fake.gps"
+
         val module = module {
             single { getInstance(get()) }
             single { get<AppDatabase>().historyDao() }
@@ -37,7 +39,7 @@ abstract class AppDatabase : RoomDatabase(), IHistoryDao, IAuthDao, ISearchDao {
 
         private fun getInstance(app: Application): AppDatabase {
             instance ?: synchronized(AppDatabase::class.java) {
-                instance = Room.databaseBuilder(app, AppDatabase::class.java, "id.xxx.fake.gps")
+                instance = Room.databaseBuilder(app, AppDatabase::class.java, DATA_BASE_NAME)
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
 //                    .openHelperFactory(SupportFactory(SQLiteDatabase.getBytes("xxx.base.data".toCharArray())))

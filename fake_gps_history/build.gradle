@@ -5,17 +5,17 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion build_versions.compile_sdk_version
+    buildToolsVersion build_versions.build_tools_version
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion build_versions.min_sdk_version
+        targetSdkVersion build_versions.target_sdk_version
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -40,5 +40,4 @@ dependencies {
     api project(":fake_gps_history:fake_gps_history_data")
 
     kapt "androidx.room:room-compiler:$room_version"
-
 }
