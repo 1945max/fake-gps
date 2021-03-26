@@ -1,8 +1,10 @@
 package id.xxx.fake.gps.history.data.di
 
 import androidx.paging.ExperimentalPagingApi
-import id.xxx.fake.gps.history.data.local.LocalDataSource
+import com.google.firebase.firestore.FirebaseFirestore
 import id.xxx.fake.gps.history.data.repository.HistoryRepository
+import id.xxx.fake.gps.history.data.source.local.LocalDataSource
+import id.xxx.fake.gps.history.data.source.remote.RemoteDataSource
 import id.xxx.fake.gps.history.domain.model.HistoryModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -13,15 +15,20 @@ import id.xxx.fake.gps.history.domain.repository.IRepository as IHistoryReposito
 @ExperimentalCoroutinesApi
 @FlowPreview
 object HistoryDataModule {
-    private val historyRepositoryModule = module {
+    private val repositoryModule = module {
         single<IHistoryRepository<HistoryModel>> { HistoryRepository(get()) }
     }
 
-    private val localDataSource = module {
+    private val firebaseModule = module {
+        single { FirebaseFirestore.getInstance() }
+    }
+
+    private val dataSourceModule = module {
         single { LocalDataSource(get()) }
+        single { RemoteDataSource(get()) }
     }
 
     val modules = listOf(
-        historyRepositoryModule, localDataSource
+        repositoryModule, dataSourceModule, firebaseModule
     )
 }

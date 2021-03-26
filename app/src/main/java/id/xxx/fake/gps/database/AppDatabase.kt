@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import id.xxx.auth.data.email.source.local.dao.IAuthDao
 import id.xxx.auth.data.email.source.local.entity.UserEntity
-import id.xxx.fake.gps.history.data.local.dao.IHistoryDao
-import id.xxx.fake.gps.history.data.local.entity.HistoryEntity
+import id.xxx.fake.gps.history.data.source.local.dao.IHistoryDao
+import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity
 import id.xxx.map.box.search.data.source.local.dao.ISearchDao
 import id.xxx.map.box.search.data.source.local.entity.PlacesEntity
 import org.koin.dsl.module

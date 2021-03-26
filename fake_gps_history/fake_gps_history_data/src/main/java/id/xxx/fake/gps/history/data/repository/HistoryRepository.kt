@@ -4,9 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import id.xxx.fake.gps.history.data.local.LocalDataSource
 import id.xxx.fake.gps.history.data.mapper.DataMapper.toHistoryEntity
 import id.xxx.fake.gps.history.data.mapper.DataMapper.toHistoryModel
+import id.xxx.fake.gps.history.data.source.local.LocalDataSource
 import id.xxx.fake.gps.history.domain.model.HistoryModel
 import id.xxx.fake.gps.history.domain.repository.IRepository
 import kotlinx.coroutines.flow.Flow

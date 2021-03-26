@@ -1,7 +1,7 @@
-package id.xxx.fake.gps.history.data.local
+package id.xxx.fake.gps.history.data.source.local
 
-import id.xxx.fake.gps.history.data.local.dao.Dao
-import id.xxx.fake.gps.history.data.local.entity.HistoryEntity
+import id.xxx.fake.gps.history.data.source.local.dao.Dao
+import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity
 
 class LocalDataSource(private val dao: Dao) {
     suspend fun insert(entity: HistoryEntity) = dao.insert(entity)

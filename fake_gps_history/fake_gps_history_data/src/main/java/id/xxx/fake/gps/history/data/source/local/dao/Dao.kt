@@ -1,10 +1,10 @@
-package id.xxx.fake.gps.history.data.local.dao
+package id.xxx.fake.gps.history.data.source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import id.xxx.fake.gps.history.data.local.entity.HistoryEntity
+import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity
 
 @Dao
 interface Dao {

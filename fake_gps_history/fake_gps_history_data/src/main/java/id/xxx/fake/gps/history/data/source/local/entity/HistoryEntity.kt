@@ -1,9 +1,9 @@
-package id.xxx.fake.gps.history.data.local.entity
+package id.xxx.fake.gps.history.data.source.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import id.xxx.fake.gps.history.data.local.entity.HistoryEntity.Companion.FLH_TABLE
+import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity.Companion.FLH_TABLE
 
 @Entity(
     tableName = FLH_TABLE,

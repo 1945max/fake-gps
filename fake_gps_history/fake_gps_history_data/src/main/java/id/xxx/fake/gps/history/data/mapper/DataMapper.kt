@@ -1,6 +1,6 @@
 package id.xxx.fake.gps.history.data.mapper
 
-import id.xxx.fake.gps.history.data.local.entity.HistoryEntity
+import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity
 import id.xxx.fake.gps.history.domain.model.HistoryModel
 
 object DataMapper {
