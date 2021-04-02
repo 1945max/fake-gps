@@ -55,10 +55,8 @@ android {
 dependencies {
 
     implementation project(':fake_gps_history')
-    implementation("com.github.x-syaifullah-x:android-auth:0.0.100")
-//            {
-//        exclude group: 'id.xxx.auth.data.email.source.local.dao.UserDao_Impl*', module: 'android-auth'
-//    }
+    implementation "com.github.x-syaifullah-x:android-auth:0.0.100"
+
     implementation 'com.github.x-syaifullah-x:android-map-box:0.0.100'
 
     testImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"

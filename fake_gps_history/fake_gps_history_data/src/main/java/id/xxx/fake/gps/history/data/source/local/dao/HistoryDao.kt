@@ -7,7 +7,7 @@ import androidx.room.Query
 import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity
 
 @Dao
-interface Dao {
+interface HistoryDao {
     @Insert
     suspend fun insert(entity: HistoryEntity): Long
 

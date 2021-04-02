@@ -4,11 +4,11 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import id.xxx.auth.data.email.source.local.dao.IAuthDao
+import id.xxx.auth.data.email.source.local.dao.UserDao
 import id.xxx.auth.data.email.source.local.entity.UserEntity
-import id.xxx.fake.gps.history.data.source.local.dao.IHistoryDao
+import id.xxx.fake.gps.history.data.source.local.dao.HistoryDao
 import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity
-import id.xxx.map.box.search.data.source.local.dao.ISearchDao
+import id.xxx.map.box.search.data.source.local.dao.PlacesDao
 import id.xxx.map.box.search.data.source.local.entity.PlacesEntity
 import org.koin.dsl.module
 
@@ -21,7 +21,13 @@ import org.koin.dsl.module
     version = 1,
     exportSchema = false
 )
-abstract class AppDatabase : RoomDatabase(), IHistoryDao, IAuthDao, ISearchDao {
+abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun userDao(): id.xxx.fake.gps.database.dao.UserDao
+
+    abstract fun historyDao(): id.xxx.fake.gps.database.dao.HistoryDao
+
+    abstract fun placesDao(): id.xxx.fake.gps.database.dao.PlacesDao
 
     companion object {
 
@@ -29,9 +35,9 @@ abstract class AppDatabase : RoomDatabase(), IHistoryDao, IAuthDao, ISearchDao {
 
         val module = module {
             single { getInstance(get()) }
-            single { get<AppDatabase>().historyDao() }
-            single { get<AppDatabase>().userDao() }
-            single { get<AppDatabase>().placesDao() }
+            single<HistoryDao> { get<AppDatabase>().historyDao() }
+            single<UserDao> { get<AppDatabase>().userDao() }
+            single<PlacesDao> { get<AppDatabase>().placesDao() }
         }
 
         @Volatile
