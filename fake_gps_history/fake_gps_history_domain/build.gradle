@@ -35,7 +35,7 @@ android {
 
 dependencies {
 
-    api "com.github.x-syaifullah-x.android-base:base_domain:0.0.1"
+    api "com.github.x-syaifullah-x.android-base:base_domain:0.0.100"
 
     api "org.koin:koin-core:$koin_version"
     api "org.koin:koin-android:$koin_version"

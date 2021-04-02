@@ -6,7 +6,6 @@ rootProject.name = "Fake Gps"
 
 include(
         ":app",
-        ":data_firebase",
 )
 
 //include ":auth_presentation"

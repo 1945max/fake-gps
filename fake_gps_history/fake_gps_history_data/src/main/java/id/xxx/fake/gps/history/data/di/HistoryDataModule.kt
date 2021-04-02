@@ -15,9 +15,6 @@ import id.xxx.fake.gps.history.domain.repository.IRepository as IHistoryReposito
 @ExperimentalCoroutinesApi
 @FlowPreview
 object HistoryDataModule {
-    private val repositoryModule = module {
-        single<IHistoryRepository<HistoryModel>> { HistoryRepository(get()) }
-    }
 
     private val firebaseModule = module {
         single { FirebaseFirestore.getInstance() }
@@ -26,6 +23,10 @@ object HistoryDataModule {
     private val dataSourceModule = module {
         single { LocalDataSource(get()) }
         single { RemoteDataSource(get()) }
+    }
+
+    private val repositoryModule = module {
+        single<IHistoryRepository<HistoryModel>> { HistoryRepository(get(),get()) }
     }
 
     val modules = listOf(

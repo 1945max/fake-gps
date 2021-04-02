@@ -3,24 +3,23 @@ package id.xxx.fake.gps.history.data.source.remote
 import com.google.firebase.firestore.FirebaseFirestore
 import id.xxx.fake.gps.history.data.source.remote.response.HistoryFireStoreResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class RemoteDataSourceTest {
 
     private val fireStore = FirebaseFirestore.getInstance()
 
-    @ExperimentalCoroutinesApi
     private val remoteDataSource = RemoteDataSource(fireStore)
 
 
     @Test
     fun streamDataTest() = runBlocking<Unit> {
-        val data = remoteDataSource.streamData("user_id_1").firstOrNull()
-
-        data?.forEach {
-            println("data___ $it")
+        val data = remoteDataSource.streamData("user_id_1")
+        data.collect {
+            println(it)
         }
     }
 

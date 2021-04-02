@@ -29,8 +29,8 @@ data class HistoryFireStoreResponse(
 }
 
 fun QueryDocumentSnapshot.toHistoryFireStoreResponse() = HistoryFireStoreResponse(
-    userId = id,
-    id = getString("userId") ?: "-",
+    id = id,
+    userId = getString("userId") ?: "-",
     address = getString("address") ?: "-",
     latitude = getDouble("latitude") ?: 0.0,
     longitude = getDouble("longitude") ?: 0.0
