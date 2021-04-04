@@ -39,7 +39,7 @@ android {
 
 dependencies {
 
-    api "com.github.x-syaifullah-x.android-base:base_presentation:0.0.1"
+    api "com.github.x-syaifullah-x.android-base:base_presentation:$vAndroidBase"
 
     implementation project(":fake_gps_history:fake_gps_history_domain")
 }

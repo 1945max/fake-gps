@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class HistoryViewModel(private val iInteractor: IInteractor) : ViewModel() {
 
-    val data = iInteractor.getHistory().cachedIn(viewModelScope).asLiveData()
+    val data = iInteractor.getHistory("user_id_1").cachedIn(viewModelScope).asLiveData()
 
     val delete = { data: HistoryModel -> viewModelScope.launch { iInteractor.delete(data) } }
 }

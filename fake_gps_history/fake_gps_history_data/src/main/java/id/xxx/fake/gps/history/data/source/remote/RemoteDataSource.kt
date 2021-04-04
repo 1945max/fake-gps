@@ -1,18 +1,16 @@
 package id.xxx.fake.gps.history.data.source.remote
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import id.xxx.base.domain.model.ApiResponse
 import id.xxx.base.domain.model.getApiResponseAsFlow
 import id.xxx.fake.gps.history.data.source.remote.response.HistoryFireStoreResponse
 import id.xxx.fake.gps.history.data.source.remote.response.toHistoryFireStoreResponse
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.tasks.await
-import okhttp3.internal.toImmutableList
 
-@ExperimentalCoroutinesApi
 class RemoteDataSource(private val fireStore: FirebaseFirestore) {
 
     private fun collectionReference(userId: String) = fireStore
@@ -20,6 +18,7 @@ class RemoteDataSource(private val fireStore: FirebaseFirestore) {
         .document("history")
         .collection(userId)
 
+    @Suppress("EXPERIMENTAL_API_USAGE")
     fun streamData(userId: String) = callbackFlow {
         val listenerRegistration = collectionReference(userId)
             .addSnapshotListener { value, _ ->
@@ -33,6 +32,22 @@ class RemoteDataSource(private val fireStore: FirebaseFirestore) {
                 offer(apiResponse)
             }; awaitClose { listenerRegistration.remove() }
     }.catch { emit(ApiResponse.Error(error = it)) }
+
+    suspend fun getPage(
+        userId: String,
+        startAfterByDate: Long? = null
+    ) = getApiResponseAsFlow(
+        blockFetch = {
+            val col = collectionReference(userId)
+                .orderBy(HistoryFireStoreResponse.DATE, Query.Direction.DESCENDING)
+            if (startAfterByDate != null) {
+                col.startAfter(startAfterByDate).limit(40)
+            } else {
+                col.limit(40)
+            }.get().await().map { it.toHistoryFireStoreResponse() }
+        },
+        blockOnFetch = { it.isNotEmpty() }
+    )
 
     fun insert(data: HistoryFireStoreResponse) {
         collectionReference(data.userId).add(data).addOnCompleteListener {

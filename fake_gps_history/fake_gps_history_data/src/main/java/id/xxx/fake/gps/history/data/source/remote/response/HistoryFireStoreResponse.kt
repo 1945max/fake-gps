@@ -15,7 +15,7 @@ data class HistoryFireStoreResponse(
 
     @SerializedName(LONGITUDE) val longitude: Double,
 
-    @SerializedName(DATA) val date: Long = System.currentTimeMillis()
+    @SerializedName(DATE) val date: Long = System.currentTimeMillis()
 
 ) {
     companion object {
@@ -24,7 +24,7 @@ data class HistoryFireStoreResponse(
         const val ADDRESS = "address"
         const val LATITUDE = "latitude"
         const val LONGITUDE = "longitude"
-        const val DATA = "data"
+        const val DATE = "date"
     }
 }
 
@@ -33,5 +33,6 @@ fun QueryDocumentSnapshot.toHistoryFireStoreResponse() = HistoryFireStoreRespons
     userId = getString("userId") ?: "-",
     address = getString("address") ?: "-",
     latitude = getDouble("latitude") ?: 0.0,
-    longitude = getDouble("longitude") ?: 0.0
+    longitude = getDouble("longitude") ?: 0.0,
+    date = getLong(HistoryFireStoreResponse.DATE) ?: 0
 )

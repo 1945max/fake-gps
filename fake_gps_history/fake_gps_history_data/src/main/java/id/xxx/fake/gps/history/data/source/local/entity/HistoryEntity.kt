@@ -3,6 +3,7 @@ package id.xxx.fake.gps.history.data.source.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import id.xxx.base.domain.model.BaseEntity
 import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity.Companion.FLH_TABLE
 
 @Entity(
@@ -11,7 +12,11 @@ import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity.Companion.
 data class HistoryEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = FLH_ID)
-    var id: Long? = null,
+    override var id: Long? = null,
+
+    val historyId: String? = null,
+
+    val userId: String? = null,
 
     @ColumnInfo(name = FLH_ADDRESS)
     var address: String = "",
@@ -24,7 +29,7 @@ data class HistoryEntity(
 
     @ColumnInfo(name = FLH_DATE)
     var date: Long = System.currentTimeMillis()
-) {
+) : BaseEntity<Long> {
     companion object {
         const val FLH_TABLE = "FAKE_LOCATION_HISTORY"
         const val FLH_ID = "FLH_ID"

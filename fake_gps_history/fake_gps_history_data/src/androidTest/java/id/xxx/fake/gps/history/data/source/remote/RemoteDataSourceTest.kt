@@ -16,6 +16,14 @@ class RemoteDataSourceTest {
 
 
     @Test
+    fun get() = runBlocking<Unit> {
+        remoteDataSource.getPage("user_id_1", null)
+            .collect {
+                println(it)
+            }
+    }
+
+    @Test
     fun streamDataTest() = runBlocking<Unit> {
         val data = remoteDataSource.streamData("user_id_1")
         data.collect {
@@ -25,15 +33,17 @@ class RemoteDataSourceTest {
 
     @Test
     fun insertTest() {
-        remoteDataSource.insert(
-            HistoryFireStoreResponse(
-                userId = "user_id_3",
-                address = "address_3",
-                longitude = 1.1,
-                latitude = 1.1
+        repeat(200) {
+            remoteDataSource.insert(
+                HistoryFireStoreResponse(
+                    userId = "user_id_1",
+                    address = "address_${it}",
+                    longitude = 1.1,
+                    latitude = 1.1
+                )
             )
-        )
-        Thread.sleep(2000)
+            Thread.sleep(500)
+        }
     }
 
     @Test

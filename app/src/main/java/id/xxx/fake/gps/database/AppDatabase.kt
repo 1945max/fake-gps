@@ -45,7 +45,8 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun getInstance(app: Application): AppDatabase {
             instance ?: synchronized(AppDatabase::class.java) {
-                instance = Room.databaseBuilder(app, AppDatabase::class.java, DATA_BASE_NAME)
+//                instance = Room.databaseBuilder(app, AppDatabase::class.java, DATA_BASE_NAME)
+                instance = Room.inMemoryDatabaseBuilder(app, AppDatabase::class.java)
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
 //                    .openHelperFactory(SupportFactory(SQLiteDatabase.getBytes("xxx.base.data".toCharArray())))

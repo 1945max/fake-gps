@@ -59,21 +59,21 @@ dependencies {
 
     implementation 'com.github.x-syaifullah-x:android-map-box:0.0.100'
 
-    testImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"
-    androidTestImplementation "com.github.x-syaifullah-x.android-test:test:0.0.1"
+    testImplementation "com.github.x-syaifullah-x.android-test:test:$vAndroidTest"
+    androidTestImplementation "com.github.x-syaifullah-x.android-test:test:$vAndroidTest"
 
     /* Google Maps */
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
 
-    kapt "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$vRoom"
 
-    api "com.github.x-syaifullah-x.android-base:base_presentation:0.0.1"
+    api "com.github.x-syaifullah-x.android-base:base_presentation:$vAndroidBase"
 
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$vKotlinxCoroutinesAndroid"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
 
-    api "androidx.work:work-runtime:$vWorkManager"
-    api "androidx.work:work-runtime-ktx:$vWorkManager"
-    api "androidx.work:work-gcm:$vWorkManager"
-    androidTestImplementation "androidx.work:work-testing:$vWorkManager"
+    api "androidx.work:work-runtime:2.5.0"
+    api "androidx.work:work-runtime-ktx:2.5.0"
+    api "androidx.work:work-gcm:2.5.0"
+    androidTestImplementation "androidx.work:work-testing:2.5.0"
 }

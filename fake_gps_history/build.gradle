@@ -39,5 +39,5 @@ dependencies {
     api project(":fake_gps_history:fake_gps_history_domain")
     api project(":fake_gps_history:fake_gps_history_data")
 
-    kapt "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$vRoom"
 }

@@ -7,7 +7,7 @@ class InteractorImpl constructor(
     private val iRepository: IRepository<HistoryModel>
 ) : IInteractor {
 
-    override fun getHistory() = iRepository.getHistory()
+    override fun getHistory(userId: String?) = iRepository.getHistory(userId)
     override suspend fun insert(model: HistoryModel) = iRepository.insert(model)
     override suspend fun delete(model: HistoryModel) = iRepository.delete(model)
     override suspend fun clear() = iRepository.clear()
