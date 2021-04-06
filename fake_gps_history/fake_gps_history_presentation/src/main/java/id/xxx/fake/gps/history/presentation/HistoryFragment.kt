@@ -3,12 +3,10 @@ package id.xxx.fake.gps.history.presentation
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import id.xxx.base.domain.adapter.HolderWithBinding
 import id.xxx.base.presentation.binding.delegate.viewBinding
 import id.xxx.base.presentation.extension.setResult
@@ -37,7 +35,6 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             }
         }
         binding.recyclerView.apply {
-            setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, 1))
             ItemSwipeLR {
                 @Suppress("UNCHECKED_CAST")

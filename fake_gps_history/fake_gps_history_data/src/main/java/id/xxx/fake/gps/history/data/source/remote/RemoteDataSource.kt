@@ -8,7 +8,6 @@ import id.xxx.fake.gps.history.data.source.remote.response.HistoryFireStoreRespo
 import id.xxx.fake.gps.history.data.source.remote.response.toHistoryFireStoreResponse
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.tasks.await
 
 class RemoteDataSource(private val fireStore: FirebaseFirestore) {
@@ -31,19 +30,20 @@ class RemoteDataSource(private val fireStore: FirebaseFirestore) {
                     }
                 offer(apiResponse)
             }; awaitClose { listenerRegistration.remove() }
-    }.catch { emit(ApiResponse.Error(error = it)) }
+    }
 
     suspend fun getPage(
         userId: String,
-        startAfterByDate: Long? = null
+        startAfterByDate: Long? = null,
+        limit: Long = 10
     ) = getApiResponseAsFlow(
         blockFetch = {
             val col = collectionReference(userId)
                 .orderBy(HistoryFireStoreResponse.DATE, Query.Direction.DESCENDING)
             if (startAfterByDate != null) {
-                col.startAfter(startAfterByDate).limit(40)
+                col.startAfter(startAfterByDate).limit(limit)
             } else {
-                col.limit(40)
+                col.limit(limit)
             }.get().await().map { it.toHistoryFireStoreResponse() }
         },
         blockOnFetch = { it.isNotEmpty() }

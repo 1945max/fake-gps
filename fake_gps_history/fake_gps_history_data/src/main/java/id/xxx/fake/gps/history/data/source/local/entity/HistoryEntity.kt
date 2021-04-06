@@ -12,23 +12,23 @@ import id.xxx.fake.gps.history.data.source.local.entity.HistoryEntity.Companion.
 data class HistoryEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = FLH_ID)
-    override var id: Long? = null,
+    override val id: Long? = null,
 
     val historyId: String? = null,
 
     val userId: String? = null,
 
     @ColumnInfo(name = FLH_ADDRESS)
-    var address: String = "",
+    val address: String = "",
 
     @ColumnInfo(name = FLH_LATITUDE)
-    var latitude: Double,
+    val latitude: Double,
 
     @ColumnInfo(name = FLH_LONGITUDE)
-    var longitude: Double,
+    val longitude: Double,
 
     @ColumnInfo(name = FLH_DATE)
-    var date: Long = System.currentTimeMillis()
+    val date: Long = System.currentTimeMillis()
 ) : BaseEntity<Long> {
     companion object {
         const val FLH_TABLE = "FAKE_LOCATION_HISTORY"

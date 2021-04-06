@@ -22,14 +22,7 @@ class HistoryRemoteMediator(
         state: PagingState<Int, HistoryEntity>
     ): MediatorResult {
 
-        val page = when (loadType) {
-            LoadType.REFRESH -> page()
-            LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-            LoadType.APPEND -> page()
-                ?: return MediatorResult.Success(endOfPaginationReached = true)
-        }
-
-        return when (val apiResponse = request(page).first()) {
+        return when (val apiResponse = request(page()).first()) {
             is ApiResponse.Success -> {
                 blockOnRequest(apiResponse.data)
                 MediatorResult.Success(false)
